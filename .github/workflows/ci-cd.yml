@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Cache R packages
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-R-${{ hashFiles('**/*.qmd') }}
@@ -66,7 +66,7 @@ jobs:
 
       - name: Render Quarto site
         run: |
-          quarto render
+          quarto render code.qmd
 
       - name: Set up Git for Deployment
         run: |
