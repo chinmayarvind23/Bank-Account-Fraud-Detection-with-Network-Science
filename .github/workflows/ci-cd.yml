@@ -86,6 +86,11 @@ jobs:
           publish_dir: ./code/_site
           publish_branch: gh-pages
 
+      - name: List files in workspace
+        run: |
+          ls -al
+          ls -al ./data 
+
       - name: Deploy Data to Azure Blob Storage
         uses: azure/CLI@v1
         with:
