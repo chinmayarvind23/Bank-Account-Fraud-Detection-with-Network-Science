@@ -57,7 +57,7 @@ jobs:
       - name: Install R dependencies
         run: |
           mkdir -p $R_LIBS_USER
-          Rscript -e "install.packages(c('rmarkdown','tidyverse', 'igraph', 'visNetwork'), repos='https://cloud.r-project.org')"
+          Rscript -e "install.packages(c('renv', 'rmarkdown','tidyverse', 'igraph', 'visNetwork'), repos='https://cloud.r-project.org')"
           Rscript -e "renv::restore()"
 
       - name: Install Quarto
