@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      R_LIBS_USER: ${{ runner.temp }}/R/libs
+      R_LIBS_USER: ${{ github.workspace }}/R/libs
 
     steps:
       - name: Checkout repository
