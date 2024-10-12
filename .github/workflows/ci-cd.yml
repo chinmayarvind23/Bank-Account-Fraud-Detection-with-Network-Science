@@ -67,7 +67,7 @@ jobs:
 
       - name: Render Quarto site
         run: |
-          quarto render code/code.qmd --no-renv
+          quarto render code/code.qmd
 
       - name: Set up Git for Deployment
         run: |
