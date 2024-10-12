@@ -57,7 +57,8 @@ jobs:
       - name: Install R dependencies
         run: |
           mkdir -p $R_LIBS_USER
-          Rscript -e "install.packages(c('tidyverse', 'igraph', 'visNetwork'), repos='https://cloud.r-project.org')"
+          Rscript -e "install.packages(c('rmarkdown','tidyverse', 'igraph', 'visNetwork'), repos='https://cloud.r-project.org')"
+          Rscript -e "renv::restore()"
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -66,6 +67,7 @@ jobs:
 
       - name: Render Quarto site
         run: |
+          quarto install
           quarto render code/code.qmd
 
       - name: Set up Git for Deployment
