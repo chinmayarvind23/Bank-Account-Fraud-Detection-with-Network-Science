@@ -24,4 +24,6 @@ This project uses data from the following Kaggle dataset: <https://www.kaggle.co
 
 R, Quarto, Azure Blob Storage, GitHub Pages
 
-## n
+## Network Definition
+
+The nodes in this network represent the customers who make applications for accounts with a bank. The edges are connections between nodes (customers) based on the similarity of an attribute such as: the time of the application, credit risk score, etc. The network will be a multigraph connecting nodes based on the similarity of attributes as mentioned above (the similarity score will be computed separately and will have to account for different types of columns in the dataset). The edges will hold information on what type of attribute 2 nodes are linked to each other based on (or color them differently and provide a legend for each different type of relationship based on the attribute) and weighted based on the similarity score computed for the 2 nodes (edges will be created if a certain similarity threshold is exceeded for the attribute in question). This will form a sufficiently complex network (which isn’t disconnected into isolated pieces based on different attributes which would otherwise have not allowed for in-depth network analysis).

@@ -48,17 +48,18 @@ jobs:
         run: |
           quarto render
 
-      - name: Deploy Quarto Site to GitHub Pages
+      - name: Set up Git for Deployment
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Actions"
           git add -A
-          git commit -m "Update site content"
-        continue-on-error: true
+          git commit -m "Update site content" || echo "No changes to commit"
+
+      - name: Deploy Quarto Site to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./_site  # Assuming your Quarto site is generated in the _site folder
           publish_branch: gh-pages
 
       - name: Deploy Data to Azure Blob Storage
