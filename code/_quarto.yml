@@ -1,5 +1,5 @@
 project:
-  title: "code"
+  type: website
+  title: "Bank Account Fraud Detection"
 
 editor: visual
-

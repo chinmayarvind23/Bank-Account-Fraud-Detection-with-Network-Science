@@ -1,5 +1,8 @@
 name: CI-CD
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -67,7 +70,7 @@ jobs:
 
       - name: Render Quarto site
         run: |
-          quarto render code/code.qmd
+          quarto render code
 
       - name: Set up Git for Deployment
         run: |
