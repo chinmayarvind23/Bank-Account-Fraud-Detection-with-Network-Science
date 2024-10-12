@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-R-${{ hashFiles('renv.lock') }}
+          key: ${{ runner.os }}-R-${{ hashFiles('**/*.qmd') }}
           restore-keys: |
             ${{ runner.os }}-R-
 
@@ -57,8 +57,7 @@ jobs:
       - name: Install R dependencies
         run: |
           mkdir -p $R_LIBS_USER
-          Rscript -e "install.packages('renv', repos='https://cloud.r-project.org')"
-          Rscript -e "renv::restore()"
+          Rscript -e "install.packages(c('tidyverse', 'igraph', 'visNetwork'), repos='https://cloud.r-project.org')"
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
