@@ -9,6 +9,7 @@ title: "Bank Account Fraud Detection - COSC 421 Course Project"
 ```{r}
 renv::snapshot()
 renv::init()
+renv::status()
 #install.packages(c('rmarkdown', 'tidyverse', 'igraph', 'visNetwork', 'igraph'))
 library(rmarkdown)
 library(tidyverse)
