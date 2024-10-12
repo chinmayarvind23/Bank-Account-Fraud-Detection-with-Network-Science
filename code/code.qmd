@@ -1,0 +1,10 @@
+---
+title: "Bank Account Fraud Detection - COSC 421 Course Project"
+---
+
+#### Team Members: Chinmay Arvind, Dmitry Kostyukov, Jerry Fan, Rylan Millar
+
+# Imports & Libraries Setup
+```{r}
+install.packages("igraph")
+```

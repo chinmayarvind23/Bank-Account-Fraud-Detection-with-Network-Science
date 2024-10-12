@@ -1,0 +1,73 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - main
+      - error
+  pull_request:
+    branches:
+      - main
+      - error
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      R_LIBS_USER: ${{ runner.temp }}/R/libs
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache R packages
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-R-${{ hashFiles('renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-R-
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.1.0'
+
+      - name: Install R dependencies
+        run: |
+          mkdir -p $R_LIBS_USER
+          install.packages('devtools', repos='http://cran.r-project.org')
+          devtools::install_deps(dependencies = TRUE)
+
+      - name: Install Quarto
+        run: |
+          wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.0/quarto-1.4.0-linux-amd64.deb
+          sudo dpkg -i quarto-1.4.0-linux-amd64.deb
+
+      - name: Render Quarto site
+        run: |
+          quarto render
+
+      - name: Deploy Quarto Site to GitHub Pages
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions"
+          git add -A
+          git commit -m "Update site content"
+        continue-on-error: true
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+
+      - name: Deploy Data to Azure Blob Storage
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az storage blob upload-batch \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
+              --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
+              --destination ${{ secrets.AZURE_CONTAINER_NAME }} \
+              --source ./data \
+              --overwrite
