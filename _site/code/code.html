@@ -144,135 +144,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>- The lockfile is already up to date.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../renv/activate.R"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>- Linking packages into the project library ... Done!
-The following package(s) will be updated in the lockfile:
-
-# CRAN -----------------------------------------------------------------------
-- askpass         [* -&gt; 1.2.1]
-- backports       [* -&gt; 1.5.0]
-- base64enc       [* -&gt; 0.1-3]
-- bit             [* -&gt; 4.5.0]
-- bit64           [* -&gt; 4.5.2]
-- blob            [* -&gt; 1.2.4]
-- broom           [* -&gt; 1.0.7]
-- bslib           [* -&gt; 0.8.0]
-- cachem          [* -&gt; 1.1.0]
-- callr           [* -&gt; 3.7.6]
-- cellranger      [* -&gt; 1.1.0]
-- cli             [* -&gt; 3.6.3]
-- clipr           [* -&gt; 0.8.0]
-- colorspace      [* -&gt; 2.1-1]
-- conflicted      [* -&gt; 1.2.0]
-- cpp11           [* -&gt; 0.5.0]
-- crayon          [* -&gt; 1.5.3]
-- curl            [* -&gt; 5.2.3]
-- data.table      [* -&gt; 1.16.2]
-- DBI             [* -&gt; 1.2.3]
-- dbplyr          [* -&gt; 2.5.0]
-- digest          [* -&gt; 0.6.37]
-- dplyr           [* -&gt; 1.1.4]
-- dtplyr          [* -&gt; 1.3.1]
-- evaluate        [* -&gt; 0.24.0]
-- fansi           [* -&gt; 1.0.6]
-- farver          [* -&gt; 2.1.2]
-- fastmap         [* -&gt; 1.2.0]
-- fontawesome     [* -&gt; 0.5.2]
-- forcats         [* -&gt; 1.0.0]
-- fs              [* -&gt; 1.6.4]
-- gargle          [* -&gt; 1.5.2]
-- generics        [* -&gt; 0.1.3]
-- ggplot2         [* -&gt; 3.5.1]
-- glue            [* -&gt; 1.7.0]
-- googledrive     [* -&gt; 2.1.1]
-- googlesheets4   [* -&gt; 1.1.1]
-- gtable          [* -&gt; 0.3.5]
-- haven           [* -&gt; 2.5.4]
-- highr           [* -&gt; 0.11]
-- hms             [* -&gt; 1.1.3]
-- htmltools       [* -&gt; 0.5.8.1]
-- htmlwidgets     [* -&gt; 1.6.4]
-- httr            [* -&gt; 1.4.7]
-- ids             [* -&gt; 1.0.1]
-- igraph          [* -&gt; 2.0.3]
-- isoband         [* -&gt; 0.2.7]
-- jquerylib       [* -&gt; 0.1.4]
-- jsonlite        [* -&gt; 1.8.8]
-- knitr           [* -&gt; 1.48]
-- labeling        [* -&gt; 0.4.3]
-- lattice         [* -&gt; 0.22-6]
-- lifecycle       [* -&gt; 1.0.4]
-- lubridate       [* -&gt; 1.9.3]
-- magrittr        [* -&gt; 2.0.3]
-- MASS            [* -&gt; 7.3-60.2]
-- Matrix          [* -&gt; 1.7-0]
-- memoise         [* -&gt; 2.0.1]
-- mgcv            [* -&gt; 1.9-1]
-- mime            [* -&gt; 0.12]
-- modelr          [* -&gt; 0.1.11]
-- munsell         [* -&gt; 0.5.1]
-- nlme            [* -&gt; 3.1-164]
-- openssl         [* -&gt; 2.2.2]
-- pillar          [* -&gt; 1.9.0]
-- pkgconfig       [* -&gt; 2.0.3]
-- prettyunits     [* -&gt; 1.2.0]
-- processx        [* -&gt; 3.8.4]
-- progress        [* -&gt; 1.2.3]
-- ps              [* -&gt; 1.8.0]
-- purrr           [* -&gt; 1.0.2]
-- R6              [* -&gt; 2.5.1]
-- ragg            [* -&gt; 1.3.3]
-- rappdirs        [* -&gt; 0.3.3]
-- RColorBrewer    [* -&gt; 1.1-3]
-- readr           [* -&gt; 2.1.5]
-- readxl          [* -&gt; 1.4.3]
-- rematch         [* -&gt; 2.0.0]
-- rematch2        [* -&gt; 2.1.2]
-- renv            [* -&gt; 1.0.10]
-- reprex          [* -&gt; 2.1.1]
-- rlang           [* -&gt; 1.1.4]
-- rmarkdown       [* -&gt; 2.28]
-- rstudioapi      [* -&gt; 0.16.0]
-- rvest           [* -&gt; 1.0.4]
-- sass            [* -&gt; 0.4.9]
-- scales          [* -&gt; 1.3.0]
-- selectr         [* -&gt; 0.4-2]
-- stringi         [* -&gt; 1.8.4]
-- stringr         [* -&gt; 1.5.1]
-- sys             [* -&gt; 3.4.3]
-- systemfonts     [* -&gt; 1.1.0]
-- textshaping     [* -&gt; 0.4.0]
-- tibble          [* -&gt; 3.2.1]
-- tidyr           [* -&gt; 1.3.1]
-- tidyselect      [* -&gt; 1.2.1]
-- tidyverse       [* -&gt; 2.0.0]
-- timechange      [* -&gt; 0.3.0]
-- tinytex         [* -&gt; 0.52]
-- tzdb            [* -&gt; 0.4.0]
-- utf8            [* -&gt; 1.2.4]
-- uuid            [* -&gt; 1.2-1]
-- vctrs           [* -&gt; 0.6.5]
-- viridisLite     [* -&gt; 0.4.2]
-- visNetwork      [* -&gt; 2.1.2]
-- vroom           [* -&gt; 1.6.5]
-- withr           [* -&gt; 3.0.1]
-- xfun            [* -&gt; 0.47]
-- xml2            [* -&gt; 1.3.6]
-- yaml            [* -&gt; 2.3.10]
-
-The version of R recorded in the lockfile will be updated:
-- R               [* -&gt; 4.4.1]
-
-- Lockfile written to "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv.lock".</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">status</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">status</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>No issues found -- the project is in a consistent state.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(c('rmarkdown', 'tidyverse', 'igraph', 'visNetwork', 'igraph'))</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>required_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rmarkdown"</span>, <span class="st">"tidyverse"</span>, <span class="st">"visNetwork"</span>, <span class="st">"igraph"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pkg <span class="cf">in</span> required_packages) {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(pkg, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(pkg, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'rmarkdown'</span>, <span class="st">'tidyverse'</span>, <span class="st">'igraph'</span>, <span class="st">'visNetwork'</span>, <span class="st">'igraph'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- igraph     [2.0.3]
+- rmarkdown  [2.28]
+- tidyverse  [2.0.0]
+- visNetwork [2.1.2]
+These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing rmarkdown ...                      OK [linked from cache]
+- Installing tidyverse ...                      OK [linked from cache]
+- Installing igraph ...                         OK [linked from cache]
+- Installing visNetwork ...                     OK [linked from cache]
+Successfully installed 4 packages in 13 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>- The lockfile is already up to date.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -285,8 +190,8 @@ The version of R recorded in the lockfile will be updated:
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'igraph'
