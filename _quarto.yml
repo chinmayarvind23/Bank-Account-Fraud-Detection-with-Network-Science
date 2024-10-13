@@ -2,4 +2,6 @@ project:
   type: website
   title: "Bank Account Fraud Detection"
 
+engine: "knitr"
+
 editor: visual
