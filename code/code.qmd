@@ -11,7 +11,16 @@ renv::snapshot()
 source("../renv/activate.R")
 renv::init()
 renv::status()
-#install.packages(c('rmarkdown', 'tidyverse', 'igraph', 'visNetwork', 'igraph'))
+
+required_packages <- c("rmarkdown", "tidyverse", "visNetwork", "igraph")
+
+for (pkg in required_packages) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg, repos = "https://cloud.r-project.org")
+  }
+}
+install.packages(c('rmarkdown', 'tidyverse', 'igraph', 'visNetwork', 'igraph'))
+renv::snapshot()
 library(rmarkdown)
 library(tidyverse)
 library(visNetwork)
