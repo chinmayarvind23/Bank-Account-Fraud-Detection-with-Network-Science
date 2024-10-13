@@ -68,7 +68,7 @@ jobs:
 
       - name: Render Quarto site
         run: |
-          quarto render code
+          quarto render
 
       - name: Check for Data Updates
         id: check_data
@@ -102,5 +102,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./_site/code
           publish_branch: gh-pages
