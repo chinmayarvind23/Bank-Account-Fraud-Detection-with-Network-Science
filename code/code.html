@@ -274,7 +274,11 @@ See `?renv::status` for advice on resolving these issues.</code></pre>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The following package(s) will be installed:
+<pre><code># Downloading packages -------------------------------------------------------
+- Downloading rstudioapi from CRAN ...          OK [115.7 Kb]
+Successfully downloaded 1 package in 1.3 seconds.
+
+The following package(s) will be installed:
 - askpass       [1.2.1]
 - backports     [1.5.0]
 - base64enc     [0.1-3]
@@ -350,7 +354,7 @@ See `?renv::status` for advice on resolving these issues.</code></pre>
 - reprex        [2.1.1]
 - rlang         [1.1.4]
 - rmarkdown     [2.28]
-- rstudioapi    [0.16.0]
+- rstudioapi    [0.17.0]
 - rvest         [1.0.4]
 - sass          [0.4.9]
 - scales        [1.3.0]
@@ -376,7 +380,7 @@ See `?renv::status` for advice on resolving these issues.</code></pre>
 - xfun          [0.48]
 - xml2          [1.3.6]
 - yaml          [2.3.10]
-These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/linux-ubuntu-noble/R-4.4/x86_64-pc-linux-gnu".
+These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu".
 
 # Installing packages --------------------------------------------------------
 - Installing backports ...                      OK [linked from cache]
@@ -474,13 +478,13 @@ These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-
 - Installing fontawesome ...                    OK [linked from cache]
 - Installing tinytex ...                        OK [linked from cache]
 - Installing rmarkdown ...                      OK [linked from cache]
-- Installing rstudioapi ...                     OK [linked from cache]
+- Installing rstudioapi ...                     OK [built from source and cached in 1.7s]
 - Installing reprex ...                         OK [linked from cache]
 - Installing selectr ...                        OK [linked from cache]
 - Installing xml2 ...                           OK [linked from cache]
 - Installing rvest ...                          OK [linked from cache]
 - Installing tidyverse ...                      OK [linked from cache]
-Successfully installed 101 packages in 0.4 seconds.
+Successfully installed 101 packages in 2.1 seconds.
 
 The following loaded package(s) have been updated:
 - jsonlite
@@ -491,19 +495,19 @@ Restart your R session to use the new versions.
 The following package(s) will be installed:
 - htmlwidgets [1.6.4]
 - visNetwork  [2.1.2]
-These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/linux-ubuntu-noble/R-4.4/x86_64-pc-linux-gnu".
+These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu".
 
 # Installing packages --------------------------------------------------------
 - Installing htmlwidgets ...                    OK [linked from cache]
 - Installing visNetwork ...                     OK [linked from cache]
-Successfully installed 2 packages in 11 milliseconds.
+Successfully installed 2 packages in 9.5 milliseconds.
 The following package(s) will be installed:
 - igraph [2.0.3]
-These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/linux-ubuntu-noble/R-4.4/x86_64-pc-linux-gnu".
+These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu".
 
 # Installing packages --------------------------------------------------------
 - Installing igraph ...                         OK [linked from cache]
-Successfully installed 1 package in 6 milliseconds.</code></pre>
+Successfully installed 1 package in 6.2 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'rmarkdown'</span>, <span class="st">'tidyverse'</span>, <span class="st">'igraph'</span>, <span class="st">'visNetwork'</span>, <span class="st">'igraph'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -512,7 +516,7 @@ Successfully installed 1 package in 6 milliseconds.</code></pre>
 - rmarkdown  [2.28]
 - tidyverse  [2.0.0]
 - visNetwork [2.1.2]
-These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/linux-ubuntu-noble/R-4.4/x86_64-pc-linux-gnu".
+These packages will be installed into "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/linux-ubuntu-jammy/R-4.4/x86_64-pc-linux-gnu".
 
 # Installing packages --------------------------------------------------------
 - Installing rmarkdown ...                      OK [linked from cache]
@@ -526,11 +530,12 @@ Successfully installed 4 packages in 17 milliseconds.</code></pre>
 <pre><code>The following package(s) will be updated in the lockfile:
 
 # CRAN -----------------------------------------------------------------------
-- evaluate   [0.24.0 -&gt; 1.0.1]
-- glue       [1.7.0 -&gt; 1.8.0]
-- jsonlite   [1.8.8 -&gt; 1.8.9]
-- tinytex    [0.52 -&gt; 0.53]
-- xfun       [0.47 -&gt; 0.48]
+- evaluate     [0.24.0 -&gt; 1.0.1]
+- glue         [1.7.0 -&gt; 1.8.0]
+- jsonlite     [1.8.8 -&gt; 1.8.9]
+- rstudioapi   [0.16.0 -&gt; 0.17.0]
+- tinytex      [0.52 -&gt; 0.53]
+- xfun         [0.47 -&gt; 0.48]
 
 - Lockfile written to "~/work/Bank-Account-Fraud-Detection-with-Network-Science/Bank-Account-Fraud-Detection-with-Network-Science/code/renv.lock".</code></pre>
 </div>
