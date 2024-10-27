@@ -71,13 +71,11 @@ jobs:
         run: |
           quarto render code/code.qmd
 
-      - name: Move code.html to Root
-        run: |
-          mkdir -p _site/code
-          mv _site/code.html _site/code/code.html
-
       - name: Set up Git for Deployment
         run: |
+          # Ensure the correct output is in the root of _site directory
+          mv _site/code.html _site/index.html
+
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Actions"
           git add -A
