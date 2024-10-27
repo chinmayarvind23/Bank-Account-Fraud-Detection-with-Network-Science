@@ -5,7 +5,9 @@ project:
 format:
   html:
     theme: flatly
-    css: styles/custom.css  # Path to the custom CSS file
+    css: 
+      - https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css
+      - styles/styles.css
     toc: true
     toc-location: left
 
