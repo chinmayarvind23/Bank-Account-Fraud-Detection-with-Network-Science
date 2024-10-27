@@ -106,3 +106,21 @@ img {
     margin: 1.5rem auto;
     display: block;
 }
+
+.quarto-toc-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    display: block;
+}
+
+.quarto-toc {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    text-align: center;
+}
