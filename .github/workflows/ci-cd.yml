@@ -68,7 +68,7 @@ jobs:
 
       - name: Render Quarto site
         run: |
-          quarto render
+          quarto render code.qmd
 
       - name: Check for Data Updates
         id: check_data
