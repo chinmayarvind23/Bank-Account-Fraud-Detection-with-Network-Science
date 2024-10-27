@@ -1,5 +1,6 @@
 ---
 title: "Bank Account Fraud Detection - COSC 421 Course Project"
+format: html
 ---
 
 #### Team Members: Chinmay Arvind, Dmitry Kostyukov, Jerry Fan, Rylan Millar
@@ -12,19 +13,174 @@ source("../renv/activate.R")
 renv::init()
 renv::status()
 
-required_packages <- c("rmarkdown", "tidyverse", "visNetwork", "igraph")
+required_packages <- c("rmarkdown", "tidyverse", "visNetwork", "AzureStor")
 
 for (pkg in required_packages) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
     install.packages(pkg, repos = "https://cloud.r-project.org")
   }
 }
-install.packages(c('rmarkdown', 'tidyverse', 'igraph', 'visNetwork', 'igraph'))
+install.packages(c('rmarkdown', 'tidyverse', 'visNetwork', 'AzureStor'))
+install.packages(c('readr', 'dplyr', 'httr'))
+install.packages("igraph")
+install.packages("dotenv")
+install.packages("tidyverse")
 renv::snapshot()
 library(rmarkdown)
 library(tidyverse)
 library(visNetwork)
 library(igraph)
+library(AzureStor)
+library(readr)
+library(dplyr)
+library(httr)
+library(dotenv)
+library(tidyverse)
 ```
 
-# Data cleaning, feature engineering, and PCA
+# Data loading
+
+```{r}
+load_dot_env(file = "/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env")
+storage_container_url <- Sys.getenv("AZURE_STORAGE_SAS_URL")
+if (storage_container_url == "") {
+  stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
+}
+
+bankfraud_data <- read_csv(storage_container_url)
+bankfraud_data
+```
+
+# Data cleaning, and PCA
+
+```{r}
+colSums(is.na(bankfraud_data))
+```
+
+No missing values, so we can proceed with the rest of the data cleaning.
+
+```{r}
+summary(bankfraud_data)
+str(bankfraud_data)
+```
+
+```{r}
+bankfraud_data <- bankfraud_data[!duplicated(bankfraud_data), ]
+bankfraud_data
+```
+
+No duplicates identified, so we can proceed with PCA and feature engineering. Removing the Device OS columns and the source columns as they are not helpful predictors in predicting bank fraud. The character data type columns are converted to numeric types for making PCA possible.
+
+```{r}
+bankfraud_data <- bankfraud_data[, -c(26, 28)]
+bankfraud_data <- bankfraud_data %>% mutate(across(where(is.character), ~ as.numeric(as.factor(.))))
+bankfraud_data
+```
+
+Printing a summary of the dataset so far.
+
+```{r}
+str(bankfraud_data)
+```
+
+Removing columns with 0 variance in them, as they will not contribute to predicting fraud in any way.
+
+```{r}
+not_required_cols <- sapply(bankfraud_data, function(x) var(x, na.rm = TRUE) == 0)
+print("Columns with zero variance:")
+print(names(bankfraud_data)[not_required_cols])
+bankfraud_data <- bankfraud_data[, !not_required_cols]
+print("Remaining columns after removing zero variance columns:")
+print(names(bankfraud_data))
+```
+
+Printing a summary of the PCA performed after scaling the data, which shows the number of principal components that explain x% of the variance in the dataset along with charts that indicate the same.
+
+```{r}
+pcaCharts <- function(x) {
+    x.var <- x$sdev ^ 2
+    x.pvar <- x.var/sum(x.var)
+    print("proportions of variance:")
+    print(x.pvar)
+    
+    par(mfrow=c(2,2))
+    plot(x.pvar,xlab="Principal component", ylab="Proportion of variance explained", ylim=c(0,1), type='b')
+    plot(cumsum(x.pvar),xlab="Principal component", ylab="Cumulative Proportion of variance explained", ylim=c(0,1), type='b')
+    screeplot(x)
+    screeplot(x,type="l")
+    par(mfrow=c(1,1))
+}
+
+bankfraud_data_pca <- prcomp(scale(bankfraud_data),center = TRUE)
+print(bankfraud_data_pca)
+summary(bankfraud_data_pca)
+pcaCharts(bankfraud_data_pca)
+```
+
+Printing the covariance matrix of the data.
+
+```{r}
+covariancematrix <- cov(bankfraud_data)
+covariancematrix
+```
+
+Shows the data points based on their fraud classification status on a biplot showing how much each feature contributes to the first 2 principal components.
+
+```{r}
+install.packages("ggplot2")
+install.packages("ggfortify")
+library(ggplot2)
+library(ggfortify)
+autoplot(bankfraud_data_pca, data = bankfraud_data, colour = 'fraud_bool', loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3)
+```
+
+Setting an absolute threshold of 0.5 for selecting the impact of features on the principal components.
+
+```{r}
+pca_loadings <- bankfraud_data_pca$rotation[, 1:24]
+threshold <- 0.5
+selected_features <- unique(c(
+  rownames(pca_loadings)[abs(pca_loadings[,1]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,2]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,3]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,4]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,5]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,6]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,7]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,8]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,9]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,10]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,11]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,12]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,13]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,14]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,15]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,16]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,17]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,18]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,19]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,20]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,21]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,22]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,23]) > threshold],
+  rownames(pca_loadings)[abs(pca_loadings[,24]) > threshold]))
+
+print(selected_features)
+```
+
+Prting the rotation matrix of the PCA that indicates the magnitude and direction of contribution of a feature to various principal components.
+
+```{r}
+bankfraud_data_pca$rotation
+```
+
+Final dataset with most relevant features for predicting fraud.
+
+```{r}
+bankfraud_data <- bankfraud_data[, c(selected_features)]
+bankfraud_data %>% relocate(fraud_bool)
+bankfraud_data
+```
+
+# Feature Engineering
+
