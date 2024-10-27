@@ -1,6 +1,12 @@
 ---
 title: "Bank Account Fraud Detection - COSC 421 Course Project"
 output-file: index.html
+format:
+  html:
+    theme: flatly
+    css: styles/styles.css
+    toc: true
+    toc-location: left
 ---
 
 #### Team Members: Chinmay Arvind, Dmitry Kostyukov, Jerry Fan, Rylan Millar

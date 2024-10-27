@@ -1,0 +1,46 @@
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    background-color: #f9fafb;
+    color: #2d2d2d;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5 {
+    color: #333333;  /* Use darker colors for titles */
+}
+
+nav {
+    background-color: #ffffff; /* Vercel-like white nav background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 15px 0;
+    background-color: #ffffff;
+}
+
+button {
+    background-color: #0070f3;  /* Vercel blue */
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005bb5; /* Darker blue on hover */
+}
+
+code {
+    background-color: #f5f7f9;
+    padding: 4px;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+}

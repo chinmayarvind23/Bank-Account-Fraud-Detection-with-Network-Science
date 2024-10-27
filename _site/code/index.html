@@ -101,16 +101,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="styles/styles.css">
 </head>
 
-<body class="fullcontent">
+<body class="floating">
 
 <div id="quarto-search-results"></div>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#imports-libraries-setup" id="toc-imports-libraries-setup" class="nav-link active" data-scroll-target="#imports-libraries-setup">Imports &amp; Libraries Setup</a></li>
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data loading</a></li>
+  <li><a href="#data-cleaning-and-pca" id="toc-data-cleaning-and-pca" class="nav-link" data-scroll-target="#data-cleaning-and-pca">Data cleaning, and PCA</a></li>
+  <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">Feature Engineering</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -141,12 +156,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The following required packages are not installed:
-- ggfortify
-Packages must first be installed before renv can snapshot them.
-Use `renv::dependencies()` to see where this package is used in your project.
+<pre><code>The following package(s) will be updated in the lockfile:
 
-- The lockfile is already up to date.</code></pre>
+# CRAN -----------------------------------------------------------------------
+- ggfortify   [* -&gt; 0.4.17]
+- gridExtra   [* -&gt; 2.3]
+
+- Lockfile written to "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv.lock".</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../renv/activate.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -162,7 +178,6 @@ Use `renv::dependencies()` to see where this package is used in your project.
 <div class="cell-output cell-output-stdout">
 <pre><code>The following package(s) are used in this project, but are not installed:
 - AzureStor
-- ggfortify
 
 See `?renv::status` for advice on resolving these issues.</code></pre>
 </div>
@@ -187,7 +202,7 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 - Installing tidyverse ...                      OK [linked from cache]
 - Installing visNetwork ...                     OK [linked from cache]
 - Installing AzureStor ...                      OK [linked from cache]
-Successfully installed 4 packages in 14 milliseconds.</code></pre>
+Successfully installed 4 packages in 9.8 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'readr'</span>, <span class="st">'dplyr'</span>, <span class="st">'httr'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -201,7 +216,7 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 - Installing readr ...                          OK [linked from cache]
 - Installing dplyr ...                          OK [linked from cache]
 - Installing httr ...                           OK [linked from cache]
-Successfully installed 3 packages in 5.9 milliseconds.</code></pre>
+Successfully installed 3 packages in 6.1 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"igraph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -211,7 +226,7 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing igraph ...                         OK [linked from cache]
-Successfully installed 1 package in 4.2 milliseconds.</code></pre>
+Successfully installed 1 package in 3.8 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dotenv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -221,7 +236,7 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing dotenv ...                         OK [linked from cache]
-Successfully installed 1 package in 3.4 milliseconds.</code></pre>
+Successfully installed 1 package in 3.9 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -231,21 +246,11 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing tidyverse ...                      OK [linked from cache]
-Successfully installed 1 package in 4 milliseconds.</code></pre>
+Successfully installed 1 package in 3.8 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The following required packages are not installed:
-- ggfortify
-Packages must first be installed before renv can snapshot them.
-Use `renv::dependencies()` to see where this package is used in your project.
-
-The following package(s) will be updated in the lockfile:
-
-# CRAN -----------------------------------------------------------------------
-- igraph   [2.0.3 -&gt; 2.1.1]
-
-- Lockfile written to "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv.lock".</code></pre>
+<pre><code>- The lockfile is already up to date.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1532,19 +1537,17 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing ggplot2 ...                        OK [linked from cache]
-Successfully installed 1 package in 5.7 milliseconds.</code></pre>
+Successfully installed 1 package in 5.2 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggfortify"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The following package(s) will be installed:
 - ggfortify [0.4.17]
-- gridExtra [2.3]
 These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
 
 # Installing packages --------------------------------------------------------
-- Installing gridExtra ...                      OK [linked from cache]
 - Installing ggfortify ...                      OK [linked from cache]
-Successfully installed 2 packages in 12 milliseconds.</code></pre>
+Successfully installed 1 package in 4.1 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
