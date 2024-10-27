@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       R_LIBS_USER: ${{ github.workspace }}/R/libs
+      AZURE_STORAGE_SAS_URL: ${{ secrets.AZURE_STORAGE_SAS_URL }}
 
     steps:
       - name: Checkout repository
@@ -72,7 +73,7 @@ jobs:
 
       - name: Copy code.html to index.html
         run: |
-            cp _site/code.html _site/index.html
+            mv _site/code.html _site/index.html
           
       - name: Check for Data Updates
         id: check_data
