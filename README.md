@@ -6,7 +6,7 @@ Team Members: Chinmay Arvind, Jerry Fan, Dmitry Kostyukov, Ryan Millar
 
 ## Source Code
 
-The source code for this project is located at: 
+The source code for this project is located at: [https://bank-account-fraud-detection-with-network-science.vercel.app/](https://bank-account-fraud-detection-with-network-science.vercel.app/)
 
 ## Purpose of Project
 
