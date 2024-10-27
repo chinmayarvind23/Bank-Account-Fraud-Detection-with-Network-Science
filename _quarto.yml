@@ -2,6 +2,13 @@ project:
   type: website
   title: "Bank Account Fraud Detection"
 
+format:
+  html:
+    theme: flatly
+    css: styles/custom.css  # Path to the custom CSS file
+    toc: true
+    toc-location: left
+
 engine: "knitr"
 
 editor: visual
