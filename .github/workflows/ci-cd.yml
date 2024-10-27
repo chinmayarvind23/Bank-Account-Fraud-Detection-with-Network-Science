@@ -67,21 +67,15 @@ jobs:
         with:
           version: '1.5.57'
 
-      - name: Render Quarto site
+      - name: Render Quarto file
         run: |
-          quarto render code/code.qmd
+          quarto render code/code.qmd --to html
 
-      - name: Set up Git for Deployment
+      - name: Rename code.html to index.html
         run: |
-          # Ensure the correct output is in the root of _site directory
           mv _site/code.html _site/index.html
 
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Actions"
-          git add -A
-          git commit -m "Update site content" || echo "No changes to commit"
-
-      - name: Deploy Quarto Site to GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
