@@ -1,8 +1,7 @@
 project:
   type: website
   title: "Bank Account Fraud Detection"
-  output-dir: _site
 
-website:
-  navbar:
-    left: []
+engine: "knitr"
+
+editor: visual

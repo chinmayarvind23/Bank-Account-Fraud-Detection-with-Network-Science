@@ -141,25 +141,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>- The lockfile is already up to date.</code></pre>
+<pre><code>The following required packages are not installed:
+- ggfortify
+Packages must first be installed before renv can snapshot them.
+Use `renv::dependencies()` to see where this package is used in your project.
+
+- The lockfile is already up to date.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../renv/activate.R"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">status</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../renv/activate.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>No issues found -- the project is in a consistent state.</code></pre>
+<pre><code>- One or more packages recorded in the lockfile are not installed.
+- Use `renv::status()` for more details.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>required_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rmarkdown"</span>, <span class="st">"tidyverse"</span>, <span class="st">"visNetwork"</span>, <span class="st">"igraph"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pkg <span class="cf">in</span> required_packages) {</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(pkg, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(pkg, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'rmarkdown'</span>, <span class="st">'tidyverse'</span>, <span class="st">'igraph'</span>, <span class="st">'visNetwork'</span>, <span class="st">'igraph'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>- One or more packages recorded in the lockfile are not installed.
+- Use `renv::status()` for more details.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">status</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) are used in this project, but are not installed:
+- AzureStor
+- ggfortify
+
+See `?renv::status` for advice on resolving these issues.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>required_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rmarkdown"</span>, <span class="st">"tidyverse"</span>, <span class="st">"visNetwork"</span>, <span class="st">"AzureStor"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pkg <span class="cf">in</span> required_packages) {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(pkg, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(pkg, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'rmarkdown'</span>, <span class="st">'tidyverse'</span>, <span class="st">'visNetwork'</span>, <span class="st">'AzureStor'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The following package(s) will be installed:
-- igraph     [2.0.3]
+- AzureStor  [3.7.0]
 - rmarkdown  [2.28]
 - tidyverse  [2.0.0]
 - visNetwork [2.1.2]
@@ -168,16 +185,70 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 # Installing packages --------------------------------------------------------
 - Installing rmarkdown ...                      OK [linked from cache]
 - Installing tidyverse ...                      OK [linked from cache]
-- Installing igraph ...                         OK [linked from cache]
 - Installing visNetwork ...                     OK [linked from cache]
-Successfully installed 4 packages in 13 milliseconds.</code></pre>
+- Installing AzureStor ...                      OK [linked from cache]
+Successfully installed 4 packages in 14 milliseconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'readr'</span>, <span class="st">'dplyr'</span>, <span class="st">'httr'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>- The lockfile is already up to date.</code></pre>
+<pre><code>The following package(s) will be installed:
+- dplyr [1.1.4]
+- httr  [1.4.7]
+- readr [2.1.5]
+These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing readr ...                          OK [linked from cache]
+- Installing dplyr ...                          OK [linked from cache]
+- Installing httr ...                           OK [linked from cache]
+Successfully installed 3 packages in 5.9 milliseconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"igraph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- igraph [2.1.1]
+These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing igraph ...                         OK [linked from cache]
+Successfully installed 1 package in 4.2 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dotenv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- dotenv [1.0.3]
+These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing dotenv ...                         OK [linked from cache]
+Successfully installed 1 package in 3.4 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- tidyverse [2.0.0]
+These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing tidyverse ...                      OK [linked from cache]
+Successfully installed 1 package in 4 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following required packages are not installed:
+- ggfortify
+Packages must first be installed before renv can snapshot them.
+Use `renv::dependencies()` to see where this package is used in your project.
+
+The following package(s) will be updated in the lockfile:
+
+# CRAN -----------------------------------------------------------------------
+- igraph   [2.0.3 -&gt; 2.1.1]
+
+- Lockfile written to "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv.lock".</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -190,8 +261,8 @@ Successfully installed 4 packages in 13 milliseconds.</code></pre>
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'igraph'
@@ -224,7 +295,1665 @@ The following object is masked from 'package:base':
 
     union</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AzureStor)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dotenv)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="data-loading" class="level1">
+<h1>Data loading</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_dot_env</span>(<span class="at">file =</span> <span class="st">"/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in readLines(file): incomplete final line found on
+'/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course
+Project/Bank-Account-Fraud-Detection-with-Network-Science/.env'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>storage_container_url <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"AZURE_STORAGE_SAS_URL"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (storage_container_url <span class="sc">==</span> <span class="st">""</span>) {</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">"SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable."</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(storage_container_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1000000 Columns: 32
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (5): payment_type, employment_status, housing_status, source, device_os
+dbl (27): fraud_bool, income, name_email_similarity, prev_address_months_cou...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000,000 × 32
+   fraud_bool income name_email_similarity prev_address_months_count
+        &lt;dbl&gt;  &lt;dbl&gt;                 &lt;dbl&gt;                     &lt;dbl&gt;
+ 1          0    0.3                 0.987                        -1
+ 2          0    0.8                 0.617                        -1
+ 3          0    0.8                 0.997                         9
+ 4          0    0.6                 0.475                        11
+ 5          0    0.9                 0.842                        -1
+ 6          0    0.6                 0.295                        -1
+ 7          0    0.2                 0.773                        22
+ 8          0    0.8                 0.154                        -1
+ 9          0    0.3                 0.524                        21
+10          0    0.8                 0.834                        -1
+# ℹ 999,990 more rows
+# ℹ 28 more variables: current_address_months_count &lt;dbl&gt;, customer_age &lt;dbl&gt;,
+#   days_since_request &lt;dbl&gt;, intended_balcon_amount &lt;dbl&gt;, payment_type &lt;chr&gt;,
+#   zip_count_4w &lt;dbl&gt;, velocity_6h &lt;dbl&gt;, velocity_24h &lt;dbl&gt;,
+#   velocity_4w &lt;dbl&gt;, bank_branch_count_8w &lt;dbl&gt;,
+#   date_of_birth_distinct_emails_4w &lt;dbl&gt;, employment_status &lt;chr&gt;,
+#   credit_risk_score &lt;dbl&gt;, email_is_free &lt;dbl&gt;, housing_status &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="data-cleaning-and-pca" class="level1">
+<h1>Data cleaning, and PCA</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(bankfraud_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      fraud_bool                           income 
+                               0                                0 
+           name_email_similarity        prev_address_months_count 
+                               0                                0 
+    current_address_months_count                     customer_age 
+                               0                                0 
+              days_since_request           intended_balcon_amount 
+                               0                                0 
+                    payment_type                     zip_count_4w 
+                               0                                0 
+                     velocity_6h                     velocity_24h 
+                               0                                0 
+                     velocity_4w             bank_branch_count_8w 
+                               0                                0 
+date_of_birth_distinct_emails_4w                employment_status 
+                               0                                0 
+               credit_risk_score                    email_is_free 
+                               0                                0 
+                  housing_status                 phone_home_valid 
+                               0                                0 
+              phone_mobile_valid                bank_months_count 
+                               0                                0 
+                 has_other_cards            proposed_credit_limit 
+                               0                                0 
+                 foreign_request                           source 
+                               0                                0 
+       session_length_in_minutes                        device_os 
+                               0                                0 
+              keep_alive_session        device_distinct_emails_8w 
+                               0                                0 
+              device_fraud_count                            month 
+                               0                                0 </code></pre>
+</div>
+</div>
+<p>No missing values, so we can proceed with the rest of the data cleaning.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   fraud_bool          income       name_email_similarity
+ Min.   :0.00000   Min.   :0.1000   Min.   :0.0000014    
+ 1st Qu.:0.00000   1st Qu.:0.3000   1st Qu.:0.2252163    
+ Median :0.00000   Median :0.6000   Median :0.4921525    
+ Mean   :0.01103   Mean   :0.5627   Mean   :0.4936941    
+ 3rd Qu.:0.00000   3rd Qu.:0.8000   3rd Qu.:0.7555673    
+ Max.   :1.00000   Max.   :0.9000   Max.   :0.9999993    
+ prev_address_months_count current_address_months_count  customer_age  
+ Min.   : -1.00            Min.   : -1.00               Min.   :10.00  
+ 1st Qu.: -1.00            1st Qu.: 19.00               1st Qu.:20.00  
+ Median : -1.00            Median : 52.00               Median :30.00  
+ Mean   : 16.72            Mean   : 86.59               Mean   :33.69  
+ 3rd Qu.: 12.00            3rd Qu.:130.00               3rd Qu.:40.00  
+ Max.   :383.00            Max.   :428.00               Max.   :90.00  
+ days_since_request intended_balcon_amount payment_type        zip_count_4w 
+ Min.   : 0.00000   Min.   :-15.5305       Length:1000000     Min.   :   1  
+ 1st Qu.: 0.00719   1st Qu.: -1.1815       Class :character   1st Qu.: 894  
+ Median : 0.01518   Median : -0.8305       Mode  :character   Median :1263  
+ Mean   : 1.02571   Mean   :  8.6615                          Mean   :1573  
+ 3rd Qu.: 0.02633   3rd Qu.:  4.9842                          3rd Qu.:1944  
+ Max.   :78.45690   Max.   :112.9569                          Max.   :6700  
+  velocity_6h       velocity_24h   velocity_4w   bank_branch_count_8w
+ Min.   : -170.6   Min.   :1300   Min.   :2826   Min.   :   0.0      
+ 1st Qu.: 3436.4   1st Qu.:3593   1st Qu.:4268   1st Qu.:   1.0      
+ Median : 5319.8   Median :4750   Median :4913   Median :   9.0      
+ Mean   : 5665.3   Mean   :4770   Mean   :4856   Mean   : 184.4      
+ 3rd Qu.: 7680.7   3rd Qu.:5753   3rd Qu.:5488   3rd Qu.:  25.0      
+ Max.   :16715.6   Max.   :9507   Max.   :6995   Max.   :2385.0      
+ date_of_birth_distinct_emails_4w employment_status  credit_risk_score
+ Min.   : 0.000                   Length:1000000     Min.   :-170     
+ 1st Qu.: 6.000                   Class :character   1st Qu.:  83     
+ Median : 9.000                   Mode  :character   Median : 122     
+ Mean   : 9.504                                      Mean   : 131     
+ 3rd Qu.:13.000                                      3rd Qu.: 178     
+ Max.   :39.000                                      Max.   : 389     
+ email_is_free    housing_status     phone_home_valid phone_mobile_valid
+ Min.   :0.0000   Length:1000000     Min.   :0.0000   Min.   :0.0000    
+ 1st Qu.:0.0000   Class :character   1st Qu.:0.0000   1st Qu.:1.0000    
+ Median :1.0000   Mode  :character   Median :0.0000   Median :1.0000    
+ Mean   :0.5299                      Mean   :0.4171   Mean   :0.8897    
+ 3rd Qu.:1.0000                      3rd Qu.:1.0000   3rd Qu.:1.0000    
+ Max.   :1.0000                      Max.   :1.0000   Max.   :1.0000    
+ bank_months_count has_other_cards proposed_credit_limit foreign_request  
+ Min.   :-1.00     Min.   :0.000   Min.   : 190.0        Min.   :0.00000  
+ 1st Qu.:-1.00     1st Qu.:0.000   1st Qu.: 200.0        1st Qu.:0.00000  
+ Median : 5.00     Median :0.000   Median : 200.0        Median :0.00000  
+ Mean   :10.84     Mean   :0.223   Mean   : 515.9        Mean   :0.02524  
+ 3rd Qu.:25.00     3rd Qu.:0.000   3rd Qu.: 500.0        3rd Qu.:0.00000  
+ Max.   :32.00     Max.   :1.000   Max.   :2100.0        Max.   :1.00000  
+    source          session_length_in_minutes  device_os        
+ Length:1000000     Min.   :-1.000            Length:1000000    
+ Class :character   1st Qu.: 3.103            Class :character  
+ Mode  :character   Median : 5.114            Mode  :character  
+                    Mean   : 7.545                              
+                    3rd Qu.: 8.866                              
+                    Max.   :85.899                              
+ keep_alive_session device_distinct_emails_8w device_fraud_count
+ Min.   :0.0000     Min.   :-1.000            Min.   :0         
+ 1st Qu.:0.0000     1st Qu.: 1.000            1st Qu.:0         
+ Median :1.0000     Median : 1.000            Median :0         
+ Mean   :0.5769     Mean   : 1.018            Mean   :0         
+ 3rd Qu.:1.0000     3rd Qu.: 1.000            3rd Qu.:0         
+ Max.   :1.0000     Max.   : 2.000            Max.   :0         
+     month      
+ Min.   :0.000  
+ 1st Qu.:1.000  
+ Median :3.000  
+ Mean   :3.289  
+ 3rd Qu.:5.000  
+ Max.   :7.000  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [1,000,000 × 32] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ fraud_bool                      : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ $ income                          : num [1:1000000] 0.3 0.8 0.8 0.6 0.9 0.6 0.2 0.8 0.3 0.8 ...
+ $ name_email_similarity           : num [1:1000000] 0.987 0.617 0.997 0.475 0.842 ...
+ $ prev_address_months_count       : num [1:1000000] -1 -1 9 11 -1 -1 22 -1 21 -1 ...
+ $ current_address_months_count    : num [1:1000000] 25 89 14 14 29 369 4 103 2 134 ...
+ $ customer_age                    : num [1:1000000] 40 20 40 30 40 30 40 40 30 20 ...
+ $ days_since_request              : num [1:1000000] 0.00674 0.0101 0.01232 0.00699 5.74263 ...
+ $ intended_balcon_amount          : num [1:1000000] 102.45 -0.85 -1.49 -1.86 47.15 ...
+ $ payment_type                    : chr [1:1000000] "AA" "AD" "AB" "AB" ...
+ $ zip_count_4w                    : num [1:1000000] 1059 1658 1095 3483 2339 ...
+ $ velocity_6h                     : num [1:1000000] 13096 9223 4471 14432 7602 ...
+ $ velocity_24h                    : num [1:1000000] 7851 5745 5472 6755 5124 ...
+ $ velocity_4w                     : num [1:1000000] 6742 5942 5993 5970 5941 ...
+ $ bank_branch_count_8w            : num [1:1000000] 5 3 15 11 1 705 28 6 2 14 ...
+ $ date_of_birth_distinct_emails_4w: num [1:1000000] 5 18 11 13 6 5 8 7 10 20 ...
+ $ employment_status               : chr [1:1000000] "CB" "CA" "CA" "CA" ...
+ $ credit_risk_score               : num [1:1000000] 163 154 89 90 91 134 72 163 35 201 ...
+ $ email_is_free                   : num [1:1000000] 1 1 1 1 0 1 1 0 0 1 ...
+ $ housing_status                  : chr [1:1000000] "BC" "BC" "BC" "BC" ...
+ $ phone_home_valid                : num [1:1000000] 0 1 0 0 1 1 1 1 1 1 ...
+ $ phone_mobile_valid              : num [1:1000000] 1 1 1 1 1 1 1 1 0 1 ...
+ $ bank_months_count               : num [1:1000000] 9 2 30 1 26 30 1 25 2 15 ...
+ $ has_other_cards                 : num [1:1000000] 0 0 0 0 0 0 0 1 0 0 ...
+ $ proposed_credit_limit           : num [1:1000000] 1500 1500 200 200 200 200 200 200 200 1500 ...
+ $ foreign_request                 : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ $ source                          : chr [1:1000000] "INTERNET" "INTERNET" "INTERNET" "INTERNET" ...
+ $ session_length_in_minutes       : num [1:1000000] 16.22 3.36 22.73 15.22 3.74 ...
+ $ device_os                       : chr [1:1000000] "linux" "other" "windows" "linux" ...
+ $ keep_alive_session              : num [1:1000000] 1 1 0 1 0 1 1 1 1 1 ...
+ $ device_distinct_emails_8w       : num [1:1000000] 1 1 1 1 1 1 1 1 1 1 ...
+ $ device_fraud_count              : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ $ month                           : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   fraud_bool = col_double(),
+  ..   income = col_double(),
+  ..   name_email_similarity = col_double(),
+  ..   prev_address_months_count = col_double(),
+  ..   current_address_months_count = col_double(),
+  ..   customer_age = col_double(),
+  ..   days_since_request = col_double(),
+  ..   intended_balcon_amount = col_double(),
+  ..   payment_type = col_character(),
+  ..   zip_count_4w = col_double(),
+  ..   velocity_6h = col_double(),
+  ..   velocity_24h = col_double(),
+  ..   velocity_4w = col_double(),
+  ..   bank_branch_count_8w = col_double(),
+  ..   date_of_birth_distinct_emails_4w = col_double(),
+  ..   employment_status = col_character(),
+  ..   credit_risk_score = col_double(),
+  ..   email_is_free = col_double(),
+  ..   housing_status = col_character(),
+  ..   phone_home_valid = col_double(),
+  ..   phone_mobile_valid = col_double(),
+  ..   bank_months_count = col_double(),
+  ..   has_other_cards = col_double(),
+  ..   proposed_credit_limit = col_double(),
+  ..   foreign_request = col_double(),
+  ..   source = col_character(),
+  ..   session_length_in_minutes = col_double(),
+  ..   device_os = col_character(),
+  ..   keep_alive_session = col_double(),
+  ..   device_distinct_emails_8w = col_double(),
+  ..   device_fraud_count = col_double(),
+  ..   month = col_double()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[<span class="sc">!</span><span class="fu">duplicated</span>(bankfraud_data), ]</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000,000 × 32
+   fraud_bool income name_email_similarity prev_address_months_count
+        &lt;dbl&gt;  &lt;dbl&gt;                 &lt;dbl&gt;                     &lt;dbl&gt;
+ 1          0    0.3                 0.987                        -1
+ 2          0    0.8                 0.617                        -1
+ 3          0    0.8                 0.997                         9
+ 4          0    0.6                 0.475                        11
+ 5          0    0.9                 0.842                        -1
+ 6          0    0.6                 0.295                        -1
+ 7          0    0.2                 0.773                        22
+ 8          0    0.8                 0.154                        -1
+ 9          0    0.3                 0.524                        21
+10          0    0.8                 0.834                        -1
+# ℹ 999,990 more rows
+# ℹ 28 more variables: current_address_months_count &lt;dbl&gt;, customer_age &lt;dbl&gt;,
+#   days_since_request &lt;dbl&gt;, intended_balcon_amount &lt;dbl&gt;, payment_type &lt;chr&gt;,
+#   zip_count_4w &lt;dbl&gt;, velocity_6h &lt;dbl&gt;, velocity_24h &lt;dbl&gt;,
+#   velocity_4w &lt;dbl&gt;, bank_branch_count_8w &lt;dbl&gt;,
+#   date_of_birth_distinct_emails_4w &lt;dbl&gt;, employment_status &lt;chr&gt;,
+#   credit_risk_score &lt;dbl&gt;, email_is_free &lt;dbl&gt;, housing_status &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>No duplicates identified, so we can proceed with PCA and feature engineering. Removing the Device OS columns and the source columns as they are not helpful predictors in predicting bank fraud. The character data type columns are converted to numeric types for making PCA possible.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">28</span>)]</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(.))))</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000,000 × 30
+   fraud_bool income name_email_similarity prev_address_months_count
+        &lt;dbl&gt;  &lt;dbl&gt;                 &lt;dbl&gt;                     &lt;dbl&gt;
+ 1          0    0.3                 0.987                        -1
+ 2          0    0.8                 0.617                        -1
+ 3          0    0.8                 0.997                         9
+ 4          0    0.6                 0.475                        11
+ 5          0    0.9                 0.842                        -1
+ 6          0    0.6                 0.295                        -1
+ 7          0    0.2                 0.773                        22
+ 8          0    0.8                 0.154                        -1
+ 9          0    0.3                 0.524                        21
+10          0    0.8                 0.834                        -1
+# ℹ 999,990 more rows
+# ℹ 26 more variables: current_address_months_count &lt;dbl&gt;, customer_age &lt;dbl&gt;,
+#   days_since_request &lt;dbl&gt;, intended_balcon_amount &lt;dbl&gt;, payment_type &lt;dbl&gt;,
+#   zip_count_4w &lt;dbl&gt;, velocity_6h &lt;dbl&gt;, velocity_24h &lt;dbl&gt;,
+#   velocity_4w &lt;dbl&gt;, bank_branch_count_8w &lt;dbl&gt;,
+#   date_of_birth_distinct_emails_4w &lt;dbl&gt;, employment_status &lt;dbl&gt;,
+#   credit_risk_score &lt;dbl&gt;, email_is_free &lt;dbl&gt;, housing_status &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>Printing a summary of the dataset so far.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [1,000,000 × 30] (S3: tbl_df/tbl/data.frame)
+ $ fraud_bool                      : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ $ income                          : num [1:1000000] 0.3 0.8 0.8 0.6 0.9 0.6 0.2 0.8 0.3 0.8 ...
+ $ name_email_similarity           : num [1:1000000] 0.987 0.617 0.997 0.475 0.842 ...
+ $ prev_address_months_count       : num [1:1000000] -1 -1 9 11 -1 -1 22 -1 21 -1 ...
+ $ current_address_months_count    : num [1:1000000] 25 89 14 14 29 369 4 103 2 134 ...
+ $ customer_age                    : num [1:1000000] 40 20 40 30 40 30 40 40 30 20 ...
+ $ days_since_request              : num [1:1000000] 0.00674 0.0101 0.01232 0.00699 5.74263 ...
+ $ intended_balcon_amount          : num [1:1000000] 102.45 -0.85 -1.49 -1.86 47.15 ...
+ $ payment_type                    : num [1:1000000] 1 4 2 2 1 4 2 2 2 4 ...
+ $ zip_count_4w                    : num [1:1000000] 1059 1658 1095 3483 2339 ...
+ $ velocity_6h                     : num [1:1000000] 13096 9223 4471 14432 7602 ...
+ $ velocity_24h                    : num [1:1000000] 7851 5745 5472 6755 5124 ...
+ $ velocity_4w                     : num [1:1000000] 6742 5942 5993 5970 5941 ...
+ $ bank_branch_count_8w            : num [1:1000000] 5 3 15 11 1 705 28 6 2 14 ...
+ $ date_of_birth_distinct_emails_4w: num [1:1000000] 5 18 11 13 6 5 8 7 10 20 ...
+ $ employment_status               : num [1:1000000] 2 1 1 1 1 2 1 1 1 1 ...
+ $ credit_risk_score               : num [1:1000000] 163 154 89 90 91 134 72 163 35 201 ...
+ $ email_is_free                   : num [1:1000000] 1 1 1 1 0 1 1 0 0 1 ...
+ $ housing_status                  : num [1:1000000] 3 3 3 3 3 5 3 5 3 4 ...
+ $ phone_home_valid                : num [1:1000000] 0 1 0 0 1 1 1 1 1 1 ...
+ $ phone_mobile_valid              : num [1:1000000] 1 1 1 1 1 1 1 1 0 1 ...
+ $ bank_months_count               : num [1:1000000] 9 2 30 1 26 30 1 25 2 15 ...
+ $ has_other_cards                 : num [1:1000000] 0 0 0 0 0 0 0 1 0 0 ...
+ $ proposed_credit_limit           : num [1:1000000] 1500 1500 200 200 200 200 200 200 200 1500 ...
+ $ foreign_request                 : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ $ session_length_in_minutes       : num [1:1000000] 16.22 3.36 22.73 15.22 3.74 ...
+ $ keep_alive_session              : num [1:1000000] 1 1 0 1 0 1 1 1 1 1 ...
+ $ device_distinct_emails_8w       : num [1:1000000] 1 1 1 1 1 1 1 1 1 1 ...
+ $ device_fraud_count              : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ $ month                           : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+</div>
+</div>
+<p>Removing columns with 0 variance in them, as they will not contribute to predicting fraud in any way.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>not_required_cols <span class="ot">&lt;-</span> <span class="fu">sapply</span>(bankfraud_data, <span class="cf">function</span>(x) <span class="fu">var</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Columns with zero variance:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Columns with zero variance:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(bankfraud_data)[not_required_cols])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "device_fraud_count"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="sc">!</span>not_required_cols]</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Remaining columns after removing zero variance columns:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Remaining columns after removing zero variance columns:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(bankfraud_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "fraud_bool"                       "income"                          
+ [3] "name_email_similarity"            "prev_address_months_count"       
+ [5] "current_address_months_count"     "customer_age"                    
+ [7] "days_since_request"               "intended_balcon_amount"          
+ [9] "payment_type"                     "zip_count_4w"                    
+[11] "velocity_6h"                      "velocity_24h"                    
+[13] "velocity_4w"                      "bank_branch_count_8w"            
+[15] "date_of_birth_distinct_emails_4w" "employment_status"               
+[17] "credit_risk_score"                "email_is_free"                   
+[19] "housing_status"                   "phone_home_valid"                
+[21] "phone_mobile_valid"               "bank_months_count"               
+[23] "has_other_cards"                  "proposed_credit_limit"           
+[25] "foreign_request"                  "session_length_in_minutes"       
+[27] "keep_alive_session"               "device_distinct_emails_8w"       
+[29] "month"                           </code></pre>
+</div>
+</div>
+<p>Printing a summary of the PCA performed after scaling the data, which shows the number of principal components that explain x% of the variance in the dataset along with charts that indicate the same.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>pcaCharts <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    x.var <span class="ot">&lt;-</span> x<span class="sc">$</span>sdev <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    x.pvar <span class="ot">&lt;-</span> x.var<span class="sc">/</span><span class="fu">sum</span>(x.var)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"proportions of variance:"</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(x.pvar)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x.pvar,<span class="at">xlab=</span><span class="st">"Principal component"</span>, <span class="at">ylab=</span><span class="st">"Proportion of variance explained"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">type=</span><span class="st">'b'</span>)</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">cumsum</span>(x.pvar),<span class="at">xlab=</span><span class="st">"Principal component"</span>, <span class="at">ylab=</span><span class="st">"Cumulative Proportion of variance explained"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">type=</span><span class="st">'b'</span>)</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">screeplot</span>(x)</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">screeplot</span>(x,<span class="at">type=</span><span class="st">"l"</span>)</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>bankfraud_data_pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">scale</span>(bankfraud_data),<span class="at">center =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Standard deviations (1, .., p=29):
+ [1] 1.7578028 1.4707241 1.3522541 1.2734556 1.1455525 1.0835840 1.0551505
+ [8] 1.0317932 1.0179677 1.0042317 0.9927265 0.9827189 0.9646937 0.9636778
+[15] 0.9557767 0.9505014 0.9449497 0.9136909 0.8996818 0.8829855 0.8703867
+[22] 0.8266968 0.8120740 0.7992005 0.7019331 0.6864922 0.6600825 0.5943973
+[29] 0.3887746
+
+Rotation (n x k) = (29 x 29):
+                                         PC1         PC2          PC3
+fraud_bool                       -0.03842944  0.07672758 -0.107908154
+income                           -0.15520644  0.11390336 -0.031811519
+name_email_similarity             0.03333035  0.03899807  0.011866528
+prev_address_months_count         0.02479258 -0.15967003 -0.069795042
+current_address_months_count     -0.03449484  0.29402957  0.073430919
+customer_age                     -0.14129728  0.40519320 -0.124979025
+days_since_request                0.04573274 -0.09592864  0.016147946
+intended_balcon_amount            0.04084960  0.17397466  0.496984292
+payment_type                     -0.01115249 -0.18132570 -0.559305155
+zip_count_4w                      0.23576899  0.08528787 -0.039109783
+velocity_6h                       0.33944295  0.13518279 -0.029022124
+velocity_24h                      0.39917180  0.18033820 -0.061339696
+velocity_4w                       0.46272915  0.20364232 -0.111593344
+bank_branch_count_8w              0.01795161  0.13409549  0.233962303
+date_of_birth_distinct_emails_4w  0.24981534 -0.24022709 -0.025166515
+employment_status                 0.03573274  0.02975314  0.003736022
+credit_risk_score                -0.24129071  0.28207023 -0.192779555
+email_is_free                     0.05641908 -0.03478419 -0.039120894
+housing_status                    0.15983005 -0.26175313  0.255395209
+phone_home_valid                 -0.09660976  0.21423504  0.048325645
+phone_mobile_valid                0.02176043 -0.17565335  0.087365890
+bank_months_count                 0.03807690  0.11342176  0.381975638
+has_other_cards                  -0.08493380  0.20327599  0.110067953
+proposed_credit_limit            -0.09619083  0.35742375 -0.193604372
+foreign_request                   0.01398540  0.01109113 -0.027316791
+session_length_in_minutes         0.07521818  0.01627488 -0.025392543
+keep_alive_session                0.03035179 -0.07329344 -0.006993124
+device_distinct_emails_8w         0.03832726  0.02260270 -0.051030209
+month                            -0.46527486 -0.20193237  0.117618145
+                                          PC4         PC5          PC6
+fraud_bool                        0.043984902 -0.12594714  0.412836550
+income                            0.186847942 -0.23344645 -0.132833373
+name_email_similarity             0.126830051  0.29329375 -0.110672259
+prev_address_months_count         0.099221654 -0.44490342 -0.378987533
+current_address_months_count     -0.116102680  0.43669563  0.277317234
+customer_age                     -0.247647936 -0.20813116 -0.006701287
+days_since_request               -0.037258582 -0.25844165 -0.019886489
+intended_balcon_amount            0.186574669 -0.15853094 -0.041907802
+payment_type                     -0.097296444  0.15744170  0.032790377
+zip_count_4w                     -0.004389815  0.08627221  0.094717019
+velocity_6h                      -0.021995847 -0.02260727 -0.049170301
+velocity_24h                      0.012292423 -0.04565523 -0.054671273
+velocity_4w                       0.038300787 -0.02571064 -0.050581630
+bank_branch_count_8w             -0.038738222 -0.03384854  0.020027439
+date_of_birth_distinct_emails_4w  0.269973723  0.10272568 -0.108255299
+employment_status                -0.355249744 -0.03352270 -0.028428582
+credit_risk_score                 0.406828771  0.05488779 -0.019054145
+email_is_free                    -0.008782600 -0.19990540  0.221497341
+housing_status                    0.045291527  0.26555028  0.053239651
+phone_home_valid                 -0.360614393  0.08887972 -0.312228132
+phone_mobile_valid                0.335459084 -0.02119463  0.225678774
+bank_months_count                -0.017510525 -0.04064173  0.114513304
+has_other_cards                   0.094134447  0.04204606 -0.239928502
+proposed_credit_limit             0.421091922  0.06511476 -0.014384973
+foreign_request                   0.055956860 -0.10073033  0.057581027
+session_length_in_minutes        -0.046418629 -0.30034355  0.316705444
+keep_alive_session               -0.026472583  0.10835915 -0.327945967
+device_distinct_emails_8w        -0.101089751 -0.17116611  0.246331941
+month                            -0.033651108  0.02306697  0.050911598
+                                          PC7           PC8          PC9
+fraud_bool                       -0.073171754 -0.1328394779 -0.046002032
+income                           -0.236656068  0.0159208425 -0.004092716
+name_email_similarity             0.440099887  0.1710058641 -0.019088207
+prev_address_months_count         0.213515898  0.0008001263 -0.094118311
+current_address_months_count      0.075432658  0.0591172677  0.008785619
+customer_age                     -0.025026681 -0.0459407166  0.225396135
+days_since_request                0.252300792  0.1887029558  0.137520966
+intended_balcon_amount            0.084245122  0.0646489938  0.007219072
+payment_type                     -0.027420275 -0.0130658300 -0.034069279
+zip_count_4w                     -0.074049709 -0.1332091846  0.023616262
+velocity_6h                      -0.014417597  0.1445432909  0.092414368
+velocity_24h                     -0.004828865  0.0749803969  0.054721104
+velocity_4w                      -0.035666593 -0.0366460066  0.017362541
+bank_branch_count_8w             -0.029853616 -0.2307194123 -0.027420867
+date_of_birth_distinct_emails_4w -0.156895346 -0.0398489004 -0.249159470
+employment_status                -0.049926167  0.1293920325  0.144478411
+credit_risk_score                 0.121131292 -0.0660373412 -0.055108226
+email_is_free                    -0.331821198 -0.2278182799 -0.109096331
+housing_status                    0.107432611  0.0461950933 -0.190752284
+phone_home_valid                  0.004055706 -0.0956579288 -0.310119502
+phone_mobile_valid               -0.154238275  0.0247360559  0.439932639
+bank_months_count                 0.002513238 -0.3128058518 -0.077102543
+has_other_cards                  -0.341479576  0.4351342718 -0.066548080
+proposed_credit_limit             0.165384176 -0.1041489511 -0.085429262
+foreign_request                  -0.117275839 -0.0917666726 -0.534235533
+session_length_in_minutes         0.446202069  0.0413878717 -0.033492849
+keep_alive_session                0.170072393 -0.6346068329  0.227176028
+device_distinct_emails_8w         0.198462433  0.1013186325 -0.352876189
+month                             0.036066642  0.0284237057 -0.012919326
+                                         PC10         PC11         PC12
+fraud_bool                        0.371060970  0.218680100  0.046786462
+income                            0.377164789 -0.013014047 -0.068703413
+name_email_similarity            -0.122726590 -0.014857666 -0.078067528
+prev_address_months_count        -0.027901145 -0.093348423 -0.030948590
+current_address_months_count      0.078353725  0.175073494 -0.010716986
+customer_age                     -0.034428212  0.024980931 -0.116487997
+days_since_request                0.161415105  0.571727015  0.104028287
+intended_balcon_amount           -0.006595793  0.128261021  0.054210795
+payment_type                      0.029962800 -0.048401055 -0.015428475
+zip_count_4w                      0.018678984 -0.025680235 -0.247843635
+velocity_6h                       0.037606456  0.049340789  0.060380594
+velocity_24h                      0.034846509  0.032398881  0.029459462
+velocity_4w                       0.031889690 -0.006209587 -0.007038322
+bank_branch_count_8w              0.007782354 -0.284355298 -0.090035094
+date_of_birth_distinct_emails_4w  0.051378366 -0.094027848  0.076714535
+employment_status                -0.393523016 -0.101670801 -0.175095822
+credit_risk_score                -0.137178264 -0.027991799  0.093991030
+email_is_free                    -0.427207012  0.073049673  0.528548169
+housing_status                   -0.002735075  0.074560198  0.151573746
+phone_home_valid                  0.022359923  0.054445593  0.191487496
+phone_mobile_valid               -0.149822329 -0.088851047 -0.298461451
+bank_months_count                 0.059123614 -0.128350230 -0.024712069
+has_other_cards                  -0.097156245 -0.103777213 -0.044092805
+proposed_credit_limit            -0.141695820 -0.013123169  0.119712280
+foreign_request                  -0.285048449  0.432749765 -0.597274423
+session_length_in_minutes        -0.292346728 -0.136352753  0.050932331
+keep_alive_session                0.028651750  0.079961203 -0.125758764
+device_distinct_emails_8w         0.288073564 -0.446817260 -0.136629985
+month                            -0.022964465  0.007684833 -0.009862938
+                                         PC13          PC14         PC15
+fraud_bool                       -0.615602556 -0.0412629699 -0.021996732
+income                            0.244248567 -0.0434929501 -0.062033340
+name_email_similarity            -0.042431202 -0.1884706954 -0.304758128
+prev_address_months_count        -0.250563235 -0.0342616160 -0.010342783
+current_address_months_count      0.114637141  0.0289995023  0.068567437
+customer_age                      0.108739401  0.0414462024 -0.028801049
+days_since_request                0.216494744 -0.2954702646 -0.242869987
+intended_balcon_amount           -0.070408056  0.2436127079  0.032869509
+payment_type                      0.102609459 -0.1711638013  0.009333432
+zip_count_4w                      0.007033292  0.0289185306 -0.667545481
+velocity_6h                       0.032540721  0.0361798861  0.320368769
+velocity_24h                      0.003544549  0.0040887557  0.210263369
+velocity_4w                       0.009081666 -0.0034945645 -0.022962367
+bank_branch_count_8w              0.083011863 -0.7694359176  0.218197627
+date_of_birth_distinct_emails_4w -0.115216425 -0.0817070160 -0.145738438
+employment_status                -0.465215735  0.0034364402 -0.025732713
+credit_risk_score                -0.059313209  0.0003616283  0.043130334
+email_is_free                     0.200830300  0.0319064307 -0.161519039
+housing_status                    0.023123341  0.0477244678  0.146672151
+phone_home_valid                  0.047719946  0.0276308057 -0.107040438
+phone_mobile_valid                0.158844751  0.0509778248  0.012326647
+bank_months_count                -0.066885113 -0.0931423751 -0.210003268
+has_other_cards                   0.024919151  0.0026073408 -0.189961924
+proposed_credit_limit            -0.086757479 -0.0015185804  0.032988607
+foreign_request                   0.093535547 -0.0082254709  0.169407205
+session_length_in_minutes         0.148118073 -0.0012546099 -0.033183172
+keep_alive_session                0.098330913  0.2724045577  0.043004554
+device_distinct_emails_8w         0.216039474  0.3011400888 -0.021421797
+month                            -0.011457619  0.0031546258  0.006459629
+                                         PC16         PC17         PC18
+fraud_bool                       -0.028882544  0.272729810  0.232440637
+income                            0.279203974  0.165533844 -0.463816122
+name_email_similarity             0.162813302  0.680479624 -0.081167835
+prev_address_months_count         0.067508379 -0.050110765  0.293109704
+current_address_months_count     -0.041363353 -0.140146092 -0.008426617
+customer_age                      0.073580449  0.105344524  0.094177453
+days_since_request               -0.445126985 -0.119217941 -0.097187721
+intended_balcon_amount           -0.005754482  0.036914568 -0.095009797
+payment_type                      0.033726871 -0.012127298  0.016215287
+zip_count_4w                      0.050060044 -0.235560316  0.206650326
+velocity_6h                       0.008568209  0.120601781  0.112736266
+velocity_24h                      0.030558736  0.067211268  0.025401819
+velocity_4w                       0.025974085 -0.016392865 -0.067296163
+bank_branch_count_8w             -0.193192948  0.043758306  0.119076522
+date_of_birth_distinct_emails_4w -0.108873986 -0.118186136 -0.251356491
+employment_status                -0.298450557 -0.005000713 -0.478689664
+credit_risk_score                -0.149938297 -0.128734291 -0.021117246
+email_is_free                    -0.109850782  0.345259900  0.010170635
+housing_status                   -0.008492386 -0.015085694  0.130466087
+phone_home_valid                  0.028461240  0.038730746  0.089458935
+phone_mobile_valid               -0.111641635  0.144394179  0.120558112
+bank_months_count                 0.127369150 -0.109648810 -0.122236758
+has_other_cards                  -0.204278967  0.027510539  0.404284070
+proposed_credit_limit            -0.183487409 -0.159562936 -0.091738143
+foreign_request                   0.040712119  0.076459561 -0.001168599
+session_length_in_minutes         0.305467701 -0.193044711  0.056575727
+keep_alive_session               -0.267094772  0.147698636  0.088029445
+device_distinct_emails_8w        -0.484978189  0.184206036 -0.039242092
+month                            -0.015730130  0.003418549  0.064616392
+                                          PC19          PC20         PC21
+fraud_bool                        0.2262467936 -0.1198638992 -0.002411954
+income                            0.2894129771 -0.0639687438 -0.390326609
+name_email_similarity            -0.0742206449  0.0002841838  0.058145714
+prev_address_months_count        -0.2303581520  0.0958437627 -0.380124227
+current_address_months_count     -0.0125567630  0.0221408170 -0.244976037
+customer_age                     -0.1215000541  0.0515011590  0.011825029
+days_since_request               -0.0495091929 -0.1298468838 -0.006060885
+intended_balcon_amount            0.1420790391  0.3160686873  0.077610697
+payment_type                     -0.0106294113 -0.1166329063 -0.148377771
+zip_count_4w                      0.0857533159  0.3089348749 -0.215428344
+velocity_6h                      -0.0670488939 -0.2300384090 -0.127782262
+velocity_24h                     -0.0552890024 -0.0523379400 -0.037636981
+velocity_4w                       0.0006157331  0.0402156300  0.043311533
+bank_branch_count_8w              0.1786036501  0.2112516226 -0.013255343
+date_of_birth_distinct_emails_4w  0.1667622069 -0.1411115591  0.255014955
+employment_status                 0.1380757888 -0.0587179534 -0.268948338
+credit_risk_score                -0.0328299337 -0.0353153772 -0.120155702
+email_is_free                    -0.0720950727  0.1013550796 -0.116932836
+housing_status                    0.1229263420 -0.0019301205 -0.555695944
+phone_home_valid                  0.1559804356 -0.1684423192 -0.109066916
+phone_mobile_valid               -0.0247423168 -0.1875683921 -0.186599931
+bank_months_count                -0.4771758736 -0.5639241119 -0.052640874
+has_other_cards                   0.2330460821 -0.3403572299  0.065594664
+proposed_credit_limit            -0.0402757909 -0.0106785964 -0.081029688
+foreign_request                  -0.0370962989 -0.0240125160  0.037257340
+session_length_in_minutes         0.4961481915 -0.2800678588  0.068649432
+keep_alive_session                0.2986707494 -0.1655891020  0.034833210
+device_distinct_emails_8w        -0.0917681712  0.0416830068 -0.023932033
+month                             0.0023381209 -0.0304763409 -0.053036237
+                                         PC22         PC23          PC24
+fraud_bool                       -0.054437956  0.024532656  0.0199272523
+income                            0.056069272 -0.099062106 -0.0343608737
+name_email_similarity             0.022315101 -0.028800377 -0.0277415460
+prev_address_months_count        -0.185404306 -0.118385305 -0.3723976519
+current_address_months_count     -0.216378453 -0.226295180 -0.6123943909
+customer_age                     -0.087490066 -0.045705564  0.1714516707
+days_since_request               -0.003674807  0.025432006  0.0507824708
+intended_balcon_amount           -0.020655636  0.035931903 -0.0425721889
+payment_type                     -0.042427775 -0.074285859  0.0460514668
+zip_count_4w                      0.348084961  0.117033469  0.0110074359
+velocity_6h                       0.589622650  0.189145241 -0.2095388221
+velocity_24h                      0.133914381  0.042360545  0.0338930348
+velocity_4w                      -0.348992707 -0.078331845  0.1229095438
+bank_branch_count_8w              0.032665368  0.006475261 -0.0242685252
+date_of_birth_distinct_emails_4w -0.024790062  0.103233902 -0.3032218802
+employment_status                 0.039527188 -0.024827094  0.0096082937
+credit_risk_score                 0.118641208  0.061603273  0.1088583183
+email_is_free                     0.032428197 -0.117367865 -0.1396206820
+housing_status                   -0.066788148 -0.104946761  0.4641489120
+phone_home_valid                 -0.217654619  0.643761629 -0.0386974372
+phone_mobile_valid               -0.314323847  0.453736086 -0.0830293636
+bank_months_count                 0.030928332 -0.124725823  0.0776692650
+has_other_cards                  -0.026821325 -0.330716898  0.0419943424
+proposed_credit_limit             0.014983410  0.089375585  0.1001694901
+foreign_request                   0.021048895 -0.014299453  0.0091210318
+session_length_in_minutes        -0.005418459 -0.042019703 -0.0610212567
+keep_alive_session                0.066339426 -0.232049115 -0.0573747531
+device_distinct_emails_8w         0.008535947  0.014986818  0.0006020702
+month                             0.343375903  0.086126233 -0.1226029626
+                                         PC25          PC26          PC27
+fraud_bool                        0.001983598  0.0033833845 -0.0026448061
+income                           -0.034030200  0.0450413628  0.0822426473
+name_email_similarity             0.013203117 -0.0190187374  0.0171888334
+prev_address_months_count         0.017126358 -0.0362274351  0.0131001849
+current_address_months_count     -0.015554650 -0.0637781170  0.0310802250
+customer_age                      0.372971990 -0.6220519152 -0.0638165164
+days_since_request               -0.002949377 -0.0035873676  0.0058623518
+intended_balcon_amount            0.019606780  0.0327010353 -0.6467387999
+payment_type                     -0.025083075  0.0547593207 -0.7231359886
+zip_count_4w                     -0.035341122  0.0078059752  0.0003627200
+velocity_6h                       0.405632831  0.1611661059 -0.0341701046
+velocity_24h                     -0.748322522 -0.3853998598 -0.0162874680
+velocity_4w                       0.134892862  0.2136908282  0.0554145699
+bank_branch_count_8w              0.011678802  0.0130479548 -0.0360177534
+date_of_birth_distinct_emails_4w  0.239581133 -0.5211899633 -0.0330733694
+employment_status                -0.017698622  0.0224549428 -0.0104016861
+credit_risk_score                -0.021759528 -0.0053034681  0.0530144084
+email_is_free                    -0.032290877  0.0153900636  0.0142160641
+housing_status                    0.171339636 -0.2424549312  0.0445126232
+phone_home_valid                 -0.063535794  0.0577024915 -0.0266143822
+phone_mobile_valid               -0.018886365 -0.0155013063 -0.0321042657
+bank_months_count                -0.035030611  0.0359715989 -0.1612324174
+has_other_cards                  -0.045928583  0.0485677190 -0.0566325800
+proposed_credit_limit             0.026110627  0.0274490403 -0.0015890519
+foreign_request                   0.003421711  0.0162755005  0.0112222528
+session_length_in_minutes        -0.008154602 -0.0164698113  0.0127458388
+keep_alive_session               -0.034993697  0.0118637284 -0.0009544421
+device_distinct_emails_8w        -0.007811266 -0.0001426478  0.0032143296
+month                            -0.124621626 -0.2023376840 -0.0570178545
+                                          PC28          PC29
+fraud_bool                        0.0018884096 -1.064448e-03
+income                           -0.0350306437 -7.120548e-03
+name_email_similarity             0.0050034674  2.884821e-03
+prev_address_months_count        -0.0073966883 -3.740287e-03
+current_address_months_count      0.0246576503 -1.446187e-03
+customer_age                     -0.0067626940  7.685074e-04
+days_since_request                0.0186151921 -2.851206e-04
+intended_balcon_amount            0.0582468175 -6.764696e-03
+payment_type                      0.0097693804  1.500287e-03
+zip_count_4w                     -0.0019909430 -1.595696e-02
+velocity_6h                      -0.0012876926  4.611732e-03
+velocity_24h                     -0.0015565460  1.299015e-02
+velocity_4w                       0.1142351232  7.004598e-01
+bank_branch_count_8w              0.0074661670 -8.795816e-04
+date_of_birth_distinct_emails_4w  0.0463129086  1.636271e-03
+employment_status                 0.0184645924  2.861348e-05
+credit_risk_score                 0.7145601384 -1.973789e-02
+email_is_free                    -0.0011562740  1.002797e-02
+housing_status                   -0.0106662084  1.578503e-03
+phone_home_valid                  0.0272296114 -2.682866e-03
+phone_mobile_valid               -0.0096679883 -5.428082e-03
+bank_months_count                 0.0182951161 -4.030104e-03
+has_other_cards                  -0.0439729535  7.469826e-03
+proposed_credit_limit            -0.6776151626  1.897131e-02
+foreign_request                   0.0002710839 -1.826130e-03
+session_length_in_minutes         0.0057987399  1.695984e-04
+keep_alive_session               -0.0026419830  1.054699e-03
+device_distinct_emails_8w         0.0117774689  3.603583e-03
+month                            -0.0737944832  7.126039e-01</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Importance of components:
+                          PC1     PC2     PC3     PC4     PC5     PC6     PC7
+Standard deviation     1.7578 1.47072 1.35225 1.27346 1.14555 1.08358 1.05515
+Proportion of Variance 0.1066 0.07459 0.06305 0.05592 0.04525 0.04049 0.03839
+Cumulative Proportion  0.1066 0.18113 0.24419 0.30011 0.34536 0.38585 0.42424
+                           PC8     PC9    PC10    PC11   PC12    PC13    PC14
+Standard deviation     1.03179 1.01797 1.00423 0.99273 0.9827 0.96469 0.96368
+Proportion of Variance 0.03671 0.03573 0.03478 0.03398 0.0333 0.03209 0.03202
+Cumulative Proportion  0.46095 0.49668 0.53146 0.56544 0.5987 0.63083 0.66286
+                         PC15    PC16    PC17    PC18    PC19    PC20    PC21
+Standard deviation     0.9558 0.95050 0.94495 0.91369 0.89968 0.88299 0.87039
+Proportion of Variance 0.0315 0.03115 0.03079 0.02879 0.02791 0.02688 0.02612
+Cumulative Proportion  0.6944 0.72551 0.75630 0.78509 0.81300 0.83989 0.86601
+                          PC22    PC23    PC24    PC25    PC26    PC27    PC28
+Standard deviation     0.82670 0.81207 0.79920 0.70193 0.68649 0.66008 0.59440
+Proportion of Variance 0.02357 0.02274 0.02202 0.01699 0.01625 0.01502 0.01218
+Cumulative Proportion  0.88957 0.91231 0.93434 0.95133 0.96758 0.98261 0.99479
+                          PC29
+Standard deviation     0.38877
+Proportion of Variance 0.00521
+Cumulative Proportion  1.00000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pcaCharts</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "proportions of variance:"
+ [1] 0.106547268 0.074587224 0.063054872 0.055920318 0.045251397 0.040488077
+ [7] 0.038391122 0.036710248 0.035733040 0.034775215 0.033982961 0.033301258
+[13] 0.032090829 0.032023270 0.031500312 0.031153546 0.030790687 0.028787277
+[19] 0.027911288 0.026884947 0.026123208 0.023566469 0.022740144 0.022024876
+[25] 0.016990001 0.016250744 0.015024443 0.012183038 0.005211922</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="code_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Printing the covariance matrix of the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>covariancematrix <span class="ot">&lt;-</span> <span class="fu">cov</span>(bankfraud_data)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>covariancematrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                    fraud_bool        income
+fraud_bool                        0.0109073721  1.366932e-03
+income                            0.0013669316  8.429883e-02
+name_email_similarity            -0.0011087759 -3.233486e-03
+prev_address_months_count        -0.1197442062  2.328700e-01
+current_address_months_count      0.3111647260 -9.493285e-01
+customer_age                      0.0790732158  4.393214e-01
+days_since_request                0.0003188508 -2.480918e-02
+intended_balcon_amount           -0.0518307234  3.469197e-01
+payment_type                      0.0028572713 -4.018542e-03
+zip_count_4w                      0.5472539388 -2.352198e+01
+velocity_6h                      -5.3091801846 -8.425633e+01
+velocity_24h                     -1.7276192143 -4.349283e+01
+velocity_4w                      -1.1081931640 -2.839827e+01
+bank_branch_count_8w             -0.5557013883  9.973299e-01
+date_of_birth_distinct_emails_4w -0.0227236095 -9.112358e-02
+employment_status                -0.0028989368 -3.799225e-02
+credit_risk_score                 0.5139602707  3.468656e+00
+email_is_free                     0.0014468888 -3.608324e-03
+housing_status                   -0.0103317851 -5.506618e-02
+phone_home_valid                 -0.0018089440  3.570111e-03
+phone_mobile_valid               -0.0004312370  1.362531e-03
+bank_months_count                -0.0040776769 -1.588042e-02
+has_other_cards                  -0.0015283362  1.049764e-02
+proposed_credit_limit             3.5087227194  1.541125e+01
+foreign_request                   0.0002766063  5.215382e-04
+session_length_in_minutes         0.0075502358 -1.292821e-01
+keep_alive_session               -0.0025951511 -6.251845e-03
+device_distinct_emails_8w         0.0006740376 -5.243824e-04
+month                             0.0030582175  7.473929e-02
+                                 name_email_similarity
+fraud_bool                               -0.0011087759
+income                                   -0.0032334856
+name_email_similarity                     0.0835931500
+prev_address_months_count                -0.2315998230
+current_address_months_count              1.2858117413
+customer_age                             -0.1700309655
+days_since_request                       -0.0120372358
+intended_balcon_amount                    0.1699045296
+payment_type                             -0.0004075743
+zip_count_4w                              7.3000461805
+velocity_6h                              21.6486204437
+velocity_24h                             15.0632330117
+velocity_4w                              10.6294001738
+bank_branch_count_8w                     -0.1952991302
+date_of_birth_distinct_emails_4w          0.0334658996
+employment_status                        -0.0094618840
+credit_risk_score                         0.9897253389
+email_is_free                            -0.0096535549
+housing_status                            0.0191791447
+phone_home_valid                         -0.0004178997
+phone_mobile_valid                        0.0008121910
+bank_months_count                        -0.0222482954
+has_other_cards                           0.0013263249
+proposed_credit_limit                    10.3128766265
+foreign_request                          -0.0006904197
+session_length_in_minutes                 0.0139306238
+keep_alive_session                        0.0020486599
+device_distinct_emails_8w                -0.0009304630
+month                                    -0.0274430270
+                                 prev_address_months_count
+fraud_bool                                   -1.197442e-01
+income                                        2.328700e-01
+name_email_similarity                        -2.315998e-01
+prev_address_months_count                     1.940070e+03
+current_address_months_count                 -1.058111e+03
+customer_age                                 -3.664275e+01
+days_since_request                            1.851532e+01
+intended_balcon_amount                       -8.403027e+00
+payment_type                                  1.309734e+00
+zip_count_4w                                 -1.312461e+03
+velocity_6h                                  -1.676226e+02
+velocity_24h                                  5.876968e+02
+velocity_4w                                   2.193157e+02
+bank_branch_count_8w                         -8.224966e+02
+date_of_birth_distinct_emails_4w              1.320553e+01
+employment_status                            -1.033480e+00
+credit_risk_score                            -4.942634e+01
+email_is_free                                -3.154164e-01
+housing_status                                2.426348e-01
+phone_home_valid                             -1.158728e+00
+phone_mobile_valid                            6.564836e-02
+bank_months_count                            -2.430998e+01
+has_other_cards                              -7.874388e-01
+proposed_credit_limit                        -6.114941e+02
+foreign_request                               1.329470e-01
+session_length_in_minutes                     1.819558e+01
+keep_alive_session                            6.892150e-01
+device_distinct_emails_8w                     9.493468e-02
+month                                        -1.744871e-01
+                                 current_address_months_count  customer_age
+fraud_bool                                       3.111647e-01  7.907322e-02
+income                                          -9.493285e-01  4.393214e-01
+name_email_similarity                            1.285812e+00 -1.700310e-01
+prev_address_months_count                       -1.058111e+03 -3.664275e+01
+current_address_months_count                     7.815727e+03  1.518864e+02
+customer_age                                     1.518864e+02  1.446198e+02
+days_since_request                              -2.751793e+01 -2.329856e+00
+intended_balcon_amount                           1.030489e+02 -3.163570e+00
+payment_type                                    -4.989487e+00 -3.169560e-01
+zip_count_4w                                     4.202890e+03 -1.713893e+02
+velocity_6h                                      7.318473e+03 -7.984627e+02
+velocity_24h                                     2.452365e+03 -1.784216e+02
+velocity_4w                                      2.128351e+03 -4.759500e+01
+bank_branch_count_8w                             2.202428e+03  2.675929e+02
+date_of_birth_distinct_emails_4w                -7.775114e+01 -2.543531e+01
+employment_status                                1.986840e+00  1.364789e+00
+credit_risk_score                                5.850868e+02  1.391833e+02
+email_is_free                                   -3.508705e+00 -2.141847e-03
+housing_status                                  -4.614365e-02 -5.534150e+00
+phone_home_valid                                 5.627689e+00  1.261311e+00
+phone_mobile_valid                              -2.444778e+00 -5.542065e-01
+bank_months_count                                7.712418e+01  1.880726e+00
+has_other_cards                                  2.234899e+00  5.443400e-01
+proposed_credit_limit                            5.629066e+03  8.727931e+02
+foreign_request                                 -1.713271e-01 -3.029760e-03
+session_length_in_minutes                       -2.384373e+01  2.419803e+00
+keep_alive_session                              -2.207385e+00 -1.442038e-01
+device_distinct_emails_8w                       -1.215003e-02  5.588562e-02
+month                                           -4.794749e+00  1.513387e-01
+                                 days_since_request intended_balcon_amount
+fraud_bool                             3.188508e-04          -5.183072e-02
+income                                -2.480918e-02           3.469197e-01
+name_email_similarity                 -1.203724e-02           1.699045e-01
+prev_address_months_count              1.851532e+01          -8.403027e+00
+current_address_months_count          -2.751793e+01           1.030489e+02
+customer_age                          -2.329856e+00          -3.163570e+00
+days_since_request                     2.896414e+01           2.154408e+00
+intended_balcon_amount                 2.154408e+00           4.095020e+02
+payment_type                          -2.322266e-02          -1.048686e+01
+zip_count_4w                           1.344610e+00           4.580428e+01
+velocity_6h                            4.529659e+02           2.609439e+03
+velocity_24h                           1.900209e+02           1.918132e+03
+velocity_4w                            8.765115e+01           9.568929e+02
+bank_branch_count_8w                  -4.495279e+01           9.572543e+02
+date_of_birth_distinct_emails_4w       5.074366e-01          -2.785322e+00
+employment_status                     -1.336278e-02          -9.481968e-01
+credit_risk_score                     -3.305420e+01           2.901426e+00
+email_is_free                          2.192619e-02          -1.490115e-01
+housing_status                         1.666228e-01           2.404347e+00
+phone_home_valid                      -1.114766e-01           1.864412e-04
+phone_mobile_valid                     8.649997e-03           2.448779e-01
+bank_months_count                     -1.790700e+00           4.373708e+01
+has_other_cards                       -1.094588e-01           8.143294e-01
+proposed_credit_limit                 -1.801880e+02           5.708634e+02
+foreign_request                        8.997713e-04           2.517966e-02
+session_length_in_minutes              2.144897e+00           3.708061e+00
+keep_alive_session                     8.963941e-04          -2.068425e-01
+device_distinct_emails_8w              8.779573e-03          -7.282768e-02
+month                                 -2.133472e-01          -1.926162e+00
+                                  payment_type  zip_count_4w   velocity_6h
+fraud_bool                        2.857271e-03  5.472539e-01 -5.309180e+00
+income                           -4.018542e-03 -2.352198e+01 -8.425633e+01
+name_email_similarity            -4.075743e-04  7.300046e+00  2.164862e+01
+prev_address_months_count         1.309734e+00 -1.312461e+03 -1.676226e+02
+current_address_months_count     -4.989487e+00  4.202890e+03  7.318473e+03
+customer_age                     -3.169560e-01 -1.713893e+02 -7.984627e+02
+days_since_request               -2.322266e-02  1.344610e+00  4.529659e+02
+intended_balcon_amount           -1.048686e+01  4.580428e+01  2.609439e+03
+payment_type                      9.342774e-01  6.804531e+00 -9.095304e+01
+zip_count_4w                      6.804531e+00  1.010778e+06  4.307552e+05
+velocity_6h                      -9.095304e+01  4.307552e+05  9.056372e+06
+velocity_24h                     -4.006685e+01  2.991964e+05  2.065515e+06
+velocity_4w                       4.115590e+00  2.801695e+05  1.107968e+06
+bank_branch_count_8w             -6.872783e+01  2.753292e+03  2.785802e+04
+date_of_birth_distinct_emails_4w  3.103773e-01  6.421471e+02  1.798931e+03
+employment_status                -4.123123e-04  2.339489e+01  1.359762e+02
+credit_risk_score                 1.821109e+00 -7.190942e+03 -3.045962e+04
+email_is_free                     9.913109e-03  1.090446e+01  4.262454e+01
+housing_status                   -7.348702e-02  4.935685e+01  3.083484e+02
+phone_home_valid                 -2.285929e-02 -1.767823e+01 -5.463506e+01
+phone_mobile_valid               -1.223380e-02  3.818258e+00 -1.013659e+01
+bank_months_count                -3.412211e+00  6.534074e+02  5.423813e+02
+has_other_cards                  -5.503422e-02 -6.283545e+00 -8.830555e+00
+proposed_credit_limit            -1.972720e+00 -5.711001e+03 -3.668913e+04
+foreign_request                   1.006694e-03  2.714377e+00 -2.125034e-01
+session_length_in_minutes        -4.532529e-02  3.205199e+02  1.317309e+03
+keep_alive_session                8.882873e-03  1.106799e+01  4.158868e+00
+device_distinct_emails_8w         3.885973e-03  3.734547e+00  1.633554e+01
+month                            -2.357918e-02 -6.381275e+02 -2.721123e+03
+                                  velocity_24h   velocity_4w
+fraud_bool                       -1.727619e+00 -1.108193e+00
+income                           -4.349283e+01 -2.839827e+01
+name_email_similarity             1.506323e+01  1.062940e+01
+prev_address_months_count         5.876968e+02  2.193157e+02
+current_address_months_count      2.452365e+03  2.128351e+03
+customer_age                     -1.784216e+02 -4.759500e+01
+days_since_request                1.900209e+02  8.765115e+01
+intended_balcon_amount            1.918132e+03  9.568929e+02
+payment_type                     -4.006685e+01  4.115590e+00
+zip_count_4w                      2.991964e+05  2.801695e+05
+velocity_6h                       2.065515e+06  1.107968e+06
+velocity_24h                      2.188070e+06  7.335436e+05
+velocity_4w                       7.335436e+05  8.461129e+05
+bank_branch_count_8w              2.451807e+04  1.321935e+04
+date_of_birth_distinct_emails_4w  1.157369e+03  1.122225e+03
+employment_status                 6.272897e+01  3.890815e+01
+credit_risk_score                -1.512817e+04 -1.081728e+04
+email_is_free                     2.476418e+01  2.429017e+01
+housing_status                    1.292359e+02  6.733624e+01
+phone_home_valid                 -3.843690e+01 -2.592958e+01
+phone_mobile_valid               -1.363978e+01 -7.855361e+00
+bank_months_count                 3.379495e+02  3.604927e+02
+has_other_cards                  -1.889547e+01 -1.850980e+01
+proposed_credit_limit             1.278342e+04  2.351829e+04
+foreign_request                   3.577589e+00  2.999042e+00
+session_length_in_minutes         7.946567e+02  5.837808e+02
+keep_alive_session               -4.143201e-01  1.016799e+01
+device_distinct_emails_8w         9.353315e+00  7.036593e+00
+month                            -1.797714e+03 -1.724060e+03
+                                 bank_branch_count_8w
+fraud_bool                              -5.557014e-01
+income                                   9.973299e-01
+name_email_similarity                   -1.952991e-01
+prev_address_months_count               -8.224966e+02
+current_address_months_count             2.202428e+03
+customer_age                             2.675929e+02
+days_since_request                      -4.495279e+01
+intended_balcon_amount                   9.572543e+02
+payment_type                            -6.872783e+01
+zip_count_4w                             2.753292e+03
+velocity_6h                              2.785802e+04
+velocity_24h                             2.451807e+04
+velocity_4w                              1.321935e+04
+bank_branch_count_8w                     2.112554e+05
+date_of_birth_distinct_emails_4w        -8.549465e+01
+employment_status                        9.652937e+00
+credit_risk_score                       -4.666134e+02
+email_is_free                           -1.156612e+00
+housing_status                           5.057529e+00
+phone_home_valid                         1.182483e+01
+phone_mobile_valid                      -1.679817e+00
+bank_months_count                        7.943107e+02
+has_other_cards                          7.780066e+00
+proposed_credit_limit                    2.033018e+03
+foreign_request                         -1.572799e-01
+session_length_in_minutes                1.804546e+01
+keep_alive_session                      -3.262210e-01
+device_distinct_emails_8w                3.071641e-01
+month                                   -2.964254e+01
+                                 date_of_birth_distinct_emails_4w
+fraud_bool                                          -2.272361e-02
+income                                              -9.112358e-02
+name_email_similarity                                3.346590e-02
+prev_address_months_count                            1.320553e+01
+current_address_months_count                        -7.775114e+01
+customer_age                                        -2.543531e+01
+days_since_request                                   5.074366e-01
+intended_balcon_amount                              -2.785322e+00
+payment_type                                         3.103773e-01
+zip_count_4w                                         6.421471e+02
+velocity_6h                                          1.798931e+03
+velocity_24h                                         1.157369e+03
+velocity_4w                                          1.122225e+03
+bank_branch_count_8w                                -8.549465e+01
+date_of_birth_distinct_emails_4w                     2.533906e+01
+employment_status                                   -3.697127e-01
+credit_risk_score                                   -4.817307e+01
+email_is_free                                        1.193982e-01
+housing_status                                       1.092500e+00
+phone_home_valid                                    -4.133890e-01
+phone_mobile_valid                                   1.472431e-01
+bank_months_count                                   -5.496495e-01
+has_other_cards                                     -1.053544e-01
+proposed_credit_limit                               -1.099759e+02
+foreign_request                                      2.154156e-02
+session_length_in_minutes                           -1.209405e+00
+keep_alive_session                                   9.327689e-02
+device_distinct_emails_8w                           -7.591905e-03
+month                                               -2.723079e+00
+                                 employment_status credit_risk_score
+fraud_bool                           -2.898937e-03      5.139603e-01
+income                               -3.799225e-02      3.468656e+00
+name_email_similarity                -9.461884e-03      9.897253e-01
+prev_address_months_count            -1.033480e+00     -4.942634e+01
+current_address_months_count          1.986840e+00      5.850868e+02
+customer_age                          1.364789e+00      1.391833e+02
+days_since_request                   -1.336278e-02     -3.305420e+01
+intended_balcon_amount               -9.481968e-01      2.901426e+00
+payment_type                         -4.123123e-04      1.821109e+00
+zip_count_4w                          2.339489e+01     -7.190942e+03
+velocity_6h                           1.359762e+02     -3.045962e+04
+velocity_24h                          6.272897e+01     -1.512817e+04
+velocity_4w                           3.890815e+01     -1.081728e+04
+bank_branch_count_8w                  9.652937e+00     -4.666134e+02
+date_of_birth_distinct_emails_4w     -3.697127e-01     -4.817307e+01
+employment_status                     1.639780e+00     -1.112970e+01
+credit_risk_score                    -1.112970e+01      4.855555e+03
+email_is_free                         5.217307e-03     -1.261561e+00
+housing_status                       -5.651168e-02     -1.897447e+01
+phone_home_valid                      5.158080e-02      1.805839e-01
+phone_mobile_valid                   -2.873005e-02      9.094217e-02
+bank_months_count                    -3.625214e-02     -5.159254e+01
+has_other_cards                       1.561596e-03      4.045803e+00
+proposed_credit_limit                -6.343903e+01      2.059308e+04
+foreign_request                      -1.615653e-03      1.777828e-01
+session_length_in_minutes             2.302462e-01     -1.927267e+01
+keep_alive_session                   -5.043142e-03     -1.071854e+00
+device_distinct_emails_8w             2.989070e-03     -5.162580e-01
+month                                -1.001209e-01      2.708692e+01
+                                 email_is_free housing_status phone_home_valid
+fraud_bool                        0.0014468888  -1.033179e-02    -1.808944e-03
+income                           -0.0036083243  -5.506618e-02     3.570111e-03
+name_email_similarity            -0.0096535549   1.917914e-02    -4.178997e-04
+prev_address_months_count        -0.3154164387   2.426348e-01    -1.158728e+00
+current_address_months_count     -3.5087050019  -4.614365e-02     5.627689e+00
+customer_age                     -0.0021418470  -5.534150e+00     1.261311e+00
+days_since_request                0.0219261889   1.666228e-01    -1.114766e-01
+intended_balcon_amount           -0.1490114959   2.404347e+00     1.864412e-04
+payment_type                      0.0099131093  -7.348702e-02    -2.285929e-02
+zip_count_4w                     10.9044598280   4.935685e+01    -1.767823e+01
+velocity_6h                      42.6245359686   3.083484e+02    -5.463506e+01
+velocity_24h                     24.7641826570   1.292359e+02    -3.843690e+01
+velocity_4w                      24.2901744253   6.733624e+01    -2.592958e+01
+bank_branch_count_8w             -1.1566118758   5.057529e+00     1.182483e+01
+date_of_birth_distinct_emails_4w  0.1193982034   1.092500e+00    -4.133890e-01
+employment_status                 0.0052173066  -5.651168e-02     5.158080e-02
+credit_risk_score                -1.2615607977  -1.897447e+01     1.805839e-01
+email_is_free                     0.2491070761   7.441372e-03    -3.520267e-03
+housing_status                    0.0074413724   1.608581e+00    -4.532997e-02
+phone_home_valid                 -0.0035202667  -4.532997e-02     2.431240e-01
+phone_mobile_valid                0.0049631480   3.259397e-02    -4.207844e-02
+bank_months_count                 0.0435881341   9.316627e-01     3.186183e-01
+has_other_cards                  -0.0066602260  -4.035801e-02     2.187686e-02
+proposed_credit_limit            -5.1703534552  -1.165479e+02     1.528700e+00
+foreign_request                   0.0022586198  -4.756472e-04    -2.348579e-04
+session_length_in_minutes         0.1653887077   5.537689e-03    -1.740363e-01
+keep_alive_session               -0.0056541437   2.303225e-02     1.017169e-02
+device_distinct_emails_8w         0.0001767277  -3.078642e-03     4.724864e-04
+month                            -0.0711903824  -1.678470e-01     6.281278e-02
+                                 phone_mobile_valid bank_months_count
+fraud_bool                            -4.312370e-04     -4.077677e-03
+income                                 1.362531e-03     -1.588042e-02
+name_email_similarity                  8.121910e-04     -2.224830e-02
+prev_address_months_count              6.564836e-02     -2.430998e+01
+current_address_months_count          -2.444778e+00      7.712418e+01
+customer_age                          -5.542065e-01      1.880726e+00
+days_since_request                     8.649997e-03     -1.790700e+00
+intended_balcon_amount                 2.448779e-01      4.373708e+01
+payment_type                          -1.223380e-02     -3.412211e+00
+zip_count_4w                           3.818258e+00      6.534074e+02
+velocity_6h                           -1.013659e+01      5.423813e+02
+velocity_24h                          -1.363978e+01      3.379495e+02
+velocity_4w                           -7.855361e+00      3.604927e+02
+bank_branch_count_8w                  -1.679817e+00      7.943107e+02
+date_of_birth_distinct_emails_4w       1.472431e-01     -5.496495e-01
+employment_status                     -2.873005e-02     -3.625214e-02
+credit_risk_score                      9.094217e-02     -5.159254e+01
+email_is_free                          4.963148e-03      4.358813e-02
+housing_status                         3.259397e-02      9.316627e-01
+phone_home_valid                      -4.207844e-02      3.186183e-01
+phone_mobile_valid                     9.815271e-02      2.179329e-02
+bank_months_count                      2.179329e-02      1.468186e+02
+has_other_cards                        6.869288e-04      2.863053e-02
+proposed_credit_limit                 -3.313006e+00     -1.398403e+02
+foreign_request                        1.347985e-04     -5.967692e-03
+session_length_in_minutes             -7.381283e-03      1.692414e+00
+keep_alive_session                     3.515104e-03      1.362967e-02
+device_distinct_emails_8w             -2.266749e-03      7.230691e-03
+month                                  2.330269e-02     -6.698506e-01
+                                 has_other_cards proposed_credit_limit
+fraud_bool                         -1.528336e-03          3.508723e+00
+income                              1.049764e-02          1.541125e+01
+name_email_similarity               1.326325e-03          1.031288e+01
+prev_address_months_count          -7.874388e-01         -6.114941e+02
+current_address_months_count        2.234899e+00          5.629066e+03
+customer_age                        5.443400e-01          8.727931e+02
+days_since_request                 -1.094588e-01         -1.801880e+02
+intended_balcon_amount              8.143294e-01          5.708634e+02
+payment_type                       -5.503422e-02         -1.972720e+00
+zip_count_4w                       -6.283545e+00         -5.711001e+03
+velocity_6h                        -8.830555e+00         -3.668913e+04
+velocity_24h                       -1.889547e+01          1.278342e+04
+velocity_4w                        -1.850980e+01          2.351829e+04
+bank_branch_count_8w                7.780066e+00          2.033018e+03
+date_of_birth_distinct_emails_4w   -1.053544e-01         -1.099759e+02
+employment_status                   1.561596e-03         -6.343903e+01
+credit_risk_score                   4.045803e+00          2.059308e+04
+email_is_free                      -6.660226e-03         -5.170353e+00
+housing_status                     -4.035801e-02         -1.165479e+02
+phone_home_valid                    2.187686e-02          1.528700e+00
+phone_mobile_valid                  6.869288e-04         -3.313006e+00
+bank_months_count                   2.863053e-02         -1.398403e+02
+has_other_cards                     1.732645e-01          1.953453e+01
+proposed_credit_limit               1.953453e+01          2.377147e+05
+foreign_request                     9.333700e-05          1.831441e+00
+session_length_in_minutes          -3.102697e-01         -6.456922e-01
+keep_alive_session                 -2.017428e-02         -5.287458e+00
+device_distinct_emails_8w          -2.134358e-03         -1.538115e+00
+month                               4.001820e-02         -6.105707e+01
+                                 foreign_request session_length_in_minutes
+fraud_bool                          0.0002766063              7.550236e-03
+income                              0.0005215382             -1.292821e-01
+name_email_similarity              -0.0006904197              1.393062e-02
+prev_address_months_count           0.1329470395              1.819558e+01
+current_address_months_count       -0.1713271101             -2.384373e+01
+customer_age                       -0.0030297604              2.419803e+00
+days_since_request                  0.0008997713              2.144897e+00
+intended_balcon_amount              0.0251796616              3.708061e+00
+payment_type                        0.0010066942             -4.532529e-02
+zip_count_4w                        2.7143770135              3.205199e+02
+velocity_6h                        -0.2125034139              1.317309e+03
+velocity_24h                        3.5775889536              7.946567e+02
+velocity_4w                         2.9990420085              5.837808e+02
+bank_branch_count_8w               -0.1572799497              1.804546e+01
+date_of_birth_distinct_emails_4w    0.0215415639             -1.209405e+00
+employment_status                  -0.0016156529              2.302462e-01
+credit_risk_score                   0.1777828208             -1.927267e+01
+email_is_free                       0.0022586198              1.653887e-01
+housing_status                     -0.0004756472              5.537689e-03
+phone_home_valid                   -0.0002348579             -1.740363e-01
+phone_mobile_valid                  0.0001347985             -7.381283e-03
+bank_months_count                  -0.0059676923              1.692414e+00
+has_other_cards                     0.0000933370             -3.102697e-01
+proposed_credit_limit               1.8314406370             -6.456922e-01
+foreign_request                     0.0246048660              1.574659e-02
+session_length_in_minutes           0.0157465879              6.453080e+01
+keep_alive_session                 -0.0011862974             -2.036382e-01
+device_distinct_emails_8w           0.0002577688              1.124974e-01
+month                              -0.0064167155             -1.412123e+00
+                                 keep_alive_session device_distinct_emails_8w
+fraud_bool                            -0.0025951511              0.0006740376
+income                                -0.0062518446             -0.0005243824
+name_email_similarity                  0.0020486599             -0.0009304630
+prev_address_months_count              0.6892150373              0.0949346777
+current_address_months_count          -2.2073853094             -0.0121500327
+customer_age                          -0.1442037830              0.0558856229
+days_since_request                     0.0008963941              0.0087795728
+intended_balcon_amount                -0.2068425347             -0.0728276815
+payment_type                           0.0088828731              0.0038859726
+zip_count_4w                          11.0679854736              3.7345469333
+velocity_6h                            4.1588681420             16.3355372366
+velocity_24h                          -0.4143200516              9.3533153741
+velocity_4w                           10.1679937394              7.0365931737
+bank_branch_count_8w                  -0.3262210212              0.3071641283
+date_of_birth_distinct_emails_4w       0.0932768931             -0.0075919053
+employment_status                     -0.0050431425              0.0029890696
+credit_risk_score                     -1.0718539383             -0.5162579799
+email_is_free                         -0.0056541437              0.0001767277
+housing_status                         0.0230322530             -0.0030786420
+phone_home_valid                       0.0101716863              0.0004724864
+phone_mobile_valid                     0.0035151043             -0.0022667492
+bank_months_count                      0.0136296657              0.0072306907
+has_other_cards                       -0.0201742778             -0.0021343584
+proposed_credit_limit                 -5.2874579539             -1.5381152332
+foreign_request                       -0.0011862974              0.0002577688
+session_length_in_minutes             -0.2036382364              0.1124973826
+keep_alive_session                     0.2440794033             -0.0031150566
+device_distinct_emails_8w             -0.0031150566              0.0326747033
+month                                 -0.0241036224             -0.0187732171
+                                         month
+fraud_bool                        3.058218e-03
+income                            7.473929e-02
+name_email_similarity            -2.744303e-02
+prev_address_months_count        -1.744871e-01
+current_address_months_count     -4.794749e+00
+customer_age                      1.513387e-01
+days_since_request               -2.133472e-01
+intended_balcon_amount           -1.926162e+00
+payment_type                     -2.357918e-02
+zip_count_4w                     -6.381275e+02
+velocity_6h                      -2.721123e+03
+velocity_24h                     -1.797714e+03
+velocity_4w                      -1.724060e+03
+bank_branch_count_8w             -2.964254e+01
+date_of_birth_distinct_emails_4w -2.723079e+00
+employment_status                -1.001209e-01
+credit_risk_score                 2.708692e+01
+email_is_free                    -7.119038e-02
+housing_status                   -1.678470e-01
+phone_home_valid                  6.281278e-02
+phone_mobile_valid                2.330269e-02
+bank_months_count                -6.698506e-01
+has_other_cards                   4.001820e-02
+proposed_credit_limit            -6.105707e+01
+foreign_request                  -6.416716e-03
+session_length_in_minutes        -1.412123e+00
+keep_alive_session               -2.410362e-02
+device_distinct_emails_8w        -1.877322e-02
+month                             4.884074e+00</code></pre>
+</div>
+</div>
+<p>Shows the data points based on their fraud classification status on a biplot showing how much each feature contributes to the first 2 principal components.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- ggplot2 [3.5.1]
+These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing ggplot2 ...                        OK [linked from cache]
+Successfully installed 1 package in 5.7 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggfortify"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- ggfortify [0.4.17]
+- gridExtra [2.3]
+These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing gridExtra ...                      OK [linked from cache]
+- Installing ggfortify ...                      OK [linked from cache]
+Successfully installed 2 packages in 12 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(bankfraud_data_pca, <span class="at">data =</span> bankfraud_data, <span class="at">colour =</span> <span class="st">'fraud_bool'</span>, <span class="at">loadings =</span> <span class="cn">TRUE</span>, <span class="at">loadings.label =</span> <span class="cn">TRUE</span>, <span class="at">loadings.label.size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="code_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Setting an absolute threshold of 0.5 for selecting the impact of features on the principal components.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>pca_loadings <span class="ot">&lt;-</span> bankfraud_data_pca<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">24</span>]</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>threshold <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">1</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">2</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">3</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">4</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">5</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">6</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">7</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">8</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">9</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">10</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">11</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">12</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">13</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">14</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">15</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-19"><a href="#cb65-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">16</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-20"><a href="#cb65-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">17</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-21"><a href="#cb65-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">18</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-22"><a href="#cb65-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">19</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-23"><a href="#cb65-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">20</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-24"><a href="#cb65-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">21</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-25"><a href="#cb65-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">22</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-26"><a href="#cb65-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">23</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb65-27"><a href="#cb65-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">24</span>]) <span class="sc">&gt;</span> threshold]))</span>
+<span id="cb65-28"><a href="#cb65-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-29"><a href="#cb65-29" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(selected_features)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "payment_type"                 "keep_alive_session"          
+ [3] "foreign_request"              "days_since_request"          
+ [5] "email_is_free"                "fraud_bool"                  
+ [7] "bank_branch_count_8w"         "zip_count_4w"                
+ [9] "name_email_similarity"        "bank_months_count"           
+[11] "housing_status"               "velocity_6h"                 
+[13] "phone_home_valid"             "current_address_months_count"</code></pre>
+</div>
+</div>
+<p>Prting the rotation matrix of the PCA that indicates the magnitude and direction of contribution of a feature to various principal components.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data_pca<span class="sc">$</span>rotation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                         PC1         PC2          PC3
+fraud_bool                       -0.03842944  0.07672758 -0.107908154
+income                           -0.15520644  0.11390336 -0.031811519
+name_email_similarity             0.03333035  0.03899807  0.011866528
+prev_address_months_count         0.02479258 -0.15967003 -0.069795042
+current_address_months_count     -0.03449484  0.29402957  0.073430919
+customer_age                     -0.14129728  0.40519320 -0.124979025
+days_since_request                0.04573274 -0.09592864  0.016147946
+intended_balcon_amount            0.04084960  0.17397466  0.496984292
+payment_type                     -0.01115249 -0.18132570 -0.559305155
+zip_count_4w                      0.23576899  0.08528787 -0.039109783
+velocity_6h                       0.33944295  0.13518279 -0.029022124
+velocity_24h                      0.39917180  0.18033820 -0.061339696
+velocity_4w                       0.46272915  0.20364232 -0.111593344
+bank_branch_count_8w              0.01795161  0.13409549  0.233962303
+date_of_birth_distinct_emails_4w  0.24981534 -0.24022709 -0.025166515
+employment_status                 0.03573274  0.02975314  0.003736022
+credit_risk_score                -0.24129071  0.28207023 -0.192779555
+email_is_free                     0.05641908 -0.03478419 -0.039120894
+housing_status                    0.15983005 -0.26175313  0.255395209
+phone_home_valid                 -0.09660976  0.21423504  0.048325645
+phone_mobile_valid                0.02176043 -0.17565335  0.087365890
+bank_months_count                 0.03807690  0.11342176  0.381975638
+has_other_cards                  -0.08493380  0.20327599  0.110067953
+proposed_credit_limit            -0.09619083  0.35742375 -0.193604372
+foreign_request                   0.01398540  0.01109113 -0.027316791
+session_length_in_minutes         0.07521818  0.01627488 -0.025392543
+keep_alive_session                0.03035179 -0.07329344 -0.006993124
+device_distinct_emails_8w         0.03832726  0.02260270 -0.051030209
+month                            -0.46527486 -0.20193237  0.117618145
+                                          PC4         PC5          PC6
+fraud_bool                        0.043984902 -0.12594714  0.412836550
+income                            0.186847942 -0.23344645 -0.132833373
+name_email_similarity             0.126830051  0.29329375 -0.110672259
+prev_address_months_count         0.099221654 -0.44490342 -0.378987533
+current_address_months_count     -0.116102680  0.43669563  0.277317234
+customer_age                     -0.247647936 -0.20813116 -0.006701287
+days_since_request               -0.037258582 -0.25844165 -0.019886489
+intended_balcon_amount            0.186574669 -0.15853094 -0.041907802
+payment_type                     -0.097296444  0.15744170  0.032790377
+zip_count_4w                     -0.004389815  0.08627221  0.094717019
+velocity_6h                      -0.021995847 -0.02260727 -0.049170301
+velocity_24h                      0.012292423 -0.04565523 -0.054671273
+velocity_4w                       0.038300787 -0.02571064 -0.050581630
+bank_branch_count_8w             -0.038738222 -0.03384854  0.020027439
+date_of_birth_distinct_emails_4w  0.269973723  0.10272568 -0.108255299
+employment_status                -0.355249744 -0.03352270 -0.028428582
+credit_risk_score                 0.406828771  0.05488779 -0.019054145
+email_is_free                    -0.008782600 -0.19990540  0.221497341
+housing_status                    0.045291527  0.26555028  0.053239651
+phone_home_valid                 -0.360614393  0.08887972 -0.312228132
+phone_mobile_valid                0.335459084 -0.02119463  0.225678774
+bank_months_count                -0.017510525 -0.04064173  0.114513304
+has_other_cards                   0.094134447  0.04204606 -0.239928502
+proposed_credit_limit             0.421091922  0.06511476 -0.014384973
+foreign_request                   0.055956860 -0.10073033  0.057581027
+session_length_in_minutes        -0.046418629 -0.30034355  0.316705444
+keep_alive_session               -0.026472583  0.10835915 -0.327945967
+device_distinct_emails_8w        -0.101089751 -0.17116611  0.246331941
+month                            -0.033651108  0.02306697  0.050911598
+                                          PC7           PC8          PC9
+fraud_bool                       -0.073171754 -0.1328394779 -0.046002032
+income                           -0.236656068  0.0159208425 -0.004092716
+name_email_similarity             0.440099887  0.1710058641 -0.019088207
+prev_address_months_count         0.213515898  0.0008001263 -0.094118311
+current_address_months_count      0.075432658  0.0591172677  0.008785619
+customer_age                     -0.025026681 -0.0459407166  0.225396135
+days_since_request                0.252300792  0.1887029558  0.137520966
+intended_balcon_amount            0.084245122  0.0646489938  0.007219072
+payment_type                     -0.027420275 -0.0130658300 -0.034069279
+zip_count_4w                     -0.074049709 -0.1332091846  0.023616262
+velocity_6h                      -0.014417597  0.1445432909  0.092414368
+velocity_24h                     -0.004828865  0.0749803969  0.054721104
+velocity_4w                      -0.035666593 -0.0366460066  0.017362541
+bank_branch_count_8w             -0.029853616 -0.2307194123 -0.027420867
+date_of_birth_distinct_emails_4w -0.156895346 -0.0398489004 -0.249159470
+employment_status                -0.049926167  0.1293920325  0.144478411
+credit_risk_score                 0.121131292 -0.0660373412 -0.055108226
+email_is_free                    -0.331821198 -0.2278182799 -0.109096331
+housing_status                    0.107432611  0.0461950933 -0.190752284
+phone_home_valid                  0.004055706 -0.0956579288 -0.310119502
+phone_mobile_valid               -0.154238275  0.0247360559  0.439932639
+bank_months_count                 0.002513238 -0.3128058518 -0.077102543
+has_other_cards                  -0.341479576  0.4351342718 -0.066548080
+proposed_credit_limit             0.165384176 -0.1041489511 -0.085429262
+foreign_request                  -0.117275839 -0.0917666726 -0.534235533
+session_length_in_minutes         0.446202069  0.0413878717 -0.033492849
+keep_alive_session                0.170072393 -0.6346068329  0.227176028
+device_distinct_emails_8w         0.198462433  0.1013186325 -0.352876189
+month                             0.036066642  0.0284237057 -0.012919326
+                                         PC10         PC11         PC12
+fraud_bool                        0.371060970  0.218680100  0.046786462
+income                            0.377164789 -0.013014047 -0.068703413
+name_email_similarity            -0.122726590 -0.014857666 -0.078067528
+prev_address_months_count        -0.027901145 -0.093348423 -0.030948590
+current_address_months_count      0.078353725  0.175073494 -0.010716986
+customer_age                     -0.034428212  0.024980931 -0.116487997
+days_since_request                0.161415105  0.571727015  0.104028287
+intended_balcon_amount           -0.006595793  0.128261021  0.054210795
+payment_type                      0.029962800 -0.048401055 -0.015428475
+zip_count_4w                      0.018678984 -0.025680235 -0.247843635
+velocity_6h                       0.037606456  0.049340789  0.060380594
+velocity_24h                      0.034846509  0.032398881  0.029459462
+velocity_4w                       0.031889690 -0.006209587 -0.007038322
+bank_branch_count_8w              0.007782354 -0.284355298 -0.090035094
+date_of_birth_distinct_emails_4w  0.051378366 -0.094027848  0.076714535
+employment_status                -0.393523016 -0.101670801 -0.175095822
+credit_risk_score                -0.137178264 -0.027991799  0.093991030
+email_is_free                    -0.427207012  0.073049673  0.528548169
+housing_status                   -0.002735075  0.074560198  0.151573746
+phone_home_valid                  0.022359923  0.054445593  0.191487496
+phone_mobile_valid               -0.149822329 -0.088851047 -0.298461451
+bank_months_count                 0.059123614 -0.128350230 -0.024712069
+has_other_cards                  -0.097156245 -0.103777213 -0.044092805
+proposed_credit_limit            -0.141695820 -0.013123169  0.119712280
+foreign_request                  -0.285048449  0.432749765 -0.597274423
+session_length_in_minutes        -0.292346728 -0.136352753  0.050932331
+keep_alive_session                0.028651750  0.079961203 -0.125758764
+device_distinct_emails_8w         0.288073564 -0.446817260 -0.136629985
+month                            -0.022964465  0.007684833 -0.009862938
+                                         PC13          PC14         PC15
+fraud_bool                       -0.615602556 -0.0412629699 -0.021996732
+income                            0.244248567 -0.0434929501 -0.062033340
+name_email_similarity            -0.042431202 -0.1884706954 -0.304758128
+prev_address_months_count        -0.250563235 -0.0342616160 -0.010342783
+current_address_months_count      0.114637141  0.0289995023  0.068567437
+customer_age                      0.108739401  0.0414462024 -0.028801049
+days_since_request                0.216494744 -0.2954702646 -0.242869987
+intended_balcon_amount           -0.070408056  0.2436127079  0.032869509
+payment_type                      0.102609459 -0.1711638013  0.009333432
+zip_count_4w                      0.007033292  0.0289185306 -0.667545481
+velocity_6h                       0.032540721  0.0361798861  0.320368769
+velocity_24h                      0.003544549  0.0040887557  0.210263369
+velocity_4w                       0.009081666 -0.0034945645 -0.022962367
+bank_branch_count_8w              0.083011863 -0.7694359176  0.218197627
+date_of_birth_distinct_emails_4w -0.115216425 -0.0817070160 -0.145738438
+employment_status                -0.465215735  0.0034364402 -0.025732713
+credit_risk_score                -0.059313209  0.0003616283  0.043130334
+email_is_free                     0.200830300  0.0319064307 -0.161519039
+housing_status                    0.023123341  0.0477244678  0.146672151
+phone_home_valid                  0.047719946  0.0276308057 -0.107040438
+phone_mobile_valid                0.158844751  0.0509778248  0.012326647
+bank_months_count                -0.066885113 -0.0931423751 -0.210003268
+has_other_cards                   0.024919151  0.0026073408 -0.189961924
+proposed_credit_limit            -0.086757479 -0.0015185804  0.032988607
+foreign_request                   0.093535547 -0.0082254709  0.169407205
+session_length_in_minutes         0.148118073 -0.0012546099 -0.033183172
+keep_alive_session                0.098330913  0.2724045577  0.043004554
+device_distinct_emails_8w         0.216039474  0.3011400888 -0.021421797
+month                            -0.011457619  0.0031546258  0.006459629
+                                         PC16         PC17         PC18
+fraud_bool                       -0.028882544  0.272729810  0.232440637
+income                            0.279203974  0.165533844 -0.463816122
+name_email_similarity             0.162813302  0.680479624 -0.081167835
+prev_address_months_count         0.067508379 -0.050110765  0.293109704
+current_address_months_count     -0.041363353 -0.140146092 -0.008426617
+customer_age                      0.073580449  0.105344524  0.094177453
+days_since_request               -0.445126985 -0.119217941 -0.097187721
+intended_balcon_amount           -0.005754482  0.036914568 -0.095009797
+payment_type                      0.033726871 -0.012127298  0.016215287
+zip_count_4w                      0.050060044 -0.235560316  0.206650326
+velocity_6h                       0.008568209  0.120601781  0.112736266
+velocity_24h                      0.030558736  0.067211268  0.025401819
+velocity_4w                       0.025974085 -0.016392865 -0.067296163
+bank_branch_count_8w             -0.193192948  0.043758306  0.119076522
+date_of_birth_distinct_emails_4w -0.108873986 -0.118186136 -0.251356491
+employment_status                -0.298450557 -0.005000713 -0.478689664
+credit_risk_score                -0.149938297 -0.128734291 -0.021117246
+email_is_free                    -0.109850782  0.345259900  0.010170635
+housing_status                   -0.008492386 -0.015085694  0.130466087
+phone_home_valid                  0.028461240  0.038730746  0.089458935
+phone_mobile_valid               -0.111641635  0.144394179  0.120558112
+bank_months_count                 0.127369150 -0.109648810 -0.122236758
+has_other_cards                  -0.204278967  0.027510539  0.404284070
+proposed_credit_limit            -0.183487409 -0.159562936 -0.091738143
+foreign_request                   0.040712119  0.076459561 -0.001168599
+session_length_in_minutes         0.305467701 -0.193044711  0.056575727
+keep_alive_session               -0.267094772  0.147698636  0.088029445
+device_distinct_emails_8w        -0.484978189  0.184206036 -0.039242092
+month                            -0.015730130  0.003418549  0.064616392
+                                          PC19          PC20         PC21
+fraud_bool                        0.2262467936 -0.1198638992 -0.002411954
+income                            0.2894129771 -0.0639687438 -0.390326609
+name_email_similarity            -0.0742206449  0.0002841838  0.058145714
+prev_address_months_count        -0.2303581520  0.0958437627 -0.380124227
+current_address_months_count     -0.0125567630  0.0221408170 -0.244976037
+customer_age                     -0.1215000541  0.0515011590  0.011825029
+days_since_request               -0.0495091929 -0.1298468838 -0.006060885
+intended_balcon_amount            0.1420790391  0.3160686873  0.077610697
+payment_type                     -0.0106294113 -0.1166329063 -0.148377771
+zip_count_4w                      0.0857533159  0.3089348749 -0.215428344
+velocity_6h                      -0.0670488939 -0.2300384090 -0.127782262
+velocity_24h                     -0.0552890024 -0.0523379400 -0.037636981
+velocity_4w                       0.0006157331  0.0402156300  0.043311533
+bank_branch_count_8w              0.1786036501  0.2112516226 -0.013255343
+date_of_birth_distinct_emails_4w  0.1667622069 -0.1411115591  0.255014955
+employment_status                 0.1380757888 -0.0587179534 -0.268948338
+credit_risk_score                -0.0328299337 -0.0353153772 -0.120155702
+email_is_free                    -0.0720950727  0.1013550796 -0.116932836
+housing_status                    0.1229263420 -0.0019301205 -0.555695944
+phone_home_valid                  0.1559804356 -0.1684423192 -0.109066916
+phone_mobile_valid               -0.0247423168 -0.1875683921 -0.186599931
+bank_months_count                -0.4771758736 -0.5639241119 -0.052640874
+has_other_cards                   0.2330460821 -0.3403572299  0.065594664
+proposed_credit_limit            -0.0402757909 -0.0106785964 -0.081029688
+foreign_request                  -0.0370962989 -0.0240125160  0.037257340
+session_length_in_minutes         0.4961481915 -0.2800678588  0.068649432
+keep_alive_session                0.2986707494 -0.1655891020  0.034833210
+device_distinct_emails_8w        -0.0917681712  0.0416830068 -0.023932033
+month                             0.0023381209 -0.0304763409 -0.053036237
+                                         PC22         PC23          PC24
+fraud_bool                       -0.054437956  0.024532656  0.0199272523
+income                            0.056069272 -0.099062106 -0.0343608737
+name_email_similarity             0.022315101 -0.028800377 -0.0277415460
+prev_address_months_count        -0.185404306 -0.118385305 -0.3723976519
+current_address_months_count     -0.216378453 -0.226295180 -0.6123943909
+customer_age                     -0.087490066 -0.045705564  0.1714516707
+days_since_request               -0.003674807  0.025432006  0.0507824708
+intended_balcon_amount           -0.020655636  0.035931903 -0.0425721889
+payment_type                     -0.042427775 -0.074285859  0.0460514668
+zip_count_4w                      0.348084961  0.117033469  0.0110074359
+velocity_6h                       0.589622650  0.189145241 -0.2095388221
+velocity_24h                      0.133914381  0.042360545  0.0338930348
+velocity_4w                      -0.348992707 -0.078331845  0.1229095438
+bank_branch_count_8w              0.032665368  0.006475261 -0.0242685252
+date_of_birth_distinct_emails_4w -0.024790062  0.103233902 -0.3032218802
+employment_status                 0.039527188 -0.024827094  0.0096082937
+credit_risk_score                 0.118641208  0.061603273  0.1088583183
+email_is_free                     0.032428197 -0.117367865 -0.1396206820
+housing_status                   -0.066788148 -0.104946761  0.4641489120
+phone_home_valid                 -0.217654619  0.643761629 -0.0386974372
+phone_mobile_valid               -0.314323847  0.453736086 -0.0830293636
+bank_months_count                 0.030928332 -0.124725823  0.0776692650
+has_other_cards                  -0.026821325 -0.330716898  0.0419943424
+proposed_credit_limit             0.014983410  0.089375585  0.1001694901
+foreign_request                   0.021048895 -0.014299453  0.0091210318
+session_length_in_minutes        -0.005418459 -0.042019703 -0.0610212567
+keep_alive_session                0.066339426 -0.232049115 -0.0573747531
+device_distinct_emails_8w         0.008535947  0.014986818  0.0006020702
+month                             0.343375903  0.086126233 -0.1226029626
+                                         PC25          PC26          PC27
+fraud_bool                        0.001983598  0.0033833845 -0.0026448061
+income                           -0.034030200  0.0450413628  0.0822426473
+name_email_similarity             0.013203117 -0.0190187374  0.0171888334
+prev_address_months_count         0.017126358 -0.0362274351  0.0131001849
+current_address_months_count     -0.015554650 -0.0637781170  0.0310802250
+customer_age                      0.372971990 -0.6220519152 -0.0638165164
+days_since_request               -0.002949377 -0.0035873676  0.0058623518
+intended_balcon_amount            0.019606780  0.0327010353 -0.6467387999
+payment_type                     -0.025083075  0.0547593207 -0.7231359886
+zip_count_4w                     -0.035341122  0.0078059752  0.0003627200
+velocity_6h                       0.405632831  0.1611661059 -0.0341701046
+velocity_24h                     -0.748322522 -0.3853998598 -0.0162874680
+velocity_4w                       0.134892862  0.2136908282  0.0554145699
+bank_branch_count_8w              0.011678802  0.0130479548 -0.0360177534
+date_of_birth_distinct_emails_4w  0.239581133 -0.5211899633 -0.0330733694
+employment_status                -0.017698622  0.0224549428 -0.0104016861
+credit_risk_score                -0.021759528 -0.0053034681  0.0530144084
+email_is_free                    -0.032290877  0.0153900636  0.0142160641
+housing_status                    0.171339636 -0.2424549312  0.0445126232
+phone_home_valid                 -0.063535794  0.0577024915 -0.0266143822
+phone_mobile_valid               -0.018886365 -0.0155013063 -0.0321042657
+bank_months_count                -0.035030611  0.0359715989 -0.1612324174
+has_other_cards                  -0.045928583  0.0485677190 -0.0566325800
+proposed_credit_limit             0.026110627  0.0274490403 -0.0015890519
+foreign_request                   0.003421711  0.0162755005  0.0112222528
+session_length_in_minutes        -0.008154602 -0.0164698113  0.0127458388
+keep_alive_session               -0.034993697  0.0118637284 -0.0009544421
+device_distinct_emails_8w        -0.007811266 -0.0001426478  0.0032143296
+month                            -0.124621626 -0.2023376840 -0.0570178545
+                                          PC28          PC29
+fraud_bool                        0.0018884096 -1.064448e-03
+income                           -0.0350306437 -7.120548e-03
+name_email_similarity             0.0050034674  2.884821e-03
+prev_address_months_count        -0.0073966883 -3.740287e-03
+current_address_months_count      0.0246576503 -1.446187e-03
+customer_age                     -0.0067626940  7.685074e-04
+days_since_request                0.0186151921 -2.851206e-04
+intended_balcon_amount            0.0582468175 -6.764696e-03
+payment_type                      0.0097693804  1.500287e-03
+zip_count_4w                     -0.0019909430 -1.595696e-02
+velocity_6h                      -0.0012876926  4.611732e-03
+velocity_24h                     -0.0015565460  1.299015e-02
+velocity_4w                       0.1142351232  7.004598e-01
+bank_branch_count_8w              0.0074661670 -8.795816e-04
+date_of_birth_distinct_emails_4w  0.0463129086  1.636271e-03
+employment_status                 0.0184645924  2.861348e-05
+credit_risk_score                 0.7145601384 -1.973789e-02
+email_is_free                    -0.0011562740  1.002797e-02
+housing_status                   -0.0106662084  1.578503e-03
+phone_home_valid                  0.0272296114 -2.682866e-03
+phone_mobile_valid               -0.0096679883 -5.428082e-03
+bank_months_count                 0.0182951161 -4.030104e-03
+has_other_cards                  -0.0439729535  7.469826e-03
+proposed_credit_limit            -0.6776151626  1.897131e-02
+foreign_request                   0.0002710839 -1.826130e-03
+session_length_in_minutes         0.0057987399  1.695984e-04
+keep_alive_session               -0.0026419830  1.054699e-03
+device_distinct_emails_8w         0.0117774689  3.603583e-03
+month                            -0.0737944832  7.126039e-01</code></pre>
+</div>
+</div>
+<p>Final dataset with most relevant features for predicting fraud.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="fu">c</span>(selected_features)]</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(fraud_bool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000,000 × 14
+   fraud_bool payment_type keep_alive_session foreign_request days_since_request
+        &lt;dbl&gt;        &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;              &lt;dbl&gt;
+ 1          0            1                  1               0            0.00674
+ 2          0            4                  1               0            0.0101 
+ 3          0            2                  0               0            0.0123 
+ 4          0            2                  1               0            0.00699
+ 5          0            1                  0               0            5.74   
+ 6          0            4                  1               0            0.0242 
+ 7          0            2                  1               0            0.00692
+ 8          0            2                  1               0            0.0451 
+ 9          0            2                  1               0            0.0352 
+10          0            4                  1               0            0.0172 
+# ℹ 999,990 more rows
+# ℹ 9 more variables: email_is_free &lt;dbl&gt;, bank_branch_count_8w &lt;dbl&gt;,
+#   zip_count_4w &lt;dbl&gt;, name_email_similarity &lt;dbl&gt;, bank_months_count &lt;dbl&gt;,
+#   housing_status &lt;dbl&gt;, velocity_6h &lt;dbl&gt;, phone_home_valid &lt;dbl&gt;,
+#   current_address_months_count &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000,000 × 14
+   payment_type keep_alive_session foreign_request days_since_request
+          &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;              &lt;dbl&gt;
+ 1            1                  1               0            0.00674
+ 2            4                  1               0            0.0101 
+ 3            2                  0               0            0.0123 
+ 4            2                  1               0            0.00699
+ 5            1                  0               0            5.74   
+ 6            4                  1               0            0.0242 
+ 7            2                  1               0            0.00692
+ 8            2                  1               0            0.0451 
+ 9            2                  1               0            0.0352 
+10            4                  1               0            0.0172 
+# ℹ 999,990 more rows
+# ℹ 10 more variables: email_is_free &lt;dbl&gt;, fraud_bool &lt;dbl&gt;,
+#   bank_branch_count_8w &lt;dbl&gt;, zip_count_4w &lt;dbl&gt;,
+#   name_email_similarity &lt;dbl&gt;, bank_months_count &lt;dbl&gt;, housing_status &lt;dbl&gt;,
+#   velocity_6h &lt;dbl&gt;, phone_home_valid &lt;dbl&gt;,
+#   current_address_months_count &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="feature-engineering" class="level1">
+<h1>Feature Engineering</h1>
 
 
 </section>

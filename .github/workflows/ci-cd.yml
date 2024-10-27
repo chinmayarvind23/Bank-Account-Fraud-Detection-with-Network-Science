@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       R_LIBS_USER: ${{ github.workspace }}/R/libs
-      AZURE_STORAGE_SAS_URL: ${{ secrets.AZURE_STORAGE_SAS_URL }}
 
     steps:
       - name: Checkout repository
@@ -67,15 +66,39 @@ jobs:
         with:
           version: '1.5.57'
 
-      - name: Render Quarto file
+      - name: Render Quarto site
         run: |
-          quarto render code/code.qmd --to html
+          quarto render
 
-      - name: Rename code.html to index.html
+      - name: Check for Data Updates
+        id: check_data
         run: |
-          mv _site/code.html _site/index.html
+          if [ -n "$(git status ./data --porcelain)" ]; then
+            echo "::set-output name=needs_upload::true"
+          else
+            echo "::set-output name=needs_upload::false"
+          fi
 
-      - name: Deploy to GitHub Pages
+      - name: Upload Updated Data to Azure Blob Storage
+        if: steps.check_data.outputs.needs_upload == 'true'
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az storage blob upload-batch \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
+              --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
+              --destination ${{ secrets.AZURE_CONTAINER_NAME }} \
+              --source ./data \
+              --overwrite
+
+      - name: Set up Git for Deployment
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions"
+          git add -A
+          git commit -m "Update site content" || echo "No changes to commit"
+
+      - name: Deploy Quarto Site to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
