@@ -30,7 +30,7 @@ This project uses data from the following Kaggle dataset: [https://www.kaggle.co
 
 ## Tech Stack
 
-R, Quarto, Azure Blob Storage, GitHub Pages
+R, Quarto, Azure Blob Storage, GitHub Pages/Vercel
 
 ## Network Definition
 
