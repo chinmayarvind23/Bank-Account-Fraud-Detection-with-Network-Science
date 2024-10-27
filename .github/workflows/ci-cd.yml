@@ -69,28 +69,12 @@ jobs:
 
       - name: Render Quarto site
         run: |
-          quarto render
+          quarto render code/code.qmd
 
-      - name: Check for Data Updates
-        id: check_data
+      - name: Move code.html to Root
         run: |
-          if [ -n "$(git status ./data --porcelain)" ]; then
-            echo "::set-output name=needs_upload::true"
-          else
-            echo "::set-output name=needs_upload::false"
-          fi
-
-      - name: Upload Updated Data to Azure Blob Storage
-        if: steps.check_data.outputs.needs_upload == 'true'
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az storage blob upload-batch \
-              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
-              --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
-              --destination ${{ secrets.AZURE_CONTAINER_NAME }} \
-              --source ./data \
-              --overwrite
+          mkdir -p _site/code
+          mv _site/code.html _site/code/code.html
 
       - name: Set up Git for Deployment
         run: |

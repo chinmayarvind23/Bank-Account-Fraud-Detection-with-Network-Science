@@ -4,5 +4,7 @@ project:
   output-dir: _site
 
 engine: "knitr"
-
+website:
+  navbar:
+    left: []
 editor: visual
