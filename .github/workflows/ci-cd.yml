@@ -69,12 +69,8 @@ jobs:
 
       - name: Render Quarto site
         run: |
-          quarto render code/code.qmd
+          quarto render
 
-      - name: Copy code.html to index.html
-        run: |
-            mv _site/code.html _site/index.html
-          
       - name: Check for Data Updates
         id: check_data
         run: |
