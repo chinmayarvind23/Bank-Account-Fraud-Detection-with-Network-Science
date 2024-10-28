@@ -47,7 +47,7 @@ library(tidyverse)
 # Data loading
 
 ```{r}
-load_dot_env(file = "/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env")
+load_dot_env(file = "C:/Users/dimdi/OneDrive/Documents/COSC 421/Project/Bank-Account-Fraud-Detection-with-Network-Science/data.env")
 storage_container_url <- Sys.getenv("AZURE_STORAGE_SAS_URL")
 if (storage_container_url == "") {
   stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
@@ -186,6 +186,13 @@ Final dataset with most relevant features for predicting fraud.
 bankfraud_data <- bankfraud_data[, c(selected_features)]
 bankfraud_data %>% relocate(fraud_bool)
 bankfraud_data
+
+# Checking for and removing inconsistent values:
+range(bankfraud_data$bank_months_count)
+range(bankfraud_data$current_address_months_count)
+bankfraud_data = bankfraud_data[bankfraud_data$bank_months_count != -1, ]
+bankfraud_data = bankfraud_data[bankfraud_data$current_address_months_count != -1, ]
+
 ```
 
 # Feature Engineering
