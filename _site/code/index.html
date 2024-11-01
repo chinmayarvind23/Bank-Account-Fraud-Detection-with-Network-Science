@@ -110,15 +110,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-search-results"></div>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-  <h2 id="toc-title">On this page</h2>
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <ul>
-      <li><a href="#imports-libraries-setup" id="toc-imports-libraries-setup" class="nav-link active" data-scroll-target="#imports-libraries-setup">Imports &amp; Libraries Setup</a></li>
-      <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data loading</a></li>
-      <li><a href="#data-cleaning-and-pca" id="toc-data-cleaning-and-pca" class="nav-link" data-scroll-target="#data-cleaning-and-pca">Data cleaning, and PCA</a></li>
-      <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">Feature Engineering</a></li>
-    </ul>
-  </nav>  
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#imports-libraries-setup" id="toc-imports-libraries-setup" class="nav-link active" data-scroll-target="#imports-libraries-setup">Imports &amp; Libraries Setup</a></li>
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data loading</a></li>
+  <li><a href="#data-cleaning-and-pca" id="toc-data-cleaning-and-pca" class="nav-link" data-scroll-target="#data-cleaning-and-pca">Data cleaning, and PCA</a></li>
+  <li><a href="#final-dataset-with-most-relevant-features-for-predicting-fraud." id="toc-final-dataset-with-most-relevant-features-for-predicting-fraud." class="nav-link" data-scroll-target="#final-dataset-with-most-relevant-features-for-predicting-fraud.">Final dataset with most relevant features for predicting fraud.</a></li>
+  <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">Feature Engineering</a></li>
+  </ul>
+</nav>
+</nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
@@ -193,7 +198,7 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 - Installing tidyverse ...                      OK [linked from cache]
 - Installing visNetwork ...                     OK [linked from cache]
 - Installing AzureStor ...                      OK [linked from cache]
-Successfully installed 4 packages in 11 milliseconds.</code></pre>
+Successfully installed 4 packages in 21 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'readr'</span>, <span class="st">'dplyr'</span>, <span class="st">'httr'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -207,7 +212,7 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 - Installing readr ...                          OK [linked from cache]
 - Installing dplyr ...                          OK [linked from cache]
 - Installing httr ...                           OK [linked from cache]
-Successfully installed 3 packages in 6.1 milliseconds.</code></pre>
+Successfully installed 3 packages in 10 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"igraph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -217,7 +222,7 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing igraph ...                         OK [linked from cache]
-Successfully installed 1 package in 3.6 milliseconds.</code></pre>
+Successfully installed 1 package in 6.7 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dotenv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -227,7 +232,7 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing dotenv ...                         OK [linked from cache]
-Successfully installed 1 package in 3.5 milliseconds.</code></pre>
+Successfully installed 1 package in 7.4 milliseconds.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -237,14 +242,24 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing tidyverse ...                      OK [linked from cache]
-Successfully installed 1 package in 3.8 milliseconds.</code></pre>
+Successfully installed 1 package in 6.2 milliseconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"purrr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following package(s) will be installed:
+- purrr [1.0.2]
+These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/code/renv/library/macos/R-4.4/aarch64-apple-darwin20".
+
+# Installing packages --------------------------------------------------------
+- Installing purrr ...                          OK [linked from cache]
+Successfully installed 1 package in 6.2 milliseconds.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>- The lockfile is already up to date.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -257,8 +272,8 @@ Successfully installed 1 package in 3.8 milliseconds.</code></pre>
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'igraph'
@@ -291,29 +306,30 @@ The following object is masked from 'package:base':
 
     union</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AzureStor)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dotenv)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AzureStor)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dotenv)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-loading" class="level1">
 <h1>Data loading</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_dot_env</span>(<span class="at">file =</span> <span class="st">"/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_dot_env</span>(<span class="at">file =</span> <span class="st">"/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in readLines(file): incomplete final line found on
 '/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course
 Project/Bank-Account-Fraud-Detection-with-Network-Science/.env'</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>storage_container_url <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"AZURE_STORAGE_SAS_URL"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (storage_container_url <span class="sc">==</span> <span class="st">""</span>) {</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">"SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable."</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(storage_container_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>storage_container_url <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"AZURE_STORAGE_SAS_URL"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (storage_container_url <span class="sc">==</span> <span class="st">""</span>) {</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">"SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable."</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(storage_container_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 1000000 Columns: 32
 ── Column specification ────────────────────────────────────────────────────────
@@ -324,7 +340,7 @@ dbl (27): fraud_bool, income, name_email_similarity, prev_address_months_cou...
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 32
    fraud_bool income name_email_similarity prev_address_months_count
@@ -352,7 +368,7 @@ dbl (27): fraud_bool, income, name_email_similarity, prev_address_months_cou...
 <section id="data-cleaning-and-pca" class="level1">
 <h1>Data cleaning, and PCA</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(bankfraud_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(bankfraud_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      fraud_bool                           income 
                                0                                0 
@@ -390,7 +406,7 @@ date_of_birth_distinct_emails_4w                employment_status
 </div>
 <p>No missing values, so we can proceed with the rest of the data cleaning.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   fraud_bool          income       name_email_similarity
  Min.   :0.00000   Min.   :0.1000   Min.   :0.0000014    
@@ -463,7 +479,7 @@ date_of_birth_distinct_emails_4w                employment_status
  3rd Qu.:5.000  
  Max.   :7.000  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>spc_tbl_ [1,000,000 × 32] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ fraud_bool                      : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
@@ -537,8 +553,8 @@ date_of_birth_distinct_emails_4w                employment_status
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[<span class="sc">!</span><span class="fu">duplicated</span>(bankfraud_data), ]</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[<span class="sc">!</span><span class="fu">duplicated</span>(bankfraud_data), ]</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 32
    fraud_bool income name_email_similarity prev_address_months_count
@@ -564,9 +580,9 @@ date_of_birth_distinct_emails_4w                employment_status
 </div>
 <p>No duplicates identified, so we can proceed with PCA and feature engineering. Removing the Device OS columns and the source columns as they are not helpful predictors in predicting bank fraud. The character data type columns are converted to numeric types for making PCA possible.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">28</span>)]</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(.))))</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">28</span>)]</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(.))))</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 30
    fraud_bool income name_email_similarity prev_address_months_count
@@ -592,7 +608,7 @@ date_of_birth_distinct_emails_4w                employment_status
 </div>
 <p>Printing a summary of the dataset so far.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [1,000,000 × 30] (S3: tbl_df/tbl/data.frame)
  $ fraud_bool                      : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
@@ -629,21 +645,21 @@ date_of_birth_distinct_emails_4w                employment_status
 </div>
 <p>Removing columns with 0 variance in them, as they will not contribute to predicting fraud in any way.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>not_required_cols <span class="ot">&lt;-</span> <span class="fu">sapply</span>(bankfraud_data, <span class="cf">function</span>(x) <span class="fu">var</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">==</span> <span class="dv">0</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Columns with zero variance:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>not_required_cols <span class="ot">&lt;-</span> <span class="fu">sapply</span>(bankfraud_data, <span class="cf">function</span>(x) <span class="fu">var</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Columns with zero variance:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Columns with zero variance:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(bankfraud_data)[not_required_cols])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(bankfraud_data)[not_required_cols])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "device_fraud_count"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="sc">!</span>not_required_cols]</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Remaining columns after removing zero variance columns:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="sc">!</span>not_required_cols]</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Remaining columns after removing zero variance columns:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Remaining columns after removing zero variance columns:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(bankfraud_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(bankfraud_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "fraud_bool"                       "income"                          
  [3] "name_email_similarity"            "prev_address_months_count"       
@@ -664,22 +680,22 @@ date_of_birth_distinct_emails_4w                employment_status
 </div>
 <p>Printing a summary of the PCA performed after scaling the data, which shows the number of principal components that explain x% of the variance in the dataset along with charts that indicate the same.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>pcaCharts <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    x.var <span class="ot">&lt;-</span> x<span class="sc">$</span>sdev <span class="sc">^</span> <span class="dv">2</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    x.pvar <span class="ot">&lt;-</span> x.var<span class="sc">/</span><span class="fu">sum</span>(x.var)</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"proportions of variance:"</span>)</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(x.pvar)</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x.pvar,<span class="at">xlab=</span><span class="st">"Principal component"</span>, <span class="at">ylab=</span><span class="st">"Proportion of variance explained"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">type=</span><span class="st">'b'</span>)</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">cumsum</span>(x.pvar),<span class="at">xlab=</span><span class="st">"Principal component"</span>, <span class="at">ylab=</span><span class="st">"Cumulative Proportion of variance explained"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">type=</span><span class="st">'b'</span>)</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">screeplot</span>(x)</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">screeplot</span>(x,<span class="at">type=</span><span class="st">"l"</span>)</span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>bankfraud_data_pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">scale</span>(bankfraud_data),<span class="at">center =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>pcaCharts <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    x.var <span class="ot">&lt;-</span> x<span class="sc">$</span>sdev <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    x.pvar <span class="ot">&lt;-</span> x.var<span class="sc">/</span><span class="fu">sum</span>(x.var)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"proportions of variance:"</span>)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(x.pvar)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x.pvar,<span class="at">xlab=</span><span class="st">"Principal component"</span>, <span class="at">ylab=</span><span class="st">"Proportion of variance explained"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">type=</span><span class="st">'b'</span>)</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">cumsum</span>(x.pvar),<span class="at">xlab=</span><span class="st">"Principal component"</span>, <span class="at">ylab=</span><span class="st">"Cumulative Proportion of variance explained"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">type=</span><span class="st">'b'</span>)</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">screeplot</span>(x)</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">screeplot</span>(x,<span class="at">type=</span><span class="st">"l"</span>)</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>bankfraud_data_pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(<span class="fu">scale</span>(bankfraud_data),<span class="at">center =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Standard deviations (1, .., p=29):
  [1] 1.7578028 1.4707241 1.3522541 1.2734556 1.1455525 1.0835840 1.0551505
@@ -990,7 +1006,7 @@ keep_alive_session               -0.0026419830  1.054699e-03
 device_distinct_emails_8w         0.0117774689  3.603583e-03
 month                            -0.0737944832  7.126039e-01</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Importance of components:
                           PC1     PC2     PC3     PC4     PC5     PC6     PC7
@@ -1014,7 +1030,7 @@ Standard deviation     0.38877
 Proportion of Variance 0.00521
 Cumulative Proportion  1.00000</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pcaCharts</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pcaCharts</span>(bankfraud_data_pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "proportions of variance:"
  [1] 0.106547268 0.074587224 0.063054872 0.055920318 0.045251397 0.040488077
@@ -1031,10 +1047,10 @@ Cumulative Proportion  1.00000</code></pre>
 </div>
 </div>
 </div>
-<p>Printing the covariance matrix of the data.</p>
+<p>Printing the covariance and correlation matrices of the data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>covariancematrix <span class="ot">&lt;-</span> <span class="fu">cov</span>(bankfraud_data)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>covariancematrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>covariancematrix <span class="ot">&lt;-</span> <span class="fu">cov</span>(bankfraud_data)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>covariancematrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                    fraud_bool        income
 fraud_bool                        0.0109073721  1.366932e-03
@@ -1517,10 +1533,494 @@ keep_alive_session               -2.410362e-02
 device_distinct_emails_8w        -1.877322e-02
 month                             4.884074e+00</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>corellationmatrix <span class="ot">=</span> <span class="fu">cor</span>(bankfraud_data)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>corellationmatrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                    fraud_bool       income
+fraud_bool                        1.0000000000  0.045079174
+income                            0.0450791745  1.000000000
+name_email_similarity            -0.0367196358 -0.038518984
+prev_address_months_count        -0.0260306914  0.018209331
+current_address_months_count      0.0337012191 -0.036984613
+customer_age                      0.0629586502  0.125822301
+days_since_request                0.0005672795 -0.015877107
+intended_balcon_amount           -0.0245244467  0.059045970
+payment_type                      0.0283043708 -0.014319235
+zip_count_4w                      0.0052119584 -0.080581487
+velocity_6h                      -0.0168923579 -0.096430545
+velocity_24h                     -0.0111829752 -0.101268947
+velocity_4w                      -0.0115356283 -0.106332737
+bank_branch_count_8w             -0.0115765050  0.007473501
+date_of_birth_distinct_emails_4w -0.0432237056 -0.062348323
+employment_status                -0.0216763351 -0.102186002
+credit_risk_score                 0.0706236318  0.171447451
+email_is_free                     0.0277576084 -0.024900139
+housing_status                   -0.0779998656 -0.149538404
+phone_home_valid                 -0.0351278149  0.024937735
+phone_mobile_valid               -0.0131796790  0.014979054
+bank_months_count                -0.0032222715 -0.004513990
+has_other_cards                  -0.0351563682  0.086861286
+proposed_credit_limit             0.0689066290  0.108867745
+foreign_request                   0.0168846256  0.011451565
+session_length_in_minutes         0.0089994700 -0.055429893
+keep_alive_session               -0.0502964128 -0.043584477
+device_distinct_emails_8w         0.0357041131 -0.009991518
+month                             0.0132500397  0.116478843
+                                 name_email_similarity
+fraud_bool                                -0.036719636
+income                                    -0.038518984
+name_email_similarity                      1.000000000
+prev_address_months_count                 -0.018186291
+current_address_months_count               0.050304560
+customer_age                              -0.048902239
+days_since_request                        -0.007735904
+intended_balcon_amount                     0.029039666
+payment_type                              -0.001458423
+zip_count_4w                               0.025113796
+velocity_6h                                0.024880996
+velocity_24h                               0.035221046
+velocity_4w                                0.039967710
+bank_branch_count_8w                      -0.001469640
+date_of_birth_distinct_emails_4w           0.022994390
+employment_status                         -0.025556387
+credit_risk_score                          0.049125831
+email_is_free                             -0.066897347
+housing_status                             0.052302499
+phone_home_valid                          -0.002931384
+phone_mobile_valid                         0.008966473
+bank_months_count                         -0.006350688
+has_other_cards                            0.011020714
+proposed_credit_limit                      0.073158787
+foreign_request                           -0.015223599
+session_length_in_minutes                  0.005997934
+keep_alive_session                         0.014342305
+device_distinct_emails_8w                 -0.017803604
+month                                     -0.042949246
+                                 prev_address_months_count
+fraud_bool                                    -0.026030691
+income                                         0.018209331
+name_email_similarity                         -0.018186291
+prev_address_months_count                      1.000000000
+current_address_months_count                  -0.271730136
+customer_age                                  -0.069177587
+days_since_request                             0.078107397
+intended_balcon_amount                        -0.009427554
+payment_type                                   0.030763542
+zip_count_4w                                  -0.029638057
+velocity_6h                                   -0.001264581
+velocity_24h                                   0.009020154
+velocity_4w                                    0.005413110
+bank_branch_count_8w                          -0.040627622
+date_of_birth_distinct_emails_4w               0.059559607
+employment_status                             -0.018323172
+credit_risk_score                             -0.016103871
+email_is_free                                 -0.014347709
+housing_status                                 0.004343330
+phone_home_valid                              -0.053353014
+phone_mobile_valid                             0.004757338
+bank_months_count                             -0.045549676
+has_other_cards                               -0.042949020
+proposed_credit_limit                         -0.028474461
+foreign_request                                0.019242408
+session_length_in_minutes                      0.051424909
+keep_alive_session                             0.031672361
+device_distinct_emails_8w                      0.011923680
+month                                         -0.001792517
+                                 current_address_months_count  customer_age
+fraud_bool                                       0.0337012191  0.0629586502
+income                                          -0.0369846133  0.1258223009
+name_email_similarity                            0.0503045603 -0.0489022394
+prev_address_months_count                       -0.2717301362 -0.0691775865
+current_address_months_count                     1.0000000000  0.1428631806
+customer_age                                     0.1428631806  1.0000000000
+days_since_request                              -0.0578363294 -0.0359985271
+intended_balcon_amount                           0.0576011103 -0.0129997647
+payment_type                                    -0.0583892982 -0.0272676149
+zip_count_4w                                     0.0472863081 -0.0141756179
+velocity_6h                                      0.0275079767 -0.0220629491
+velocity_24h                                     0.0187529628 -0.0100300441
+velocity_4w                                      0.0261724529 -0.0043026230
+bank_branch_count_8w                             0.0542017318  0.0484124134
+date_of_birth_distinct_emails_4w                -0.1747136376 -0.4201727103
+employment_status                                0.0175503349  0.0886255219
+credit_risk_score                                0.0949764975  0.1660938877
+email_is_free                                   -0.0795186759 -0.0003568465
+housing_status                                  -0.0004115341 -0.3628403542
+phone_home_valid                                 0.1291015505  0.2127131148
+phone_mobile_valid                              -0.0882680475 -0.1470979181
+bank_months_count                                0.0719971420  0.0129068714
+has_other_cards                                  0.0607321115  0.1087430408
+proposed_credit_limit                            0.1305941426  0.1488570504
+foreign_request                                 -0.0123546630 -0.0016061417
+session_length_in_minutes                       -0.0335742297  0.0250485436
+keep_alive_session                              -0.0505391458 -0.0242715303
+device_distinct_emails_8w                       -0.0007603034  0.0257087133
+month                                           -0.0245408748  0.0056943592
+                                 days_since_request intended_balcon_amount
+fraud_bool                             0.0005672795          -2.452445e-02
+income                                -0.0158771068           5.904597e-02
+name_email_similarity                 -0.0077359040           2.903967e-02
+prev_address_months_count              0.0781073971          -9.427554e-03
+current_address_months_count          -0.0578363294           5.760111e-02
+customer_age                          -0.0359985271          -1.299976e-02
+days_since_request                     1.0000000000           1.978197e-02
+intended_balcon_amount                 0.0197819698           1.000000e+00
+payment_type                          -0.0044642011          -5.361418e-01
+zip_count_4w                           0.0002485067           2.251387e-03
+velocity_6h                            0.0279677837           4.284913e-02
+velocity_24h                           0.0238693428           6.407960e-02
+velocity_4w                            0.0177057017           5.140687e-02
+bank_branch_count_8w                  -0.0181728203           1.029190e-01
+date_of_birth_distinct_emails_4w       0.0187307955          -2.734338e-02
+employment_status                     -0.0019389820          -3.659129e-02
+credit_risk_score                     -0.0881407658           2.057615e-03
+email_is_free                          0.0081628115          -1.475363e-02
+housing_status                         0.0244108376           9.368017e-02
+phone_home_valid                      -0.0420087184           1.868529e-05
+phone_mobile_valid                     0.0051302018           3.862517e-02
+bank_months_count                     -0.0274600838           1.783738e-01
+has_other_cards                       -0.0488613573           9.667569e-02
+proposed_credit_limit                 -0.0686700701           5.785971e-02
+foreign_request                        0.0010658382           7.932524e-03
+session_length_in_minutes              0.0496126775           2.281053e-02
+keep_alive_session                     0.0003371344          -2.068932e-02
+device_distinct_emails_8w              0.0090247922          -1.990961e-02
+month                                 -0.0179376470          -4.306987e-02
+                                 payment_type  zip_count_4w   velocity_6h
+fraud_bool                        0.028304371  0.0052119584 -0.0168923579
+income                           -0.014319235 -0.0805814870 -0.0964305454
+name_email_similarity            -0.001458423  0.0251137964  0.0248809956
+prev_address_months_count         0.030763542 -0.0296380568 -0.0012645811
+current_address_months_count     -0.058389298  0.0472863081  0.0275079767
+customer_age                     -0.027267615 -0.0141756179 -0.0220629491
+days_since_request               -0.004464201  0.0002485067  0.0279677837
+intended_balcon_amount           -0.536141767  0.0022513869  0.0428491305
+payment_type                      1.000000000  0.0070021660 -0.0312681504
+zip_count_4w                      0.007002166  1.0000000000  0.1423722883
+velocity_6h                      -0.031268150  0.1423722883  1.0000000000
+velocity_24h                     -0.028023134  0.2011860612  0.4640029257
+velocity_4w                       0.004628924  0.3029554268  0.4002543708
+bank_branch_count_8w             -0.154700165  0.0059582742  0.0201404474
+date_of_birth_distinct_emails_4w  0.063790617  0.1268853139  0.1187523268
+employment_status                -0.000333116  0.0181718995  0.0352852195
+credit_risk_score                 0.027038244 -0.1026451572 -0.1452539565
+email_is_free                     0.020548444  0.0217311761  0.0283785045
+housing_status                   -0.059944769  0.0387077617  0.0807872960
+phone_home_valid                 -0.047963494 -0.0356612748 -0.0368197133
+phone_mobile_valid               -0.040399146  0.0121223347 -0.0107513600
+bank_months_count                -0.291344887  0.0536371317  0.0148743136
+has_other_cards                  -0.136785493 -0.0150148848 -0.0070494631
+proposed_credit_limit            -0.004186004 -0.0116508172 -0.0250053103
+foreign_request                   0.006639710  0.0172120172 -0.0004501718
+session_length_in_minutes        -0.005837396  0.0396865754  0.0544912830
+keep_alive_session                0.018601586  0.0222830749  0.0027972576
+device_distinct_emails_8w         0.022241086  0.0205496392  0.0300296637
+month                            -0.011038236 -0.2872026567 -0.4091475655
+                                  velocity_24h  velocity_4w
+fraud_bool                       -0.0111829752 -0.011535628
+income                           -0.1012689469 -0.106332737
+name_email_similarity             0.0352210459  0.039967710
+prev_address_months_count         0.0090201544  0.005413110
+current_address_months_count      0.0187529628  0.026172453
+customer_age                     -0.0100300441 -0.004302623
+days_since_request                0.0238693428  0.017705702
+intended_balcon_amount            0.0640796011  0.051406874
+payment_type                     -0.0280231345  0.004628924
+zip_count_4w                      0.2011860612  0.302955427
+velocity_6h                       0.4640029257  0.400254371
+velocity_24h                      1.0000000000  0.539114733
+velocity_4w                       0.5391147330  1.000000000
+bank_branch_count_8w              0.0360621573  0.031267425
+date_of_birth_distinct_emails_4w  0.1554340204  0.242365286
+employment_status                 0.0331165252  0.033031908
+credit_risk_score                -0.1467696987 -0.168765813
+email_is_free                     0.0335428813  0.052908257
+housing_status                    0.0688860440  0.057718264
+phone_home_valid                 -0.0526991688 -0.057169898
+phone_mobile_valid               -0.0294323963 -0.027258429
+bank_months_count                 0.0188551773  0.032343850
+has_other_cards                  -0.0306882641 -0.048342900
+proposed_credit_limit             0.0177250890  0.052440107
+foreign_request                   0.0154187561  0.020785377
+session_length_in_minutes         0.0668752544  0.079004561
+keep_alive_session               -0.0005669435  0.022374614
+device_distinct_emails_8w         0.0349807527  0.042319689
+month                            -0.5499192379 -0.848100303
+                                 bank_branch_count_8w
+fraud_bool                               -0.011576505
+income                                    0.007473501
+name_email_similarity                    -0.001469640
+prev_address_months_count                -0.040627622
+current_address_months_count              0.054201732
+customer_age                              0.048412413
+days_since_request                       -0.018172820
+intended_balcon_amount                    0.102918960
+payment_type                             -0.154700165
+zip_count_4w                              0.005958274
+velocity_6h                               0.020140447
+velocity_24h                              0.036062157
+velocity_4w                               0.031267425
+bank_branch_count_8w                      1.000000000
+date_of_birth_distinct_emails_4w         -0.036952152
+employment_status                         0.016400713
+credit_risk_score                        -0.014569135
+email_is_free                            -0.005041859
+housing_status                            0.008675869
+phone_home_valid                          0.052176753
+phone_mobile_valid                       -0.011665595
+bank_months_count                         0.142625067
+has_other_cards                           0.040665348
+proposed_credit_limit                     0.009072129
+foreign_request                          -0.002181519
+session_length_in_minutes                 0.004887431
+keep_alive_session                       -0.001436622
+device_distinct_emails_8w                 0.003697096
+month                                    -0.029182350
+                                 date_of_birth_distinct_emails_4w
+fraud_bool                                           -0.043223706
+income                                               -0.062348323
+name_email_similarity                                 0.022994390
+prev_address_months_count                             0.059559607
+current_address_months_count                         -0.174713638
+customer_age                                         -0.420172710
+days_since_request                                    0.018730796
+intended_balcon_amount                               -0.027343376
+payment_type                                          0.063790617
+zip_count_4w                                          0.126885314
+velocity_6h                                           0.118752327
+velocity_24h                                          0.155434020
+velocity_4w                                           0.242365286
+bank_branch_count_8w                                 -0.036952152
+date_of_birth_distinct_emails_4w                      1.000000000
+employment_status                                    -0.057355659
+credit_risk_score                                    -0.137337664
+email_is_free                                         0.047523619
+housing_status                                        0.171121603
+phone_home_valid                                     -0.166551966
+phone_mobile_valid                                    0.093365977
+bank_months_count                                    -0.009011560
+has_other_cards                                      -0.050280836
+proposed_credit_limit                                -0.044809912
+foreign_request                                       0.027281703
+session_length_in_minutes                            -0.029908389
+keep_alive_session                                    0.037507080
+device_distinct_emails_8w                            -0.008343527
+month                                                -0.244778812
+                                 employment_status credit_risk_score
+fraud_bool                            -0.021676335       0.070623632
+income                                -0.102186002       0.171447451
+name_email_similarity                 -0.025556387       0.049125831
+prev_address_months_count             -0.018323172      -0.016103871
+current_address_months_count           0.017550335       0.094976497
+customer_age                           0.088625522       0.166093888
+days_since_request                    -0.001938982      -0.088140766
+intended_balcon_amount                -0.036591287       0.002057615
+payment_type                          -0.000333116       0.027038244
+zip_count_4w                           0.018171900      -0.102645157
+velocity_6h                            0.035285219      -0.145253957
+velocity_24h                           0.033116525      -0.146769699
+velocity_4w                            0.033031908      -0.168765813
+bank_branch_count_8w                   0.016400713      -0.014569135
+date_of_birth_distinct_emails_4w      -0.057355659      -0.137337664
+employment_status                      1.000000000      -0.124730135
+credit_risk_score                     -0.124730135       1.000000000
+email_is_free                          0.008163201      -0.036274022
+housing_status                        -0.034795568      -0.214698423
+phone_home_valid                       0.081692337       0.005255882
+phone_mobile_valid                    -0.071613091       0.004165765
+bank_months_count                     -0.002336416      -0.061105020
+has_other_cards                        0.002929686       0.139485959
+proposed_credit_limit                 -0.101609835       0.606141448
+foreign_request                       -0.008043494       0.016265217
+session_length_in_minutes              0.022382887      -0.034430145
+keep_alive_session                    -0.007971551      -0.031135124
+device_distinct_emails_8w              0.012913304      -0.040986564
+month                                 -0.035378605       0.175893183
+                                 email_is_free housing_status phone_home_valid
+fraud_bool                        0.0277576084  -0.0779998656    -3.512781e-02
+income                           -0.0249001388  -0.1495384039     2.493773e-02
+name_email_similarity            -0.0668973471   0.0523024995    -2.931384e-03
+prev_address_months_count        -0.0143477087   0.0043433298    -5.335301e-02
+current_address_months_count     -0.0795186759  -0.0004115341     1.291016e-01
+customer_age                     -0.0003568465  -0.3628403542     2.127131e-01
+days_since_request                0.0081628115   0.0244108376    -4.200872e-02
+intended_balcon_amount           -0.0147536254   0.0936801746     1.868529e-05
+payment_type                      0.0205484443  -0.0599447692    -4.796349e-02
+zip_count_4w                      0.0217311761   0.0387077617    -3.566127e-02
+velocity_6h                       0.0283785045   0.0807872960    -3.681971e-02
+velocity_24h                      0.0335428813   0.0688860440    -5.269917e-02
+velocity_4w                       0.0529082568   0.0577182643    -5.716990e-02
+bank_branch_count_8w             -0.0050418586   0.0086758688     5.217675e-02
+date_of_birth_distinct_emails_4w  0.0475236188   0.1711216032    -1.665520e-01
+employment_status                 0.0081632013  -0.0347955680     8.169234e-02
+credit_risk_score                -0.0362740222  -0.2146984231     5.255882e-03
+email_is_free                     1.0000000000   0.0117554310    -1.430437e-02
+housing_status                    0.0117554310   1.0000000000    -7.248532e-02
+phone_home_valid                 -0.0143043658  -0.0724853223     1.000000e+00
+phone_mobile_valid                0.0317404472   0.0820284667    -2.723921e-01
+bank_months_count                 0.0072074997   0.0606242862     5.332934e-02
+has_other_cards                  -0.0320583458  -0.0764457752     1.065899e-01
+proposed_credit_limit            -0.0212470784  -0.1884755696     6.358875e-03
+foreign_request                   0.0288495873  -0.0023908535    -3.036552e-03
+session_length_in_minutes         0.0412505082   0.0005435301    -4.393820e-02
+keep_alive_session               -0.0229302211   0.0367577914     4.175548e-02
+device_distinct_emails_8w         0.0019588712  -0.0134286362     5.301144e-03
+month                            -0.0645412194  -0.0598826370     5.764252e-02
+                                 phone_mobile_valid bank_months_count
+fraud_bool                             -0.013179679      -0.003222272
+income                                  0.014979054      -0.004513990
+name_email_similarity                   0.008966473      -0.006350688
+prev_address_months_count               0.004757338      -0.045549676
+current_address_months_count           -0.088268048       0.071997142
+customer_age                           -0.147097918       0.012906871
+days_since_request                      0.005130202      -0.027460084
+intended_balcon_amount                  0.038625173       0.178373846
+payment_type                           -0.040399146      -0.291344887
+zip_count_4w                            0.012122335       0.053637132
+velocity_6h                            -0.010751360       0.014874314
+velocity_24h                           -0.029432396       0.018855177
+velocity_4w                            -0.027258429       0.032343850
+bank_branch_count_8w                   -0.011665595       0.142625067
+date_of_birth_distinct_emails_4w        0.093365977      -0.009011560
+employment_status                      -0.071613091      -0.002336416
+credit_risk_score                       0.004165765      -0.061105020
+email_is_free                           0.031740447       0.007207500
+housing_status                          0.082028467       0.060624286
+phone_home_valid                       -0.272392116       0.053329342
+phone_mobile_valid                      1.000000000       0.005740913
+bank_months_count                       0.005740913       1.000000000
+has_other_cards                         0.005267515       0.005676543
+proposed_credit_limit                  -0.021689181      -0.023670850
+foreign_request                         0.002742986      -0.003139824
+session_length_in_minutes              -0.002932899       0.017387309
+keep_alive_session                      0.022710228       0.002276822
+device_distinct_emails_8w              -0.040026396       0.003301287
+month                                   0.033656104      -0.025014754
+                                 has_other_cards proposed_credit_limit
+fraud_bool                          -0.035156368          0.0689066290
+income                               0.086861286          0.1088677455
+name_email_similarity                0.011020714          0.0731587870
+prev_address_months_count           -0.042949020         -0.0284744610
+current_address_months_count         0.060732112          0.1305941426
+customer_age                         0.108743041          0.1488570504
+days_since_request                  -0.048861357         -0.0686700701
+intended_balcon_amount               0.096675691          0.0578597062
+payment_type                        -0.136785493         -0.0041860036
+zip_count_4w                        -0.015014885         -0.0116508172
+velocity_6h                         -0.007049463         -0.0250053103
+velocity_24h                        -0.030688264          0.0177250890
+velocity_4w                         -0.048342900          0.0524401072
+bank_branch_count_8w                 0.040665348          0.0090721294
+date_of_birth_distinct_emails_4w    -0.050280836         -0.0448099123
+employment_status                    0.002929686         -0.1016098348
+credit_risk_score                    0.139485959          0.6061414475
+email_is_free                       -0.032058346         -0.0212470784
+housing_status                      -0.076445775         -0.1884755696
+phone_home_valid                     0.106589922          0.0063588752
+phone_mobile_valid                   0.005267515         -0.0216891809
+bank_months_count                    0.005676543         -0.0236708498
+has_other_cards                      1.000000000          0.0962543265
+proposed_credit_limit                0.096254327          1.0000000000
+foreign_request                      0.001429514          0.0239471791
+session_length_in_minutes           -0.092789960         -0.0001648595
+keep_alive_session                  -0.098101942         -0.0219509530
+device_distinct_emails_8w           -0.028366561         -0.0174523963
+month                                0.043502240         -0.0566652514
+                                 foreign_request session_length_in_minutes
+fraud_bool                          0.0168846256              0.0089994700
+income                              0.0114515651             -0.0554298934
+name_email_similarity              -0.0152235990              0.0059979343
+prev_address_months_count           0.0192424083              0.0514249093
+current_address_months_count       -0.0123546630             -0.0335742297
+customer_age                       -0.0016061417              0.0250485436
+days_since_request                  0.0010658382              0.0496126775
+intended_balcon_amount              0.0079325240              0.0228105282
+payment_type                        0.0066397103             -0.0058373958
+zip_count_4w                        0.0172120172              0.0396865754
+velocity_6h                        -0.0004501718              0.0544912830
+velocity_24h                        0.0154187561              0.0668752544
+velocity_4w                         0.0207853766              0.0790045613
+bank_branch_count_8w               -0.0021815185              0.0048874305
+date_of_birth_distinct_emails_4w    0.0272817026             -0.0299083889
+employment_status                  -0.0080434938              0.0223828875
+credit_risk_score                   0.0162652166             -0.0344301450
+email_is_free                       0.0288495873              0.0412505082
+housing_status                     -0.0023908535              0.0005435301
+phone_home_valid                   -0.0030365517             -0.0439382042
+phone_mobile_valid                  0.0027429857             -0.0029328995
+bank_months_count                  -0.0031398240              0.0173873094
+has_other_cards                     0.0014295143             -0.0927899600
+proposed_credit_limit               0.0239471791             -0.0001648595
+foreign_request                     1.0000000000              0.0124966165
+session_length_in_minutes           0.0124966165              1.0000000000
+keep_alive_session                 -0.0153079662             -0.0513109722
+device_distinct_emails_8w           0.0090910478              0.0774734817
+month                              -0.0185102019             -0.0795422345
+                                 keep_alive_session device_distinct_emails_8w
+fraud_bool                            -0.0502964128              0.0357041131
+income                                -0.0435844775             -0.0099915180
+name_email_similarity                  0.0143423051             -0.0178036040
+prev_address_months_count              0.0316723607              0.0119236800
+current_address_months_count          -0.0505391458             -0.0007603034
+customer_age                          -0.0242715303              0.0257087133
+days_since_request                     0.0003371344              0.0090247922
+intended_balcon_amount                -0.0206893238             -0.0199096061
+payment_type                           0.0186015861              0.0222410863
+zip_count_4w                           0.0222830749              0.0205496392
+velocity_6h                            0.0027972576              0.0300296637
+velocity_24h                          -0.0005669435              0.0349807527
+velocity_4w                            0.0223746142              0.0423196890
+bank_branch_count_8w                  -0.0014366217              0.0036970959
+date_of_birth_distinct_emails_4w       0.0375070795             -0.0083435275
+employment_status                     -0.0079715513              0.0129133043
+credit_risk_score                     -0.0311351243             -0.0409865641
+email_is_free                         -0.0229302211              0.0019588712
+housing_status                         0.0367577914             -0.0134286362
+phone_home_valid                       0.0417554777              0.0053011439
+phone_mobile_valid                     0.0227102283             -0.0400263958
+bank_months_count                      0.0022768217              0.0033012875
+has_other_cards                       -0.0981019419             -0.0283665613
+proposed_credit_limit                 -0.0219509530             -0.0174523963
+foreign_request                       -0.0153079662              0.0090910478
+session_length_in_minutes             -0.0513109722              0.0774734817
+keep_alive_session                     1.0000000000             -0.0348814513
+device_distinct_emails_8w             -0.0348814513              1.0000000000
+month                                 -0.0220762662             -0.0469939281
+                                        month
+fraud_bool                        0.013250040
+income                            0.116478843
+name_email_similarity            -0.042949246
+prev_address_months_count        -0.001792517
+current_address_months_count     -0.024540875
+customer_age                      0.005694359
+days_since_request               -0.017937647
+intended_balcon_amount           -0.043069873
+payment_type                     -0.011038236
+zip_count_4w                     -0.287202657
+velocity_6h                      -0.409147565
+velocity_24h                     -0.549919238
+velocity_4w                      -0.848100303
+bank_branch_count_8w             -0.029182350
+date_of_birth_distinct_emails_4w -0.244778812
+employment_status                -0.035378605
+credit_risk_score                 0.175893183
+email_is_free                    -0.064541219
+housing_status                   -0.059882637
+phone_home_valid                  0.057642517
+phone_mobile_valid                0.033656104
+bank_months_count                -0.025014754
+has_other_cards                   0.043502240
+proposed_credit_limit            -0.056665251
+foreign_request                  -0.018510202
+session_length_in_minutes        -0.079542234
+keep_alive_session               -0.022076266
+device_distinct_emails_8w        -0.046993928
+month                             1.000000000</code></pre>
+</div>
 </div>
 <p>Shows the data points based on their fraud classification status on a biplot showing how much each feature contributes to the first 2 principal components.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The following package(s) will be installed:
 - ggplot2 [3.5.1]
@@ -1528,9 +2028,9 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing ggplot2 ...                        OK [linked from cache]
-Successfully installed 1 package in 4.7 milliseconds.</code></pre>
+Successfully installed 1 package in 7.4 milliseconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggfortify"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggfortify"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The following package(s) will be installed:
 - ggfortify [0.4.17]
@@ -1538,11 +2038,11 @@ These packages will be installed into "~/Documents/UBC/UBC Coursework/COSC 421/C
 
 # Installing packages --------------------------------------------------------
 - Installing ggfortify ...                      OK [linked from cache]
-Successfully installed 1 package in 4.4 milliseconds.</code></pre>
+Successfully installed 1 package in 6.7 milliseconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(bankfraud_data_pca, <span class="at">data =</span> bankfraud_data, <span class="at">colour =</span> <span class="st">'fraud_bool'</span>, <span class="at">loadings =</span> <span class="cn">TRUE</span>, <span class="at">loadings.label =</span> <span class="cn">TRUE</span>, <span class="at">loadings.label.size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(bankfraud_data_pca, <span class="at">data =</span> bankfraud_data, <span class="at">colour =</span> <span class="st">'fraud_bool'</span>, <span class="at">loadings =</span> <span class="cn">TRUE</span>, <span class="at">loadings.label =</span> <span class="cn">TRUE</span>, <span class="at">loadings.label.size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1553,35 +2053,35 @@ Successfully installed 1 package in 4.4 milliseconds.</code></pre>
 </div>
 <p>Setting an absolute threshold of 0.5 for selecting the impact of features on the principal components.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>pca_loadings <span class="ot">&lt;-</span> bankfraud_data_pca<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">24</span>]</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>threshold <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(</span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">1</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">2</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">3</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">4</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">5</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">6</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">7</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">8</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">9</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">10</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">11</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">12</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">13</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">14</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">15</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-19"><a href="#cb65-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">16</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-20"><a href="#cb65-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">17</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-21"><a href="#cb65-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">18</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-22"><a href="#cb65-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">19</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-23"><a href="#cb65-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">20</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-24"><a href="#cb65-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">21</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-25"><a href="#cb65-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">22</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-26"><a href="#cb65-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">23</span>]) <span class="sc">&gt;</span> threshold],</span>
-<span id="cb65-27"><a href="#cb65-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">24</span>]) <span class="sc">&gt;</span> threshold]))</span>
-<span id="cb65-28"><a href="#cb65-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-29"><a href="#cb65-29" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(selected_features)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>pca_loadings <span class="ot">&lt;-</span> bankfraud_data_pca<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">24</span>]</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>threshold <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">1</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">2</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">3</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">4</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">5</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">6</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">7</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">8</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">9</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">10</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">11</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">12</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">13</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-17"><a href="#cb69-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">14</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-18"><a href="#cb69-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">15</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-19"><a href="#cb69-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">16</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-20"><a href="#cb69-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">17</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-21"><a href="#cb69-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">18</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-22"><a href="#cb69-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">19</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-23"><a href="#cb69-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">20</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-24"><a href="#cb69-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">21</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-25"><a href="#cb69-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">22</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-26"><a href="#cb69-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">23</span>]) <span class="sc">&gt;</span> threshold],</span>
+<span id="cb69-27"><a href="#cb69-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(pca_loadings)[<span class="fu">abs</span>(pca_loadings[,<span class="dv">24</span>]) <span class="sc">&gt;</span> threshold]))</span>
+<span id="cb69-28"><a href="#cb69-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-29"><a href="#cb69-29" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(selected_features)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "payment_type"                 "keep_alive_session"          
  [3] "foreign_request"              "days_since_request"          
@@ -1594,7 +2094,7 @@ Successfully installed 1 package in 4.4 milliseconds.</code></pre>
 </div>
 <p>Prting the rotation matrix of the PCA that indicates the magnitude and direction of contribution of a feature to various principal components.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data_pca<span class="sc">$</span>rotation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data_pca<span class="sc">$</span>rotation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                         PC1         PC2          PC3
 fraud_bool                       -0.03842944  0.07672758 -0.107908154
@@ -1898,10 +2398,13 @@ device_distinct_emails_8w         0.0117774689  3.603583e-03
 month                            -0.0737944832  7.126039e-01</code></pre>
 </div>
 </div>
-<p>Final dataset with most relevant features for predicting fraud.</p>
+</section>
+<section id="final-dataset-with-most-relevant-features-for-predicting-fraud." class="level1">
+<h1>Final dataset with most relevant features for predicting fraud.</h1>
+<p>Rows with missing (-1) values in the bank_months_count and current_address_months_count are removed as these are considered missing values. The days_since_request column is removed due to having unreliable data - the data is supposed to range from 0 to 78 days, however the majority of the entries are less than one. The negative values from velocity_6h are also removed as they are uninterpretable in the context of the velocity of applications.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="fu">c</span>(selected_features)]</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(fraud_bool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">&lt;-</span> bankfraud_data[, <span class="fu">c</span>(selected_features)]</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(fraud_bool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 14
    fraud_bool payment_type keep_alive_session foreign_request days_since_request
@@ -1922,7 +2425,7 @@ month                            -0.0737944832  7.126039e-01</code></pre>
 #   housing_status &lt;dbl&gt;, velocity_6h &lt;dbl&gt;, phone_home_valid &lt;dbl&gt;,
 #   current_address_months_count &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>bankfraud_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000,000 × 14
    payment_type keep_alive_session foreign_request days_since_request
@@ -1944,10 +2447,245 @@ month                            -0.0737944832  7.126039e-01</code></pre>
 #   velocity_6h &lt;dbl&gt;, phone_home_valid &lt;dbl&gt;,
 #   current_address_months_count &lt;dbl&gt;</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [1,000,000 × 14] (S3: tbl_df/tbl/data.frame)
+ $ payment_type                : num [1:1000000] 1 4 2 2 1 4 2 2 2 4 ...
+ $ keep_alive_session          : num [1:1000000] 1 1 0 1 0 1 1 1 1 1 ...
+ $ foreign_request             : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ $ days_since_request          : num [1:1000000] 0.00674 0.0101 0.01232 0.00699 5.74263 ...
+ $ email_is_free               : num [1:1000000] 1 1 1 1 0 1 1 0 0 1 ...
+ $ fraud_bool                  : num [1:1000000] 0 0 0 0 0 0 0 0 0 0 ...
+ $ bank_branch_count_8w        : num [1:1000000] 5 3 15 11 1 705 28 6 2 14 ...
+ $ zip_count_4w                : num [1:1000000] 1059 1658 1095 3483 2339 ...
+ $ name_email_similarity       : num [1:1000000] 0.987 0.617 0.997 0.475 0.842 ...
+ $ bank_months_count           : num [1:1000000] 9 2 30 1 26 30 1 25 2 15 ...
+ $ housing_status              : num [1:1000000] 3 3 3 3 3 5 3 5 3 4 ...
+ $ velocity_6h                 : num [1:1000000] 13096 9223 4471 14432 7602 ...
+ $ phone_home_valid            : num [1:1000000] 0 1 0 0 1 1 1 1 1 1 ...
+ $ current_address_months_count: num [1:1000000] 25 89 14 14 29 369 4 103 2 134 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for inconsistent values:</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>bank_months_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1 32</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>current_address_months_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  -1 428</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>days_since_request)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.03686e-09 7.84569e+01</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing -1 values</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">=</span> bankfraud_data[bankfraud_data<span class="sc">$</span>bank_months_count <span class="sc">!=</span> <span class="sc">-</span><span class="dv">1</span>, ]</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">=</span> bankfraud_data[bankfraud_data<span class="sc">$</span>current_address_months_count <span class="sc">!=</span> <span class="sc">-</span><span class="dv">1</span>, ]</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dropping days_since_request column</span></span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">=</span> <span class="fu">subset</span>(bankfraud_data, <span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(days_since_request))</span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing negative values from velocity_6h</span></span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">=</span> bankfraud_data[bankfraud_data<span class="sc">$</span>velocity_6h <span class="sc">&gt;=</span> <span class="dv">0</span>, ]</span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 743169</code></pre>
+</div>
 </div>
 </section>
 <section id="feature-engineering" class="level1">
 <h1>Feature Engineering</h1>
+<p>Checking data ranges, and enumerating records in the CSV file as nodes with Node IDs. We have taken a sample here to check if the graph creation is feasible before generating the graph with all of the nodes in it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [743,169 × 13] (S3: tbl_df/tbl/data.frame)
+ $ payment_type                : num [1:743169] 1 4 2 2 1 4 2 2 2 4 ...
+ $ keep_alive_session          : num [1:743169] 1 1 0 1 0 1 1 1 1 1 ...
+ $ foreign_request             : num [1:743169] 0 0 0 0 0 0 0 0 0 0 ...
+ $ email_is_free               : num [1:743169] 1 1 1 1 0 1 1 0 0 1 ...
+ $ fraud_bool                  : num [1:743169] 0 0 0 0 0 0 0 0 0 0 ...
+ $ bank_branch_count_8w        : num [1:743169] 5 3 15 11 1 705 28 6 2 14 ...
+ $ zip_count_4w                : num [1:743169] 1059 1658 1095 3483 2339 ...
+ $ name_email_similarity       : num [1:743169] 0.987 0.617 0.997 0.475 0.842 ...
+ $ bank_months_count           : num [1:743169] 9 2 30 1 26 30 1 25 2 15 ...
+ $ housing_status              : num [1:743169] 3 3 3 3 3 5 3 5 3 4 ...
+ $ velocity_6h                 : num [1:743169] 13096 9223 4471 14432 7602 ...
+ $ phone_home_valid            : num [1:743169] 0 1 0 0 1 1 1 1 1 1 ...
+ $ current_address_months_count: num [1:743169] 25 89 14 14 29 369 4 103 2 134 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking ranges:</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>payment_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>bank_months_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1 32</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>bank_branch_count_8w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]    0 2385</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>zip_count_4w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]    1 6700</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>name_email_similarity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.434550e-06 9.999991e-01</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>bank_months_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1 32</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>housing_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>velocity_6h)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]     3.974112 16715.565404</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(bankfraud_data<span class="sc">$</span>current_address_months_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]   0 428</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding node_id column to identify vertices:</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>bankfraud_data<span class="sc">$</span>node_id <span class="ot">=</span> <span class="fu">seq.int</span>(<span class="fu">nrow</span>(bankfraud_data))</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>bankfraud_data <span class="ot">=</span> bankfraud_data <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(node_id)</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating Bins for bank_branch_count_8w, zip_count_4w, name_email_similarity, bank_months_count, velocity_6h, current_address_months_count:</span></span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>bin_count <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a>binned_bankfraud_data <span class="ot">=</span> bankfraud_data</span>
+<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a>cols_to_bin <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"bank_branch_count_8w"</span>, <span class="st">"zip_count_4w"</span>, <span class="st">"name_email_similarity"</span>, <span class="st">"bank_months_count"</span>, <span class="st">"velocity_6h"</span>, <span class="st">"current_address_months_count"</span>)</span>
+<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a>binned_bankfraud_data[cols_to_bin] <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="fu">lapply</span>(binned_bankfraud_data[cols_to_bin], <span class="cf">function</span>(x) <span class="fu">cut</span>(x, <span class="at">breaks =</span> bin_count, <span class="at">labels=</span><span class="cn">FALSE</span>)))</span>
+<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(binned_bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [743,169 × 14] (S3: tbl_df/tbl/data.frame)
+ $ node_id                     : int [1:743169] 1 2 3 4 5 6 7 8 9 10 ...
+ $ payment_type                : num [1:743169] 1 4 2 2 1 4 2 2 2 4 ...
+ $ keep_alive_session          : num [1:743169] 1 1 0 1 0 1 1 1 1 1 ...
+ $ foreign_request             : num [1:743169] 0 0 0 0 0 0 0 0 0 0 ...
+ $ email_is_free               : num [1:743169] 1 1 1 1 0 1 1 0 0 1 ...
+ $ fraud_bool                  : num [1:743169] 0 0 0 0 0 0 0 0 0 0 ...
+ $ bank_branch_count_8w        : int [1:743169] 1 1 1 1 1 2 1 1 1 1 ...
+ $ zip_count_4w                : int [1:743169] 1 2 1 3 2 1 2 2 2 3 ...
+ $ name_email_similarity       : int [1:743169] 5 4 5 3 5 2 4 1 3 5 ...
+ $ bank_months_count           : int [1:743169] 2 1 5 1 5 5 1 4 1 3 ...
+ $ housing_status              : num [1:743169] 3 3 3 3 3 5 3 5 3 4 ...
+ $ velocity_6h                 : int [1:743169] 4 3 2 5 3 4 4 2 3 3 ...
+ $ phone_home_valid            : num [1:743169] 0 1 0 0 1 1 1 1 1 1 ...
+ $ current_address_months_count: int [1:743169] 1 2 1 1 1 5 1 2 1 2 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating binary combination column:</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>binary_columns <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"keep_alive_session"</span>, <span class="st">"foreign_request"</span>, <span class="st">"email_is_free"</span>, <span class="st">"fraud_bool"</span>, <span class="st">"phone_home_valid"</span>)</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>binned_bankfraud_data<span class="sc">$</span>binary_combination_value <span class="ot">=</span> <span class="fu">apply</span>(binned_bankfraud_data[binary_columns], <span class="dv">1</span>, <span class="cf">function</span>(x) {<span class="fu">paste</span>(<span class="fu">as.character</span>(x), <span class="at">collapse =</span> <span class="st">""</span>)})</span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(binned_bankfraud_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [743,169 × 15] (S3: tbl_df/tbl/data.frame)
+ $ node_id                     : int [1:743169] 1 2 3 4 5 6 7 8 9 10 ...
+ $ payment_type                : num [1:743169] 1 4 2 2 1 4 2 2 2 4 ...
+ $ keep_alive_session          : num [1:743169] 1 1 0 1 0 1 1 1 1 1 ...
+ $ foreign_request             : num [1:743169] 0 0 0 0 0 0 0 0 0 0 ...
+ $ email_is_free               : num [1:743169] 1 1 1 1 0 1 1 0 0 1 ...
+ $ fraud_bool                  : num [1:743169] 0 0 0 0 0 0 0 0 0 0 ...
+ $ bank_branch_count_8w        : int [1:743169] 1 1 1 1 1 2 1 1 1 1 ...
+ $ zip_count_4w                : int [1:743169] 1 2 1 3 2 1 2 2 2 3 ...
+ $ name_email_similarity       : int [1:743169] 5 4 5 3 5 2 4 1 3 5 ...
+ $ bank_months_count           : int [1:743169] 2 1 5 1 5 5 1 4 1 3 ...
+ $ housing_status              : num [1:743169] 3 3 3 3 3 5 3 5 3 4 ...
+ $ velocity_6h                 : int [1:743169] 4 3 2 5 3 4 4 2 3 3 ...
+ $ phone_home_valid            : num [1:743169] 0 1 0 0 1 1 1 1 1 1 ...
+ $ current_address_months_count: int [1:743169] 1 2 1 1 1 5 1 2 1 2 ...
+ $ binary_combination_value    : chr [1:743169] "10100" "10101" "00100" "10100" ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating sample:</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>data_sample <span class="ot">=</span> <span class="fu">sample_n</span>(binned_bankfraud_data, sample_size)</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [50 × 15] (S3: tbl_df/tbl/data.frame)
+ $ node_id                     : int [1:50] 722299 77135 8378 349691 509908 445991 513899 515389 12395 539234 ...
+ $ payment_type                : num [1:50] 2 4 1 2 2 1 1 4 1 2 ...
+ $ keep_alive_session          : num [1:50] 1 1 1 0 1 0 0 0 0 1 ...
+ $ foreign_request             : num [1:50] 0 0 0 0 0 0 0 0 0 0 ...
+ $ email_is_free               : num [1:50] 1 0 1 1 1 1 0 0 0 0 ...
+ $ fraud_bool                  : num [1:50] 0 0 0 0 0 0 0 0 0 0 ...
+ $ bank_branch_count_8w        : int [1:50] 1 1 1 1 4 1 1 1 1 1 ...
+ $ zip_count_4w                : int [1:50] 1 2 2 3 2 1 1 1 2 1 ...
+ $ name_email_similarity       : int [1:50] 1 3 3 1 1 1 3 1 5 1 ...
+ $ bank_months_count           : int [1:50] 3 1 1 5 5 2 5 1 1 5 ...
+ $ housing_status              : num [1:50] 3 4 1 2 3 4 5 1 1 1 ...
+ $ velocity_6h                 : int [1:50] 2 3 4 1 2 3 2 2 3 1 ...
+ $ phone_home_valid            : num [1:50] 1 0 0 0 1 0 0 0 1 1 ...
+ $ current_address_months_count: int [1:50] 1 1 2 1 1 1 1 1 3 3 ...
+ $ binary_combination_value    : chr [1:50] "10101" "10000" "10100" "00100" ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating edge list:</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>edges_list <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">row_id_1 =</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(data_sample)), <span class="at">row_id_2 =</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(data_sample))) <span class="sc">%&gt;%</span></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(row_id_1 <span class="sc">&lt;</span> row_id_2) <span class="sc">%&gt;%</span>  <span class="co"># Remove duplicates and self-loops</span></span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">edge_type =</span> <span class="fu">list</span>(<span class="fu">names</span>(data_sample)[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">13</span>)][</span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sapply</span>(<span class="fu">names</span>(data_sample)[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">13</span>)], <span class="cf">function</span>(col) {</span>
+<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a>        data_sample[[col]][row_id_1] <span class="sc">==</span> data_sample[[col]][row_id_2]</span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">length</span>(edge_type) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(edge_type) <span class="sc">%&gt;%</span></span>
+<span id="cb113-14"><a href="#cb113-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb113-15"><a href="#cb113-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb113-16"><a href="#cb113-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">node_id_1 =</span> data_sample<span class="sc">$</span>node_id[row_id_1],</span>
+<span id="cb113-17"><a href="#cb113-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">node_id_2 =</span> data_sample<span class="sc">$</span>node_id[row_id_2]</span>
+<span id="cb113-18"><a href="#cb113-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb113-19"><a href="#cb113-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(node_id_1, node_id_2, edge_type)</span>
+<span id="cb113-20"><a href="#cb113-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(edges_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,879 × 3
+   node_id_1 node_id_2 edge_type                   
+       &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                       
+ 1    722299     77135 bank_branch_count_8w        
+ 2    722299     77135 current_address_months_count
+ 3    722299      8378 bank_branch_count_8w        
+ 4     77135      8378 bank_branch_count_8w        
+ 5     77135      8378 zip_count_4w                
+ 6     77135      8378 name_email_similarity       
+ 7     77135      8378 bank_months_count           
+ 8    722299    349691 payment_type                
+ 9    722299    349691 bank_branch_count_8w        
+10    722299    349691 name_email_similarity       
+# ℹ 3,869 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(edges_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3879</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(edges_list<span class="sc">$</span>edge_type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "bank_branch_count_8w"         "current_address_months_count"
+[3] "zip_count_4w"                 "name_email_similarity"       
+[5] "bank_months_count"            "payment_type"                
+[7] "housing_status"               "velocity_6h"                 
+[9] "binary_combination_value"    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the Data:</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(<span class="at">d =</span> edges_list, <span class="at">vertices =</span> data_sample, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>edge_type_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"payment_type"</span> <span class="ot">=</span> <span class="st">"green"</span>, <span class="st">"bank_branch_count_8w"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"name_email_similarity"</span> <span class="ot">=</span> <span class="st">"yellow"</span>,</span>
+<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"zip_count_4w"</span> <span class="ot">=</span> <span class="st">"cyan"</span>, <span class="st">"velocity_6h"</span> <span class="ot">=</span> <span class="st">"blueviolet"</span>, <span class="st">"current_address_months_count"</span> <span class="ot">=</span> <span class="st">"gold4"</span>,</span>
+<span id="cb119-5"><a href="#cb119-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"bank_months_count"</span> <span class="ot">=</span> <span class="st">"darkseagreen1"</span>, <span class="st">"housing_status"</span> <span class="ot">=</span> <span class="st">"darkorange1"</span>, <span class="st">"binary_combination_value"</span> <span class="ot">=</span> <span class="st">"black"</span>)</span>
+<span id="cb119-6"><a href="#cb119-6" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(graph)<span class="sc">$</span>color <span class="ot">&lt;-</span> edge_type_colors[<span class="fu">E</span>(graph)<span class="sc">$</span>edge_type]</span>
+<span id="cb119-7"><a href="#cb119-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb119-8"><a href="#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(graph, <span class="at">vertex.size =</span> <span class="dv">20</span>, <span class="at">edge.width =</span> <span class="dv">1</span>, <span class="at">edge.color =</span> <span class="fu">E</span>(graph)<span class="sc">$</span>color)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="code_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>
