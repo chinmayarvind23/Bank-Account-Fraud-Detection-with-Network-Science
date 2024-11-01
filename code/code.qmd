@@ -31,6 +31,7 @@ install.packages(c('readr', 'dplyr', 'httr'))
 install.packages("igraph")
 install.packages("dotenv")
 install.packages("tidyverse")
+install.packages("purrr")
 renv::snapshot()
 library(rmarkdown)
 library(tidyverse)
@@ -42,12 +43,13 @@ library(dplyr)
 library(httr)
 library(dotenv)
 library(tidyverse)
+library(purrr)
 ```
 
 # Data loading
 
 ```{r}
-load_dot_env(file = "C:/Users/dimdi/OneDrive/Documents/COSC 421/Project/Bank-Account-Fraud-Detection-with-Network-Science/data.env")
+load_dot_env(file = "/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env")
 storage_container_url <- Sys.getenv("AZURE_STORAGE_SAS_URL")
 if (storage_container_url == "") {
   stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
@@ -123,11 +125,14 @@ summary(bankfraud_data_pca)
 pcaCharts(bankfraud_data_pca)
 ```
 
-Printing the covariance matrix of the data.
+Printing the covariance and correlation matrices of the data.
 
 ```{r}
 covariancematrix <- cov(bankfraud_data)
 covariancematrix
+
+corellationmatrix = cor(bankfraud_data)
+corellationmatrix
 ```
 
 Shows the data points based on their fraud classification status on a biplot showing how much each feature contributes to the first 2 principal components.
@@ -180,20 +185,102 @@ Prting the rotation matrix of the PCA that indicates the magnitude and direction
 bankfraud_data_pca$rotation
 ```
 
-Final dataset with most relevant features for predicting fraud.
+# Final dataset with most relevant features for predicting fraud.
+
+Rows with missing (-1) values in the bank_months_count and current_address_months_count are removed as these are considered missing values. The days_since_request column is removed due to having unreliable data - the data is supposed to range from 0 to 78 days, however the majority of the entries are less than one. The negative values from velocity_6h are also removed as they are uninterpretable in the context of the velocity of applications.
 
 ```{r}
 bankfraud_data <- bankfraud_data[, c(selected_features)]
 bankfraud_data %>% relocate(fraud_bool)
 bankfraud_data
 
-# Checking for and removing inconsistent values:
+str(bankfraud_data)
+
+# Checking for inconsistent values:
 range(bankfraud_data$bank_months_count)
 range(bankfraud_data$current_address_months_count)
+range(bankfraud_data$days_since_request)
+
+# Removing -1 values
 bankfraud_data = bankfraud_data[bankfraud_data$bank_months_count != -1, ]
 bankfraud_data = bankfraud_data[bankfraud_data$current_address_months_count != -1, ]
+
+# Dropping days_since_request column
+bankfraud_data = subset(bankfraud_data, select = -c(days_since_request))
+
+# Removing negative values from velocity_6h
+bankfraud_data = bankfraud_data[bankfraud_data$velocity_6h >= 0, ]
+nrow(bankfraud_data)
 
 ```
 
 # Feature Engineering
 
+Checking data ranges, and enumerating records in the CSV file as nodes with Node IDs. We have taken a sample here to check if the graph creation is feasible before generating the graph with all of the nodes in it.
+
+```{r}
+str(bankfraud_data)
+
+# Checking ranges:
+range(bankfraud_data$payment_type)
+range(bankfraud_data$bank_months_count)
+range(bankfraud_data$bank_branch_count_8w)
+range(bankfraud_data$zip_count_4w)
+range(bankfraud_data$name_email_similarity)
+range(bankfraud_data$bank_months_count)
+range(bankfraud_data$housing_status)
+range(bankfraud_data$velocity_6h)
+range(bankfraud_data$current_address_months_count)
+
+# Adding node_id column to identify vertices:
+bankfraud_data$node_id = seq.int(nrow(bankfraud_data))
+bankfraud_data = bankfraud_data %>% relocate(node_id)
+
+# Creating Bins for bank_branch_count_8w, zip_count_4w, name_email_similarity, bank_months_count, velocity_6h, current_address_months_count:
+bin_count = 5
+binned_bankfraud_data = bankfraud_data
+cols_to_bin = c("bank_branch_count_8w", "zip_count_4w", "name_email_similarity", "bank_months_count", "velocity_6h", "current_address_months_count")
+binned_bankfraud_data[cols_to_bin] = data.frame(lapply(binned_bankfraud_data[cols_to_bin], function(x) cut(x, breaks = bin_count, labels=FALSE)))
+str(binned_bankfraud_data)
+
+# Creating binary combination column:
+binary_columns = c("keep_alive_session", "foreign_request", "email_is_free", "fraud_bool", "phone_home_valid")
+binned_bankfraud_data$binary_combination_value = apply(binned_bankfraud_data[binary_columns], 1, function(x) {paste(as.character(x), collapse = "")})
+str(binned_bankfraud_data)
+
+# Creating sample:
+sample_size = 50
+data_sample = sample_n(binned_bankfraud_data, sample_size)
+str(data_sample)
+
+# Creating edge list:
+edges_list <- expand.grid(row_id_1 = seq_len(nrow(data_sample)), row_id_2 = seq_len(nrow(data_sample))) %>%
+  filter(row_id_1 < row_id_2) %>%  # Remove duplicates and self-loops
+  rowwise() %>%
+  mutate(
+    edge_type = list(names(data_sample)[-c(1,3:6,13)][
+      sapply(names(data_sample)[-c(1,3:6,13)], function(col) {
+        data_sample[[col]][row_id_1] == data_sample[[col]][row_id_2]
+      })
+    ])
+  ) %>%
+  filter(length(edge_type) > 0) %>%
+  unnest(edge_type) %>%
+  ungroup() %>%
+  mutate(
+    node_id_1 = data_sample$node_id[row_id_1],
+    node_id_2 = data_sample$node_id[row_id_2]
+  ) %>%
+  select(node_id_1, node_id_2, edge_type)
+print(edges_list)
+nrow(edges_list)
+unique(edges_list$edge_type)
+# Plotting the Data:
+graph <- graph_from_data_frame(d = edges_list, vertices = data_sample, directed = FALSE)
+edge_type_colors <- c("payment_type" = "green", "bank_branch_count_8w" = "blue", "name_email_similarity" = "yellow",
+                       "zip_count_4w" = "cyan", "velocity_6h" = "blueviolet", "current_address_months_count" = "gold4",
+                       "bank_months_count" = "darkseagreen1", "housing_status" = "darkorange1", "binary_combination_value" = "black")
+E(graph)$color <- edge_type_colors[E(graph)$edge_type]
+par(mfrow=c(1,1), mar=c(0,0,0,0))
+plot(graph, vertex.size = 20, edge.width = 1, edge.color = E(graph)$color)
+```
