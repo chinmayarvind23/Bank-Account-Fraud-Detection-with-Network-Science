@@ -284,3 +284,64 @@ E(graph)$color <- edge_type_colors[E(graph)$edge_type]
 par(mfrow=c(1,1), mar=c(0,0,0,0))
 plot(graph, vertex.size = 20, edge.width = 1, edge.color = E(graph)$color)
 ```
+
+
+
+## Sampling Procedure & Justification
+
+Running the entire cleaned and processed dataset post-data cleaning, PCA, and feature extraction would be very resource intensive and not feasible in a local RStudio environment to generate visualizations of the graph. Therefore, we propose a sampling approach that draws a representative sample of the dataset's entire remaining feature space. The methodology for sampling the dataset is explained below.
+
+
+
+
+
+
+## Research Question 1: Which were the key fraudulent players within the network?
+
+This research questions aims to determine the most important fraudulent players within the sample taken of the network. Although this graph will be a sample of the entire graph, as specified from the rationale of taking a sample, it will be a representative one of the entire dataset, therefore, identifying important fraudulent bank account creations from this subgraph of customers bank account requests will lead us to finding key fraudulent bank account requests that could have influence over other fraudulent bank account requests, and lead to further discoveries of fraud rings.
+
+```{r}
+
+```
+
+
+
+
+## Research Question 2: Were there any specific fraudulent groups within the network that could be collaborating to defraud the bank? And if so, what were their characteristics?
+
+
+```{r}
+
+```
+
+
+
+
+## Research Question 3: What was the average profile of a fraudulent customer?
+
+
+```{r}
+
+```
+
+
+
+## Research Question 4: What differences exist between fraudulent account applications and non-fraudulent account applications?
+
+
+```{r}
+
+```
+
+
+## Interpretation Summary
+
+
+
+
+## Conclusion
+
+
+
+
+
