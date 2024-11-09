@@ -234,7 +234,7 @@ bankfraud_data = bankfraud_data %>% relocate(node_id)
 
 # Creating Bins for bank_branch_count_8w, zip_count_4w, name_email_similarity, bank_months_count, velocity_6h, current_address_months_count:
 
-bin_count = 5
+bin_count = 10
 
 binned_bankfraud_data = bankfraud_data
 
@@ -252,34 +252,46 @@ binned_bankfraud_data$binary_combination_value = apply(binned_bankfraud_data[bin
 
 str(binned_bankfraud_data)
 
-# Creating sample:
+#Using stratified sampling to ensure same proportion of fraudulent nodes:
+sample_size = 1000
+sample_size_fraud = sample_size*0.01
+sample_size_legit = sample_size*0.99
 
-sample_size = 50
-data_sample = sample_n(binned_bankfraud_data, sample_size)
+sample_fraud = binned_bankfraud_data %>% filter(fraud_bool == 1) %>% slice_sample(n = sample_size_fraud)
+sample_legit = binned_bankfraud_data %>% filter(fraud_bool == 0) %>% slice_sample(n = sample_size_legit)
+
+data_sample = bind_rows(sample_fraud, sample_legit)
 
 str(data_sample)
 
 # Creating edge list:
-  
-edges_list <- expand.grid(row_id_1 = seq_len(nrow(data_sample)), row_id_2 = seq_len(nrow(data_sample))) %>%
-  filter(row_id_1 < row_id_2) %>%  # Remove duplicates and self-loops
-  rowwise() %>%
-  mutate(
-    edge_type = list(names(data_sample)[-c(1,3:6,13)][
-      sapply(names(data_sample)[-c(1,3:6,13)], function(col) {
-        data_sample[[col]][row_id_1] == data_sample[[col]][row_id_2]
-      })
-    ])
-  ) %>%
-  filter(length(edge_type) > 0) %>%
-  unnest(edge_type) %>%
-  ungroup() %>%
-  mutate(
-    node_id_1 = data_sample$node_id[row_id_1],
-    node_id_2 = data_sample$node_id[row_id_2]
-  ) %>%
-  select(node_id_1, node_id_2, edge_type)
+create_edges <- function(data_sample) {
+  start.time <- Sys.time()
+  edges_list <- expand.grid(row_id_1 = seq_len(nrow(data_sample)), row_id_2 = seq_len(nrow(data_sample))) %>%
+    filter(row_id_1 < row_id_2) %>%  # Remove duplicates and self-loops
+    rowwise() %>%
+    mutate(
+      edge_type = list(names(data_sample)[-c(1,3:6,13)][
+        sapply(names(data_sample)[-c(1,3:6,13)], function(col) {
+          data_sample[[col]][row_id_1] == data_sample[[col]][row_id_2]
+        })
+      ])
+    ) %>%
+    filter(length(edge_type) > 0) %>%
+    unnest(edge_type) %>%
+    ungroup() %>%
+    mutate(
+      node_id_1 = data_sample$node_id[row_id_1],
+      node_id_2 = data_sample$node_id[row_id_2]
+    ) %>%
+    select(node_id_1, node_id_2, edge_type)
+  end.time <- Sys.time()
+  time.taken <- end.time - start.time
+  print(time.taken)
+  edges_list
+}
 
+edges_list = create_edges(data_sample)
 print(edges_list)
 nrow(edges_list)
 unique(edges_list$edge_type)
@@ -294,5 +306,65 @@ edge_type_colors <- c("payment_type" = "green", "bank_branch_count_8w" = "blue",
 E(graph)$color <- edge_type_colors[E(graph)$edge_type]
 
 plot(graph, vertex.size = 20, edge.width = 1, edge.color = E(graph)$color)
+
+```
+
+Reasoning for sampling:
+
+Due to the lengthy computation time of our edge-generating function, we have chosen to use samples of our full data to analyze the network. A one-thousand node sample takes approximately one minute to generate edges, a two-thousand sample take around ten minutes. This increase in time makes it unfeasible to use larger samples, let alone the entire data set of around 700 thousand nodes. Therefore, we will keep our sample sizes in the 1000 to 2000 range.
+
+The percentage of fraudulent nodes in the full data set is approximately 1%. To ensure this proportion is consistent in our sample we use stratified sampling. Stratified sampling samples 1% of the data from a strata of only fraudulent nodes and the other 99% of the data from a strata of only the non-fraudulent nodes.
+
+Prior to using a sample in our project, we ensure that the sample is representative of the entire data set by applying the Chi-Squared test to our sample. The Chi-Squared test will determine if there is a significant difference between the values in the columns of the sample and in the full data set. The Chi-Squared test generates p-values for each column in a sample. A p-value of less than 0.05 will signal a significant difference between the sample and the full data set for that particular column. By conducting the Chi-Squared test on a given sample we ensure that it is sufficiently representative of the entire data set.
+
+```{r}
+# Percentage of fraudulent nodes in the data frame:
+fraud_percentage = (sum(bankfraud_data$fraud_bool == 1)/nrow(bankfraud_data))*100
+fraud_percentage
+
+str(data_sample)
+str(binned_bankfraud_data)
+
+# Factor data for chi_Squared test:
+
+data_sample$payment_type = as.factor(data_sample$payment_type)
+data_sample$bank_branch_count_8w = as.factor(data_sample$bank_branch_count_8w)
+data_sample$zip_count_4w = as.factor(data_sample$zip_count_4w)
+data_sample$name_email_similarity = as.factor(data_sample$name_email_similarity)
+data_sample$bank_months_count = as.factor(data_sample$bank_months_count)
+data_sample$housing_status = as.factor(data_sample$housing_status)
+data_sample$velocity_6h = as.factor(data_sample$velocity_6h)
+data_sample$current_address_months_count = as.factor(data_sample$current_address_months_count)
+
+binned_bankfraud_data$payment_type = as.factor(binned_bankfraud_data$payment_type)
+binned_bankfraud_data$bank_branch_count_8w = as.factor(binned_bankfraud_data$bank_branch_count_8w)
+binned_bankfraud_data$zip_count_4w = as.factor(binned_bankfraud_data$zip_count_4w)
+binned_bankfraud_data$name_email_similarity = as.factor(binned_bankfraud_data$name_email_similarity)
+binned_bankfraud_data$bank_months_count = as.factor(binned_bankfraud_data$bank_months_count)
+binned_bankfraud_data$housing_status = as.factor(binned_bankfraud_data$housing_status)
+binned_bankfraud_data$velocity_6h = as.factor(binned_bankfraud_data$velocity_6h)
+binned_bankfraud_data$current_address_months_count = as.factor(binned_bankfraud_data$current_address_months_count)
+
+# Chi-Squared test:
+
+chi_squared_results = list()
+
+for (col in names(data_sample)[-c(1,3:6,13)]) {
+  population_counts = table(binned_bankfraud_data[[col]])
+  sample_counts = table(data_sample[[col]])
+  
+  all_levels = names(population_counts)
+  sample_counts = sample_counts[all_levels]
+  
+  sample_counts[is.na(sample_counts)] = 0
+  
+  chi_test = chisq.test(x = sample_counts, p = population_counts/sum(population_counts))
+  
+  chi_squared_results[[col]] = chi_test$p.value
+}
+
+chi_squared_df = data.frame(Column = names(chi_squared_results), P_Value = unlist(chi_squared_results))
+
+print(chi_squared_df)
 
 ```
