@@ -31,6 +31,7 @@ install.packages(c('readr', 'dplyr', 'httr'))
 install.packages("igraph")
 install.packages("dotenv")
 install.packages("tidyverse")
+install.packages("dotenv")
 renv::snapshot()
 library(rmarkdown)
 library(tidyverse)
@@ -43,12 +44,14 @@ library(httr)
 library(dotenv)
 library(tidyverse)
 library(purrr)
+library(dotenv)
+exists("load_dot_env", where = asNamespace("dotenv"))
 ```
 
 # Data loading
 
 ```{r}
-load_dot_env(file = "C:/Users/dimdi/OneDrive/Documents/COSC 421/Project/Bank-Account-Fraud-Detection-with-Network-Science/data.env")
+load_dot_env(file = "C:/Users/jcfan/OneDrive/Desktop/Bank-Account-Fraud-Detection-with-Network-Science/data.env")
 storage_container_url <- Sys.getenv("AZURE_STORAGE_SAS_URL")
 if (storage_container_url == "") {
   stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
@@ -366,5 +369,116 @@ for (col in names(data_sample)[-c(1,3:6,13)]) {
 chi_squared_df = data.frame(Column = names(chi_squared_results), P_Value = unlist(chi_squared_results))
 
 print(chi_squared_df)
+
+```
+
+# RQ 3.
+
+What was the average profile of a fraudulent customer?
+
+```{r}
+print(nrow(fraud_transactions))
+print(head(fraud_transactions))
+
+```
+
+```{r}
+# Filter fraudulent transactions
+fraud_transactions <- bankfraud_data %>% filter(fraud_bool == 1)
+num_fraud_transactions <- nrow(fraud_transactions)
+
+# Display number of fraudulent transactions
+print(paste("Total number of fraudulent transactions:", num_fraud_transactions))
+
+calculate_mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+# Calculate the average profile
+typical_fraud_node <- fraud_transactions %>%
+  summarise(
+    payment_type = calculate_mode(payment_type),
+    keep_alive_session = calculate_mode(keep_alive_session),
+    foreign_request = calculate_mode(foreign_request),
+    email_is_free = calculate_mode(email_is_free),
+    bank_branch_count_8w = mean(bank_branch_count_8w, na.rm = TRUE),
+    zip_count_4w = mean(zip_count_4w, na.rm = TRUE),
+    name_email_similarity = mean(name_email_similarity, na.rm = TRUE),
+    bank_months_count = mean(bank_months_count, na.rm = TRUE),
+    housing_status = calculate_mode(housing_status),
+    velocity_6h = mean(velocity_6h, na.rm = TRUE),
+    phone_home_valid = calculate_mode(phone_home_valid),
+    current_address_months_count = mean(current_address_months_count, na.rm = TRUE)
+  )
+
+typical_fraud_node <- as.list(typical_fraud_node)
+
+print("Average Profile of a Fraudulent Node:")
+print(typical_fraud_node)
+
+
+```
+
+```{r}
+calculate_similarity <- function(node, typical_node) {
+  similarity_score <- sum(
+    node$payment_type == typical_node$payment_type,
+    node$keep_alive_session == typical_node$keep_alive_session,
+    node$foreign_request == typical_node$foreign_request,
+    node$email_is_free == typical_node$email_is_free,
+    abs(node$bank_branch_count_8w - typical_node$bank_branch_count_8w) < 2,
+    abs(node$zip_count_4w - typical_node$zip_count_4w) < 2,
+    abs(node$name_email_similarity - typical_node$name_email_similarity) < 0.1,
+    abs(node$bank_months_count - typical_node$bank_months_count) < 6,
+    node$housing_status == typical_node$housing_status,
+    abs(node$velocity_6h - typical_node$velocity_6h) < 0.5,
+    node$phone_home_valid == typical_node$phone_home_valid,
+    abs(node$current_address_months_count - typical_node$current_address_months_count) < 12
+  )
+  return(similarity_score)
+}
+
+# Create edges based on similarity to the typical node
+similarity_threshold <- 8
+typical_node_id <- "TypicalNode"
+edges_list <- data.frame(node_id_1 = character(), node_id_2 = character(), similarity_score = numeric())
+
+for (i in 1:nrow(fraud_transactions)) {
+  node <- fraud_transactions[i, ]
+  similarity_score <- calculate_similarity(node, typical_fraud_node)
+  
+  if (similarity_score >= similarity_threshold) {
+    edges_list <- rbind(edges_list, data.frame(
+      node_id_1 = typical_node_id,
+      node_id_2 = node$node_id,
+      similarity_score = similarity_score
+    ))
+  }
+}
+
+typical_node_row <- data.frame(
+  node_id = typical_node_id,
+  payment_type = typical_fraud_node$payment_type,
+  keep_alive_session = typical_fraud_node$keep_alive_session,
+  foreign_request = typical_fraud_node$foreign_request,
+  email_is_free = typical_fraud_node$email_is_free,
+  bank_branch_count_8w = typical_fraud_node$bank_branch_count_8w,
+  zip_count_4w = typical_fraud_node$zip_count_4w,
+  name_email_similarity = typical_fraud_node$name_email_similarity,
+  bank_months_count = typical_fraud_node$bank_months_count,
+  housing_status = typical_fraud_node$housing_status,
+  velocity_6h = typical_fraud_node$velocity_6h,
+  phone_home_valid = typical_fraud_node$phone_home_valid,
+  current_address_months_count = typical_fraud_node$current_address_months_count,
+  fraud_bool = 1
+)
+vertices <- rbind(fraud_transactions, typical_node_row)
+
+graph_fraud <- graph_from_data_frame(d = edges_list, vertices = vertices, directed = FALSE)
+
+E(graph_fraud)$weight <- edges_list$similarity_score
+
+plot(graph_fraud, vertex.size = 1, vertex.label = NA, edge.width = E(graph_fraud)$weight / max(E(graph_fraud)$weight) * 2)
 
 ```
