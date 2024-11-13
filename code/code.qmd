@@ -345,13 +345,47 @@ print(chi_squared_df)
 
 ## Research Question 1: Which were the key fraudulent players within the network?
 
-This research question aims to determine the most important fraudulent players within the sample taken of the network. Although this graph will be a sample of the entire graph, as specified from the rationale of taking a sample, it will be a representative one of the entire dataset, therefore, identifying important fraudulent bank account creations from this subgraph of customers bank account requests will lead us to finding key fraudulent bank account requests that could have influence over other fraudulent bank account requests, and lead to further discoveries of fraud rings.
+This research question aims to determine the most important fraudulent players within the sample taken of the network. Treating each bank account request as a node (row in the dataset), the general process that will be followed will be to observe the distribution of values for each of the following centrality measures, and set a threshold for defining a node as highly influential or not. Using the nodes that influential across different centrality measures, we will then take a look at nodes that have scored high across all centrality metrics and examine them, attempting to interpret their role in facilitating bank fraud based on their scores in the different centrality metrics, proximity to other nodes, and etc.
+
+The following metrics will be used in evaluating the influential fraudulent nodes in the network:
+
+1. Eigenvector centrality
+
+2. Degree centrality
+
+3. Katz centrality
+
+4. Closeness centrality
+
+5. PageRank centrality
+
+6. Degree distribution
 
 ```{r}
 
 ```
 
 ## Research Question 2: Were there any specific fraudulent groups within the network that could be collaborating to defraud the bank? And if so, what were their characteristics?
+
+This research question aims to find clusters of nodes within the entire network, that could potentially be fraud rings based on the attributes of the nodes. Clusters that are majorly the same throughout different results from different network metrics could be potential fraud rings, and will be determined using centrality metrics such as:
+
+1. Network density
+
+2. Local clustering coefficient
+
+3. Modularity
+
+4. Girvan-Newman algorithm
+
+5. Graph laplacian
+
+6. Edge betweenness
+
+7. Assortativity
+
+8. Global clustering coefficient
+
+9. K-cores
 
 ```{r}
 
