@@ -37,7 +37,6 @@ library(rmarkdown)
 library(tidyverse)
 library(visNetwork)
 library(igraph)
-library(AzureStor)
 library(readr)
 library(dplyr)
 library(httr)
@@ -49,13 +48,13 @@ library(purrr)
 # Data loading
 
 ```{r}
-load_dot_env(file = "/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env")
+load_dot_env(file = "C:/Users/rylan/Desktop/421 Project/Bank-Account-Fraud-Detection-with-Network-Science/data.env")
 storage_container_url <- Sys.getenv("AZURE_STORAGE_SAS_URL")
 if (storage_container_url == "") {
   stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
 }
 
-bankfraud_data <- read_csv(storage_container_url)
+bankfraud_data <- read_csv("C:/Users/rylan/OneDrive/Base.csv")
 bankfraud_data
 ```
 
@@ -236,8 +235,15 @@ range(bankfraud_data$current_address_months_count)
 bankfraud_data$node_id = seq.int(nrow(bankfraud_data))
 bankfraud_data = bankfraud_data %>% relocate(node_id)
 
+
+#Rylan Millar - You can start changing your own stuff here
+#
+#
+#
+
+
 # Creating Bins for bank_branch_count_8w, zip_count_4w, name_email_similarity, bank_months_count, velocity_6h, current_address_months_count:
-bin_count = 5
+bin_count = 20
 binned_bankfraud_data = bankfraud_data
 cols_to_bin = c("bank_branch_count_8w", "zip_count_4w", "name_email_similarity", "bank_months_count", "velocity_6h", "current_address_months_count")
 binned_bankfraud_data[cols_to_bin] = data.frame(lapply(binned_bankfraud_data[cols_to_bin], function(x) cut(x, breaks = bin_count, labels=FALSE)))
@@ -249,7 +255,7 @@ binned_bankfraud_data$binary_combination_value = apply(binned_bankfraud_data[bin
 str(binned_bankfraud_data)
 
 # Creating sample:
-sample_size = 50
+sample_size = 500
 data_sample = sample_n(binned_bankfraud_data, sample_size)
 str(data_sample)
 
@@ -282,7 +288,7 @@ edge_type_colors <- c("payment_type" = "green", "bank_branch_count_8w" = "blue",
                        "bank_months_count" = "darkseagreen1", "housing_status" = "darkorange1", "binary_combination_value" = "black")
 E(graph)$color <- edge_type_colors[E(graph)$edge_type]
 par(mfrow=c(1,1), mar=c(0,0,0,0))
-plot(graph, vertex.size = 20, edge.width = 1, edge.color = E(graph)$color)
+plot(graph, vertex.size = 2, edge.width = 1, edge.color = E(graph)$color)
 ```
 
 ## Sampling Procedure & Justification
@@ -349,17 +355,17 @@ This research question aims to determine the most important fraudulent players w
 
 The following metrics will be used in evaluating the influential fraudulent nodes in the network:
 
-1. Eigenvector centrality
+1.  Eigenvector centrality
 
-2. Degree centrality
+2.  Degree centrality
 
-3. Katz centrality
+3.  Katz centrality
 
-4. Closeness centrality
+4.  Closeness centrality
 
-5. PageRank centrality
+5.  PageRank centrality
 
-6. Degree distribution
+6.  Degree distribution
 
 ```{r}
 
@@ -369,23 +375,23 @@ The following metrics will be used in evaluating the influential fraudulent node
 
 This research question aims to find clusters of nodes within the entire network, that could potentially be fraud rings based on the attributes of the nodes. Clusters that are majorly the same throughout different results from different network metrics could be potential fraud rings, and will be determined using centrality metrics such as:
 
-1. Network density
+1.  Network density
 
-2. Local clustering coefficient
+2.  Local clustering coefficient
 
-3. Modularity
+3.  Modularity
 
-4. Girvan-Newman algorithm
+4.  Girvan-Newman algorithm
 
-5. Graph laplacian
+5.  Graph laplacian
 
-6. Edge betweenness
+6.  Edge betweenness
 
-7. Assortativity
+7.  Assortativity
 
-8. Global clustering coefficient
+8.  Global clustering coefficient
 
-9. K-cores
+9.  K-cores
 
 ```{r}
 
