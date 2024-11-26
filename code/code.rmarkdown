@@ -9,9 +9,13 @@ format:
     toc-location: left
 ---
 
+
+
 #### Team Members: Chinmay Arvind, Dmitry Kostyukov, Jerry Fan, Rylan Millar
 
 # Imports & Libraries Setup
+
+
 
 ```{r}
 renv::snapshot()
@@ -47,7 +51,11 @@ library(tidyverse)
 library(purrr)
 ```
 
+
+
 # Data loading
+
+
 
 ```{r}
 load_dot_env(file = "C:/Users/Owner/MillarDrive/OneDrive/Bank-Account-Fraud-Detection-with-Network-Science/data.env")
@@ -60,13 +68,21 @@ bankfraud_data <- read_csv("C:/Users/Owner/MillarDrive/OneDrive/Bank-Account-Fra
 bankfraud_data
 ```
 
+
+
 # Data cleaning, and PCA
+
+
 
 ```{r}
 colSums(is.na(bankfraud_data))
 ```
 
+
+
 No missing values, so we can proceed with the rest of the data cleaning.
+
+
 
 ```{r}
 summary(bankfraud_data)
@@ -78,7 +94,11 @@ bankfraud_data <- bankfraud_data[!duplicated(bankfraud_data), ]
 bankfraud_data
 ```
 
+
+
 No duplicates identified, so we can proceed with PCA and feature engineering. Removing the Device OS columns and the source columns as they are not helpful predictors in predicting bank fraud. The character data type columns are converted to numeric types for making PCA possible.
+
+
 
 ```{r}
 bankfraud_data <- bankfraud_data[, -c(26, 28)]
@@ -86,13 +106,21 @@ bankfraud_data <- bankfraud_data %>% mutate(across(where(is.character), ~ as.num
 bankfraud_data
 ```
 
+
+
 Printing a summary of the dataset so far.
+
+
 
 ```{r}
 str(bankfraud_data)
 ```
 
+
+
 Removing columns with 0 variance in them, as they will not contribute to predicting fraud in any way.
+
+
 
 ```{r}
 not_required_cols <- sapply(bankfraud_data, function(x) var(x, na.rm = TRUE) == 0)
@@ -103,7 +131,11 @@ print("Remaining columns after removing zero variance columns:")
 print(names(bankfraud_data))
 ```
 
+
+
 Printing a summary of the PCA performed after scaling the data, which shows the number of principal components that explain x% of the variance in the dataset along with charts that indicate the same.
+
+
 
 ```{r}
 pcaCharts <- function(x) {
@@ -126,7 +158,11 @@ summary(bankfraud_data_pca)
 pcaCharts(bankfraud_data_pca)
 ```
 
+
+
 Printing the covariance and correlation matrices of the data.
+
+
 
 ```{r}
 covariancematrix <- cov(bankfraud_data)
@@ -136,7 +172,11 @@ corellationmatrix = cor(bankfraud_data)
 corellationmatrix
 ```
 
+
+
 Shows the data points based on their fraud classification status on a biplot showing how much each feature contributes to the first 2 principal components.
+
+
 
 ```{r}
 install.packages("ggplot2")
@@ -146,7 +186,11 @@ library(ggfortify)
 autoplot(bankfraud_data_pca, data = bankfraud_data, colour = 'fraud_bool', loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3)
 ```
 
+
+
 Setting an absolute threshold of 0.5 for selecting the impact of features on the principal components.
+
+
 
 ```{r}
 pca_loadings <- bankfraud_data_pca$rotation[, 1:24]
@@ -180,15 +224,23 @@ selected_features <- unique(c(
 print(selected_features)
 ```
 
+
+
 Prting the rotation matrix of the PCA that indicates the magnitude and direction of contribution of a feature to various principal components.
+
+
 
 ```{r}
 bankfraud_data_pca$rotation
 ```
 
+
+
 # Final dataset with most relevant features for predicting fraud.
 
 Rows with missing (-1) values in the bank_months_count and current_address_months_count are removed as these are considered missing values. The days_since_request column is removed due to having unreliable data - the data is supposed to range from 0 to 78 days, however the majority of the entries are less than one. The negative values from velocity_6h are also removed as they are uninterpretable in the context of the velocity of applications.
+
+
 
 ```{r}
 bankfraud_data <- bankfraud_data[, c(selected_features)]
@@ -215,9 +267,13 @@ nrow(bankfraud_data)
 
 ```
 
+
+
 # Feature Engineering
 
 Checking data ranges, and enumerating records in the CSV file as nodes with Node IDs. We have taken a sample here to check if the graph creation is feasible before generating the graph with all of the nodes in it.
+
+
 
 ```{r}
 str(bankfraud_data)
@@ -245,7 +301,7 @@ bankfraud_data = bankfraud_data %>% relocate(node_id)
 
 
 # Creating Bins for bank_branch_count_8w, zip_count_4w, name_email_similarity, bank_months_count, velocity_6h, current_address_months_count:
-bin_count = 200
+bin_count = 20
 binned_bankfraud_data = bankfraud_data
 cols_to_bin = c("bank_branch_count_8w", "zip_count_4w", "name_email_similarity", "bank_months_count", "velocity_6h", "current_address_months_count")
 binned_bankfraud_data[cols_to_bin] = data.frame(lapply(binned_bankfraud_data[cols_to_bin], function(x) cut(x, breaks = bin_count, labels=FALSE)))
@@ -299,6 +355,8 @@ plot(graph,
      )
 ```
 
+
+
 ## Sampling Procedure & Justification
 
 Running the entire cleaned and processed dataset post-data cleaning, PCA, and feature extraction would be very resource intensive and not feasible in a local RStudio environment to generate visualizations of the graph. Therefore, we propose a sampling approach that draws a representative sample of the dataset's entire remaining feature space. The methodology for sampling the dataset is explained below.
@@ -308,6 +366,8 @@ Due to the lengthy computation time of our edge-generating function, we have cho
 The percentage of fraudulent nodes in the full data set is approximately 1%. To ensure this proportion is consistent in our sample we use stratified sampling. Stratified sampling samples 1% of the data from a strata of only fraudulent nodes and the other 99% of the data from a strata of only the non-fraudulent nodes.
 
 Prior to using a sample in our project, we ensure that the sample is representative of the entire data set by applying the Chi-Squared test to our sample. The Chi-Squared test will determine if there is a significant difference between the values in the columns of the sample and in the full data set. The Chi-Squared test generates p-values for each column in a sample. A p-value of less than 0.05 will signal a significant difference between the sample and the full data set for that particular column. By conducting the Chi-Squared test on a given sample we ensure that it is sufficiently representative of the entire data set.
+
+
 
 ```{r}
 # Percentage of fraudulent nodes in the data frame:
@@ -357,6 +417,8 @@ chi_squared_df = data.frame(Column = names(chi_squared_results), P_Value = unlis
 print(chi_squared_df)
 ```
 
+
+
 ## Research Question 1: Which were the key fraudulent players within the network?
 
 This research question aims to determine the most important fraudulent players within the sample taken of the network. Treating each bank account request as a node (row in the dataset), the general process that will be followed will be to observe the distribution of values for each of the following centrality measures, and set a threshold for defining a node as highly influential or not. Using the nodes that influential across different centrality measures, we will then take a look at nodes that have scored high across all centrality metrics and examine them, attempting to interpret their role in facilitating bank fraud based on their scores in the different centrality metrics, proximity to other nodes, and etc.
@@ -375,9 +437,13 @@ The following metrics will be used in evaluating the influential fraudulent node
 
 6.  Degree distribution
 
+
+
 ```{r}
 
 ```
+
+
 
 ## Research Question 2: Were there any specific fraudulent groups within the network that could be collaborating to defraud the bank? And if so, what were their characteristics?
 
@@ -401,57 +467,35 @@ This research question aims to find clusters of nodes within the entire network,
 
 9.  K-cores
 
+
+
 ```{r}
-# Filter for fraudulent accounts and calculate the averages for relevant columns
-fraudulent_profile <- data_sample %>%
-  filter(fraud_bool == 1) %>%     # Adjust `is_fraud` to match your column name
-  summarise(across(where(is.numeric), mean, na.rm = TRUE))
 
-# View the result
-print(fraudulent_profile)
-
-#Creates a Louvain community object
-louv <- cluster_louvain(graph)
-
-#
-degree_centrality <- degree(graph)
-
-#Modularity
-modularity(louv)
-
-#Colours the nodes by community
-V(graph)$community <- membership(louv)
-
-#Plots the graph object
-plot(graph,
-     vertex.size = 5,
-     vertex.color = V(graph)$community,
-     vertex.label = NA,
-     edge.width = 1,
-     edge.color = E(graph)$color
-     )
-
-## plot(graph, 
-  #   vertex.color = ifelse(V(graph)$fraud_bool, "red", "green"), 
- #    vertex.size = 5, 
-#     vertex.label = NA, 
-#     edge.width = 1, 
- #    edge.color = E(graph)$color
- ##     )
 ```
+
+
 
 ## Research Question 3: What was the average profile of a fraudulent customer?
 
+
+
 ```{r}
 
 ```
+
+
 
 ## Research Question 4: What differences exist between fraudulent account applications and non-fraudulent account applications?
 
+
+
 ```{r}
 
 ```
+
+
 
 ## Interpretation Summary
 
 ## Conclusion
+
