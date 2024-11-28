@@ -257,7 +257,7 @@ binned_bankfraud_data$binary_combination_value = apply(binned_bankfraud_data[bin
 str(binned_bankfraud_data)
 
 # Creating sample:
-sample_size = 200
+sample_size = 1000
 data_sample = sample_n(binned_bankfraud_data, sample_size)
 str(data_sample)
 
@@ -290,13 +290,13 @@ edge_type_colors <- c("payment_type" = "forestgreen", "bank_branch_count_8w" = "
                        "bank_months_count" = "darkseagreen1", "housing_status" = "darkorange1", "binary_combination_value" = "black")
 E(graph)$color <- edge_type_colors[E(graph)$edge_type]
 par(mfrow=c(1,1), mar=c(0,0,0,0))
-plot(graph,
-     vertex.color = ifelse(V(graph)$fraud_bool, "red", "green"), 
-     vertex.size = 5, 
-     vertex.label = NA, 
-     edge.width = 1, 
-     edge.color = E(graph)$color
-     )
+# plot(graph,
+#      vertex.color = ifelse(V(graph)$fraud_bool, "red", "green"), 
+#      vertex.size = 5, 
+#      vertex.label = NA, 
+#      edge.width = 1, 
+#      edge.color = E(graph)$color
+#      )
 ```
 
 ## Sampling Procedure & Justification
@@ -432,13 +432,13 @@ modularity(louv)
 V(graph)$community <- membership(louv)
 
 #Plots the graph object
-plot(graph,
-     vertex.size = 5,
-     vertex.color = V(graph)$community,
-     vertex.label = NA,
-     edge.width = 1,
-     edge.color = E(graph)$color
-     )
+# plot(graph,
+#      vertex.size = 5,
+#      vertex.color = V(graph)$community,
+#      vertex.label = NA,
+#      edge.width = 1,
+#      edge.color = E(graph)$color
+#      )
 
 ## plot(graph, 
   #   vertex.color = ifelse(V(graph)$fraud_bool, "red", "green"), 
@@ -501,10 +501,12 @@ print(com4)
 
 # Filter for fraudulent accounts and calculate the averages for relevant columns
 fraudulent_profile2 <- bankfraud_data %>%
-  filter(fraud_bool == 1) %>%     # Adjust `is_fraud` to match your column name
+  filter(fraud_bool == 1) %>%     # Adjust to match your column name
   summarise(across(where(is.numeric), mean, na.rm = TRUE))
 
 print(fraudulent_profile2)
+
+
 ```
 
 ## Research Question 3: What was the average profile of a fraudulent customer?
