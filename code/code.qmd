@@ -50,13 +50,13 @@ library(purrr)
 # Data loading
 
 ```{r}
-load_dot_env(file = "C:/Users/Owner/MillarDrive/OneDrive/Bank-Account-Fraud-Detection-with-Network-Science/data.env")
+load_dot_env(file = "C:/Users/rylan/Desktop/421 Project/Bank-Account-Fraud-Detection-with-Network-Science/data.env")
 storage_container_url <- Sys.getenv("AZURE_STORAGE_SAS_URL")
 if (storage_container_url == "") {
   stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
 }
 
-bankfraud_data <- read_csv("C:/Users/Owner/MillarDrive/OneDrive/Bank-Account-Fraud-Detection-with-Network-Science/Base.csv")
+bankfraud_data <- read_csv("C:/Users/rylan/Desktop/421 Project/Bank-Account-Fraud-Detection-with-Network-Science/Base.csv")
 bankfraud_data
 ```
 
@@ -290,7 +290,7 @@ edge_type_colors <- c("payment_type" = "forestgreen", "bank_branch_count_8w" = "
                        "bank_months_count" = "darkseagreen1", "housing_status" = "darkorange1", "binary_combination_value" = "black")
 E(graph)$color <- edge_type_colors[E(graph)$edge_type]
 par(mfrow=c(1,1), mar=c(0,0,0,0))
-plot(graph, 
+plot(graph,
      vertex.color = ifelse(V(graph)$fraud_bool, "red", "green"), 
      vertex.size = 5, 
      vertex.label = NA, 
@@ -414,6 +414,15 @@ print(fraudulent_profile)
 louv <- cluster_louvain(graph)
 
 #
+membership <- membership(louv)
+
+#Add betweenness centrality as column 5
+data_sample[,16] <- membership
+
+#Renames column 16
+colnames(data_sample)[16] <- c("louv")
+
+#
 degree_centrality <- degree(graph)
 
 #Modularity
@@ -438,6 +447,64 @@ plot(graph,
 #     edge.width = 1, 
  #    edge.color = E(graph)$color
  ##     )
+
+# Group nodes by community
+nodes_by_community <- split(data_sample, data_sample$louv)
+
+# Count fraud nodes in each community
+fraud_counts <- sapply(nodes_by_community, function(group) {
+  sum(group$fraud_bool, na.rm = TRUE)  # Sum the `fraud_bool` column for each community
+})
+
+# View fraud counts per community
+print(fraud_counts)
+
+
+
+# Filter for fraudulent accounts and calculate the averages for relevant columns
+com1 <- data_sample %>%
+  filter(louv == 1) %>%     # Adjust to match your column name
+  summarise(across(where(is.numeric), mean, na.rm = TRUE))
+
+#
+print(com1)
+
+
+
+# Filter for fraudulent accounts and calculate the averages for relevant columns
+com2 <- data_sample %>%
+  filter(louv == 2) %>%     # Adjust to match your column name
+  summarise(across(where(is.numeric), mean, na.rm = TRUE))
+
+#
+print(com2)
+
+
+
+# Filter for fraudulent accounts and calculate the averages for relevant columns
+com3 <- data_sample %>%
+  filter(louv == 3) %>%     # Adjust to match your column name
+  summarise(across(where(is.numeric), mean, na.rm = TRUE))
+
+#
+print(com3)
+
+
+
+# Filter for fraudulent accounts and calculate the averages for relevant columns
+com4 <- data_sample %>%
+  filter(louv == 4) %>%     # Adjust to match your column name
+  summarise(across(where(is.numeric), mean, na.rm = TRUE))
+
+#
+print(com4)
+
+# Filter for fraudulent accounts and calculate the averages for relevant columns
+fraudulent_profile2 <- bankfraud_data %>%
+  filter(fraud_bool == 1) %>%     # Adjust `is_fraud` to match your column name
+  summarise(across(where(is.numeric), mean, na.rm = TRUE))
+
+print(fraudulent_profile2)
 ```
 
 ## Research Question 3: What was the average profile of a fraudulent customer?
