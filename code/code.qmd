@@ -49,13 +49,13 @@ library(purrr)
 # Data loading
 
 ```{r}
-load_dot_env(file = "/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env")
-storage_container_url <- Sys.getenv("AZURE_STORAGE_SAS_URL")
-if (storage_container_url == "") {
-  stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
-}
+# load_dot_env(file = "/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env")
+#storage_container_url <- Sys.getenv("AZURE_STORAGE_SAS_URL")
+#if (storage_container_url == "") {
+#  stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
+#}
 
-bankfraud_data <- read_csv(storage_container_url)
+bankfraud_data <- read_csv("/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/data/Base.csv")
 bankfraud_data
 ```
 
@@ -196,7 +196,7 @@ bankfraud_data
 
 str(bankfraud_data)
 
-# Checking for inconsistent values:
+# Checking for inconsistent values
 range(bankfraud_data$bank_months_count)
 range(bankfraud_data$current_address_months_count)
 range(bankfraud_data$days_since_request)
@@ -221,7 +221,7 @@ Checking data ranges, and enumerating records in the CSV file as nodes with Node
 ```{r}
 str(bankfraud_data)
 
-# Checking ranges:
+# Checking ranges
 range(bankfraud_data$payment_type)
 range(bankfraud_data$bank_months_count)
 range(bankfraud_data$bank_branch_count_8w)
@@ -232,30 +232,30 @@ range(bankfraud_data$housing_status)
 range(bankfraud_data$velocity_6h)
 range(bankfraud_data$current_address_months_count)
 
-# Adding node_id column to identify vertices:
+# Adding node_id column to identify vertices
 bankfraud_data$node_id = seq.int(nrow(bankfraud_data))
 bankfraud_data = bankfraud_data %>% relocate(node_id)
 
-# Creating Bins for bank_branch_count_8w, zip_count_4w, name_email_similarity, bank_months_count, velocity_6h, current_address_months_count:
+# Creating Bins for bank_branch_count_8w, zip_count_4w, name_email_similarity, bank_months_count, velocity_6h, current_address_months_count
 bin_count = 5
 binned_bankfraud_data = bankfraud_data
 cols_to_bin = c("bank_branch_count_8w", "zip_count_4w", "name_email_similarity", "bank_months_count", "velocity_6h", "current_address_months_count")
 binned_bankfraud_data[cols_to_bin] = data.frame(lapply(binned_bankfraud_data[cols_to_bin], function(x) cut(x, breaks = bin_count, labels=FALSE)))
 str(binned_bankfraud_data)
 
-# Creating binary combination column:
+# Creating binary combination column
 binary_columns = c("keep_alive_session", "foreign_request", "email_is_free", "fraud_bool", "phone_home_valid")
 binned_bankfraud_data$binary_combination_value = apply(binned_bankfraud_data[binary_columns], 1, function(x) {paste(as.character(x), collapse = "")})
 str(binned_bankfraud_data)
 
-# Creating sample:
+# Creating sample
 sample_size = 50
 data_sample = sample_n(binned_bankfraud_data, sample_size)
 str(data_sample)
 
-# Creating edge list:
+# Creating edge list
 edges_list <- expand.grid(row_id_1 = seq_len(nrow(data_sample)), row_id_2 = seq_len(nrow(data_sample))) %>%
-  filter(row_id_1 < row_id_2) %>%  # Remove duplicates and self-loops
+  filter(row_id_1 < row_id_2) %>%
   rowwise() %>%
   mutate(
     edge_type = list(names(data_sample)[-c(1,3:6,13)][
@@ -275,7 +275,7 @@ edges_list <- expand.grid(row_id_1 = seq_len(nrow(data_sample)), row_id_2 = seq_
 print(edges_list)
 nrow(edges_list)
 unique(edges_list$edge_type)
-# Plotting the Data:
+# Plotting the Data
 graph <- graph_from_data_frame(d = edges_list, vertices = data_sample, directed = FALSE)
 edge_type_colors <- c("payment_type" = "green", "bank_branch_count_8w" = "blue", "name_email_similarity" = "yellow",
                        "zip_count_4w" = "cyan", "velocity_6h" = "blueviolet", "current_address_months_count" = "gold4",
@@ -343,55 +343,261 @@ chi_squared_df = data.frame(Column = names(chi_squared_results), P_Value = unlis
 print(chi_squared_df)
 ```
 
+## Data Description
+
+The dataset post-processing has been reduced to the following columns that will be considered in the following research questions:
+
+1. node_id - The ID of the node
+
+2. payment_type - The different types of credit payment plans available
+
+3. keep_alive_session - Binary variable to represent if a user is still browsing post logging out of the bank's website
+
+4. foreign_request - If the bank account request came from a different country than the bank's country
+
+5. email_is_free - If the user's email is a business or non-business email
+
+6. fraud_bool - Fraudulent status of the bank account request
+
+7. bank_branch_count_8w - Number of bank account requests in the last 2 months for the branch that the request went to
+
+8. zip_count_4w - Number of bank account applications within the same zip code as a particular application
+
+9. name_email_similarity - Similarity of user's name to their email address
+
+10. bank_months_count - Number of months a user has held a previous bank account for
+
+11. housing_status - Type of housing a user is living in
+
+12. velocity_6h - Number of bank account requests created in the last 6 hours
+
+13. phone_home_valid - If a user's provided phone number is valid or not
+
+14. current_address_months_count - How long in months a user has lived at their current address
+
 ## Research Question 1: Which were the key fraudulent players within the network?
 
-This research question aims to determine the most important fraudulent players within the sample taken of the network. Treating each bank account request as a node (row in the dataset), the general process that will be followed will be to observe the distribution of values for each of the following centrality measures, and set a threshold for defining a node as highly influential or not. Using the nodes that influential across different centrality measures, we will then take a look at nodes that have scored high across all centrality metrics and examine them, attempting to interpret their role in facilitating bank fraud based on their scores in the different centrality metrics, proximity to other nodes, and etc.
+This research question aims to determine the most important fraudulent players within the sample taken of the network. Treating each bank account request as a node (row in the dataset), the general process that will be followed will be to observe the distribution of values for each of the following centrality measures, and set a threshold for defining a node as highly influential or not, and make a recommendation on which nodes should be further analyzed through domain expertise, and other ground truth information to determine fraud rings and/or individuals that were involved in defrauding the bank either directly or indirectly.
 
-The following metrics will be used in evaluating the influential fraudulent nodes in the network:
+The overarching hypothesis of this project is that the links between the nodes due to the similarities in the attributes of their bank account requests could possibly suggest that some nodes were involved in defrauding the bank in groups, or may have been part of the crime itself in isolation, or were involved in some manner in defrauding the bank, and the research questions aim to figure out those connections between the nodes, and whether it makes practical sense to flag the identified nodes as suspicious.
+
+```{r}
+bankfraud_data
+```
+
+The following metrics will be used in identifying the influential fraudulent nodes in the network:
 
 1. Eigenvector centrality
 
-2. Degree centrality
+2. Betweenness centrality
 
-3. Katz centrality
+3. PageRank centrality
 
-4. Closeness centrality
+Below is the sample creation and plotting process, the sample drawn is random, and is representative of the dataset. The process below can be applied to the entire dataset (resource-permitting), but since we do not have the resources to generate the entire graph, we will be working with samples in all of the research questions.
 
-5. PageRank centrality
+```{r}
+# Creating sample
+sample_size = 50
+data_sample_q1 = sample_n(binned_bankfraud_data, sample_size)
+str(data_sample_q1)
 
-6. Degree distribution
+# Creating edge list
+edges_list <- expand.grid(row_id_1 = seq_len(nrow(data_sample_q1)), row_id_2 = seq_len(nrow(data_sample_q1))) %>%
+  filter(row_id_1 < row_id_2) %>% 
+  rowwise() %>%
+  mutate(
+    edge_type = list(names(data_sample_q1)[-c(1,3:6,13)][
+      sapply(names(data_sample_q1)[-c(1,3:6,13)], function(col) {
+        data_sample_q1[[col]][row_id_1] == data_sample_q1[[col]][row_id_2]
+      })
+    ])
+  ) %>%
+  filter(length(edge_type) > 0) %>%
+  unnest(edge_type) %>%
+  ungroup() %>%
+  mutate(
+    node_id_1 = data_sample_q1$node_id[row_id_1],
+    node_id_2 = data_sample_q1$node_id[row_id_2]
+  ) %>%
+  select(node_id_1, node_id_2, edge_type)
+print(edges_list)
+nrow(edges_list)
+unique(edges_list$edge_type)
+
+# Plotting the Graph
+graph_rq1 <- graph_from_data_frame(d = edges_list, vertices = data_sample_q1, directed = FALSE)
+edge_type_colors <- c("payment_type" = "green", "bank_branch_count_8w" = "blue", "name_email_similarity" = "yellow",
+                       "zip_count_4w" = "cyan", "velocity_6h" = "blueviolet", "current_address_months_count" = "gold4",
+                       "bank_months_count" = "darkseagreen1", "housing_status" = "darkorange1", "binary_combination_value" = "black")
+E(graph_rq1)$color <- edge_type_colors[E(graph_rq1)$edge_type]
+par(mfrow=c(1,1), mar=c(0,0,0,0))
+plot(graph_rq1, vertex.size = 20, edge.width = 1, edge.color = E(graph)$color)
+```
+
+Now, we will construct the columns for the different centrality metrics stated above, and interpret the metrics in the context of bank fraud detection. We will start with eigenvector centrality. All the nodes within the sample are considered when determining the nodes that are influential based on the eigenvector centrality scores of the nodes.
+
+```{r}
+data_sample_q1
+```
+
+
+```{r}
+# Computing the eigenvector centrality scores and adding them to the data sample
+eigencentralities <- eigen_centrality(graph_rq1)
+data_sample_q1[, 16] <- eigencentralities$vector
+colnames(data_sample_q1)[16] <- "eigen_vector_centrality_score"
+
+# Ordering the nodes based on descending eigenvector centrality scores to determine the nodes with the highest relative eigenvector centrality scores
+data_sample_q1_ordered_ev <- arrange(data_sample_q1, desc(data_sample_q1$`eigen_vector_centrality_score`))
+
+# Extracting the records in the top 25 percentiles of the eigenvector centrality scores to pick out the most important nodes from the sample
+eigenvector_centrality_threshold <- quantile(data_sample_q1_ordered_ev$eigen_vector_centrality_score, 0.75)
+most_influential_nodes_by_ev_centrality <- data_sample_q1_ordered_ev[data_sample_q1_ordered_ev$eigen_vector_centrality_score > eigenvector_centrality_threshold, ]
+most_influential_nodes_by_ev_centrality
+```
+
+Influential/important nodes in the context of bank account fraud detection are nodes that are possibly committing bank account fraud, and/or could be in a group that is defrauding the bank.
+
+The threshold of the top 25 percentiles was set in order to detect only the most important nodes with a high value for the eigenvector centrality, and which may not themselves be fraudulent but can be flagged as suspicious based on the quality of their connections within the network, and could possibly be collaborating with other nodes in the network to defraud the bank. Eigenvector centrality scores in the context of bank account fraud detection tell us that the higher the eigenvector centrality score for a node, the higher the number of important nodes that it is connected to.
+
+The nodes that appear above the threshold for the calculated metrics can be determined with confidence as suspicious, but the others can be further investigated due to their ties to various nodes that were flagged.
+
+13 nodes were flagged as suspicious from this sample based on them exceeding the threshold of the top 25 percentiles for the eigenvector centrality score, and in the context of bank fraud, they seem to have connections to node(s) that have been caught committing bank fraud or may have been caught committing bank fraud themselves.The IDs of the nodes that were flagged based on their high eigenvector centrality were as follows:
+
+```{r}
+nodes_flagged_ids_eigenvector <- most_influential_nodes_by_ev_centrality[, 1]
+print(as.list(nodes_flagged_ids_eigenvector))
+nodes_flagged_ids_eigenvector <- as.vector(nodes_flagged_ids_eigenvector)
+```
+
+Nodes 538450, 503729, 253211, 503830, 562008, 464472, 249217, 683809, 290984, 375304, 690415, 597139, and 80189 were deemed as suspicious from the above drawn sample.
+
+All the columns for the nodes that were flagged suspicious can be further investigated by domain experts to make the best judgement on whether the flagged nodes were participating in bank fraud or were part of any fraud rings, or whether some of the nodes flagged were false positives.
+
+The main advantage of using eigenvector centrality as a metric to flag nodes as suspicious is that eigenvector centrality takes into account both the quantity and the quality of the connections, and the main disadvantage of Eigenvector centrality is that large hubs can influence centrality scores of other nodes, and could ruin the quality of the centrality scores assigned. 
+
+Now, we will calculate the betweenness centrality scores for the above drawn sample of nodes, and flag suspicious nodes in a similar manner as performed above to identify potentially influential nodes in the context of committing bank account fraud.
+
+```{r}
+# Computing the betweenness centrality scores of the nodes in the sample
+betweenness_centrality_scores <- betweenness(graph_rq1)
+data_sample_q1[, 17] <- betweenness_centrality_scores
+colnames(data_sample_q1)[17] <- "betweenness_centrality_score"
+
+# Ordering the nodes based on descending betweenness centrality scores to determine the nodes with the highest relative betweenness centrality scores
+data_sample_q1_ordered_betweenness <- arrange(data_sample_q1, desc(data_sample_q1$betweenness_centrality_score))
+
+# Extracting the records in the top 25 percentiles of the betweenness centrality scores to pick out the most important nodes from the sample
+betweenness_centrality_threshold <- quantile(data_sample_q1_ordered_betweenness$betweenness_centrality_score, 0.75)
+most_influential_nodes_by_betweenness_centrality <- data_sample_q1_ordered_betweenness[data_sample_q1_ordered_betweenness$betweenness_centrality_score > betweenness_centrality_threshold, ]
+most_influential_nodes_by_betweenness_centrality
+```
+
+Nodes with high betweenness centrality scores are nodes that tend to be the middlemen for information flow, and in the context of bank fraud, these nodes can be vital to the fraud rings as middlemen for information flow about defrauding the bank. Removing these nodes from the network could collapse the entire fraud ring, and it would be in the bank's best interest to flag these nodes, and further investigate the attributes of these nodes to deem them as being part of a fraudulent group or being fraudulent.
+
+The threshold of the top 25 percentiles was set in order to detect only the most important nodes with a high value for the betweenness centrality, and which may not themselves be fraudulent but can be flagged as suspicious based on their ability to act as middlemen for information flow within the network, and could possibly be collaborating with other nodes in the network to defraud the bank or be the fraud ring leaders themselves due to them being on the shortest paths to many nodes within the network.
+
+13 nodes were flagged using the betweenness centrality approach to detecting bank account fraud and can be further investigated by domain experts to identify whether the nodes flagged were part of fraud rings or were fraudulent. The IDs of the nodes that were flagged based on their high betweenness centrality were as follows:
+
+```{r}
+nodes_flagged_ids_betweenness <- most_influential_nodes_by_betweenness_centrality[, 1]
+print(as.list(nodes_flagged_ids_betweenness))
+nodes_flagged_ids_betweenness <- as.vector(nodes_flagged_ids_betweenness)
+```
+
+Nodes 690415, 195760, 569089, 250443, 45412, 503729, 392700, 503830, 655584, 683809, 375304, 538450, and 142900 were deemed as suspicious from the above drawn sample.
+
+The main advantage of using betweenness centrality as a metric to flag nodes as suspicious is that betweenness centrality identifies the nodes that act as middlemen to the most number of nodes, and if removed can cause the information flow to be disrupted severely. The main disadvantage of using betweenness centrality is that it can be computationally expensive due to the metric  needing to calculate a lot of shortest paths.
+
+Next, we will calculate the PageRank centrality scores for the above drawn sample of nodes, and flag suspicious nodes in a similar manner as performed above to identify potentially influential nodes in the context of committing bank account fraud.
+
+```{r}
+# Computing the PageRank centrality scores of the nodes in the sample
+pagerank_centrality_scores <- page_rank(graph_rq1)
+data_sample_q1[, 18] <- pagerank_centrality_scores$vector
+colnames(data_sample_q1)[18] <- "pagerank_centrality_score"
+
+# Ordering the nodes based on descending pagerank centrality scores to determine the nodes with the highest relative pagerank centrality scores
+data_sample_q1_ordered_pagerank <- arrange(data_sample_q1, desc(data_sample_q1$pagerank_centrality_score))
+
+# Extracting the records in the top 25 percentiles of the pagerank centrality scores to pick out the most important nodes from the sample
+pagerank_centrality_threshold <- quantile(data_sample_q1_ordered_pagerank$pagerank_centrality_score, 0.75)
+most_influential_nodes_by_pagerank_centrality <- data_sample_q1_ordered_pagerank[data_sample_q1_ordered_pagerank$pagerank_centrality_score > pagerank_centrality_threshold, ]
+most_influential_nodes_by_pagerank_centrality
+```
+
+Nodes with high pagerank centrality scores are nodes that are connected to other nodes with other nodes with high pagerank centrality, and this centrality metric takes into account the number of links, the quality of the links, and the quality of the nodes that a node is connected to. In the context of bank fraud, these nodes are nodes that are possibly committing bank account fraud, and/or could be in a group that is defrauding the bank.
+
+The threshold of the top 25 percentiles was set in order to detect only the most important nodes with a high value for the pagerank centrality, and which may not themselves be fraudulent but can be flagged as suspicious based on their ability to be central members in fraud rings or maybe committing fraud in isolation. Pagerank centrality scores in the context of bank account fraud detection tell us that the higher the pagerank centrality score for a node, the higher the number of important nodes that it is connected to in a standardized manner by dividing the centrality values by the outdegree in the formula for calculating pagerank centrality.
+
+13 nodes were flagged using the pagerank centrality approach to detecting bank account fraud and can be further investigated by domain experts to identify whether the nodes flagged were part of fraud rings or were fraudulent. The IDs of the nodes that were flagged based on their high pagerank centrality were as follows:
+
+```{r}
+nodes_flagged_ids_pagerank <- most_influential_nodes_by_pagerank_centrality[, 1]
+print(as.list(nodes_flagged_ids_pagerank))
+nodes_flagged_ids_pagerank <- as.vector(nodes_flagged_ids_pagerank)
+```
+
+Nodes 538450, 503729, 253211, 503830, 562008, 464472, 249217, 683809, 290984, 690415, 375304, 569089, and 195760 were deemed as suspicious from the above drawn sample.
+
+The main disadvantage of using pagerank centrality is that it is prone to link manipulation, which is when many low quality links are accumulated, it can cause the pagerank of a page to be good even though the pages linking to it did not have a high pagerank score, leading to nodes being falsely classified as important, and it also does not take into account the fraud_bool variable from the dataset when defining nodes as more important as others from the drawn sample.
+
+The following metrics are not suitable for identifying the influential fraudulent nodes in the network:
+
+1. Katz centrality
+
+As this graph was a heavily connected undirected multigraph, there are barely any if not 0 nodes with an indegree of 0, and the advantage of using Katz centrality is that it accommodates for nodes with an indegree of 0 by providing them with "free" centrality scores in addition to the computed centrality scores.
+
+2. Closeness centrality
+
+In the context of how we have defined our graph as containing links between users based on the similarity of their bank account requests, closeness centrality does not make much sense as a centrality metric due to it being about the speed at which information can reach other nodes from a starting node, and not about whether the node is accessible to many nodes like in the case of betweenness centrality, therefore, it is not appropriate in our context.
+
+3. Degree centrality
+
+In the context of how we have defined our graph as containing links between users based on the similarity of their bank account requests, degree centrality is not an appropriate centrality metric due to it focusing purely on the number of nodes a particular node is connected to, and is not concerned about the centrality of the nodes that a particular node is connected to, which may lead to incorrectly deeming a node as a suspicious, when it may not be.
+
+Below is a venn diagram of the nodes that were flagged as suspicious by various metrics, and which nodes are deemed by more than 1 centrality metric as being suspicious which can be used in further domain-specific analysis to determine whether the nodes are linked to fradulent entities or whose request may be frauduelent:
+
+```{r}
+#install.packages("VennDiagram")
+library(grid)
+library(VennDiagram)
+venndiagram <- venn.diagram(x = list(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id, nodes_flagged_ids_pagerank$node_id), category.names = c("Betweenness Centrality", "Eigenvector Centrality", "PageRank Centrality"), filename = NULL, main = "Venn Diagram of the number of Overlapping Flagged Nodes from the different centrality metrics", output = TRUE, fill = c("red", "green", "blue"), alpha = 0.5, cex = 0.75, cat.cex = 0.75)
+grid.newpage()
+grid.draw(venndiagram)
+```
+The red colored circle represents the number of Node IDs of the high betweenness centrality flagged nodes, the green colored circle represents the number of Node IDs of the high eigenvector centrality flagged nodes, and the blue colored circle represents the number of Node IDs of the high pagerank centrality flagged nodes. The nodes that were flagged as having high values for all 3 centrality metrics were nodes 690415, 503729, 503830, 683809, 375304, and 538450.
+
+```{r}
+most_suspicious_nodes_by_all_metrics <- intersect(intersect(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id), nodes_flagged_ids_pagerank$node_id)
+print(most_suspicious_nodes_by_all_metrics)
+```
+
+The above 6 nodes would be the best to investigate further if investigating all 39 nodes flagged as suspicious is infeasible.
+
+## Research Question 2: What was the average profile of a fraudulent customer?
 
 ```{r}
 
 ```
 
-## Research Question 2: Were there any specific fraudulent groups within the network that could be collaborating to defraud the bank? And if so, what were their characteristics?
+## Research Question 3: Were there any specific fraudulent groups within the network that could be collaborating to defraud the bank? And if so, what were their characteristics?
 
 This research question aims to find clusters of nodes within the entire network, that could potentially be fraud rings based on the attributes of the nodes. Clusters that are majorly the same throughout different results from different network metrics could be potential fraud rings, and will be determined using centrality metrics such as:
 
-1. Network density
+1.  Network density
 
-2. Local clustering coefficient
+2.  Local clustering coefficient
 
-3. Modularity
+3.  Modularity
 
-4. Girvan-Newman algorithm
+4.  Graph laplacian
 
-5. Graph laplacian
+5.  Edge betweenness
 
-6. Edge betweenness
+6.  Global clustering coefficient
 
-7. Assortativity
-
-8. Global clustering coefficient
-
-9. K-cores
-
-```{r}
-
-```
-
-## Research Question 3: What was the average profile of a fraudulent customer?
+7.  K-cores
 
 ```{r}
 
@@ -402,6 +608,8 @@ This research question aims to find clusters of nodes within the entire network,
 ```{r}
 
 ```
+
+QUARTO RENDER
 
 ## Interpretation Summary
 
