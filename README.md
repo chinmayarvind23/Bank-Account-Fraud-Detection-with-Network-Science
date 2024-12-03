@@ -6,7 +6,7 @@ Team Members: Chinmay Arvind, Jerry Fan, Dmitry Kostyukov, Ryan Millar
 
 ## Source Code
 
-The source code for this project is here: [code.qmd](code/code.qmd) and here is the website with the same code (please zoom out to view the code if using this link): [Bank Account Fraud Detection](https://bank-account-fraud-detection-with-network-science.vercel.app/)
+The source code for this project is here: [Main R code](code/code.qmd) and here is the website with the same code (please zoom out to view the code if using this link): [Bank Account Fraud Detection](https://bank-account-fraud-detection-with-network-science.vercel.app/)
 
 ## Purpose of Project
 
@@ -19,7 +19,7 @@ This project aims to conduct a data-driven & thorough network analysis of bank a
 
 ## Data
 
-This project uses data from the following Kaggle dataset: <https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022/data> (Only the Base.csv file is used in our analysis). There are 32 columns in the dataset, and the Base.csv file was selected to be used for this project (containing 1 million records), on which we have performed data modeling, cleaning, preparation, dimensionality reduction, feature engineering, data analysis, and visualization on to determine the most important predictors of bank account fraud from the dataset, and use the identified most important columns along with computed network metrics as our final set of predictors to solve the above research questions, and attempt to provide an approximate method of bank account fraud estimation given a dataset with relevant predictors. Dataset citation:
+This project uses data from the following Kaggle dataset: <https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022/data> (Only the Base.csv file is used in our analysis and is zipped and stored in the repo). The direct repo path to the zip file of the Base.csv file is here: [Base.csv](compressed_data/data.zip). Please unzip the zip file to access the Base.csv file, and create a directory titled data in the project's root directory and insert the CSV file there. Once that is done, copy the file path of the CSV file and paste it into the [Main R code](code/code.qmd) file where the data is loaded (line 59 of )There are 32 columns in the dataset, and the Base.csv file was selected to be used for this project (containing 1 million records), on which we have performed data modeling, cleaning, preparation, dimensionality reduction, feature engineering, data analysis, and visualization on to determine the most important predictors of bank account fraud from the dataset, and use the identified most important columns along with computed network metrics as our final set of predictors to solve the above research questions, and attempt to provide an approximate method of bank account fraud estimation given a dataset with relevant predictors. Dataset citation:
 
 ---
 ### @article{jesusTurningTablesBiased2022, title={Turning the {{Tables}}: {{Biased}}, ###{{Imbalanced}}, {{Dynamic Tabular Datasets}} for {{ML Evaluation}}}, author={Jesus, S{'e}rgio ###and Pombal, Jos{'e} and Alves, Duarte and Cruz, Andr{'e} and Saleiro, Pedro and Ribeiro, Rita P. ###and Gama, Jo{\~a}o and Bizarro, Pedro}, journal={Advances in Neural Information Processing ###Systems}, year={2022} }
