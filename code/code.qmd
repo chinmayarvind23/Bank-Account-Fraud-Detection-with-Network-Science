@@ -55,6 +55,7 @@ library(purrr)
 #  stop("SAS URL not found. Please set the 'AZURE_STORAGE_SAS_URL' environment variable.")
 #}
 
+# Change this path to the path from where you have downloaded the Base.csv file to
 bankfraud_data <- read_csv("/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/data/Base.csv")
 bankfraud_data
 ```
@@ -347,23 +348,23 @@ print(chi_squared_df)
 
 The dataset post-processing has been reduced to the following columns that will be considered in the following research questions:
 
-1. node_id - The ID of the node
+1.  node_id - The ID of the node
 
-2. payment_type - The different types of credit payment plans available
+2.  payment_type - The different types of credit payment plans available
 
-3. keep_alive_session - Binary variable to represent if a user is still browsing post logging out of the bank's website
+3.  keep_alive_session - Binary variable to represent if a user is still browsing post logging out of the bank's website
 
-4. foreign_request - If the bank account request came from a different country than the bank's country
+4.  foreign_request - If the bank account request came from a different country than the bank's country
 
-5. email_is_free - If the user's email is a business or non-business email
+5.  email_is_free - If the user's email is a business or non-business email
 
-6. fraud_bool - Fraudulent status of the bank account request
+6.  fraud_bool - Fraudulent status of the bank account request
 
-7. bank_branch_count_8w - Number of bank account requests in the last 2 months for the branch that the request went to
+7.  bank_branch_count_8w - Number of bank account requests in the last 2 months for the branch that the request went to
 
-8. zip_count_4w - Number of bank account applications within the same zip code as a particular application
+8.  zip_count_4w - Number of bank account applications within the same zip code as a particular application
 
-9. name_email_similarity - Similarity of user's name to their email address
+9.  name_email_similarity - Similarity of user's name to their email address
 
 10. bank_months_count - Number of months a user has held a previous bank account for
 
@@ -387,11 +388,11 @@ bankfraud_data
 
 The following metrics will be used in identifying the influential fraudulent nodes in the network:
 
-1. Eigenvector centrality
+1.  Eigenvector centrality
 
-2. Betweenness centrality
+2.  Betweenness centrality
 
-3. PageRank centrality
+3.  PageRank centrality
 
 Below is the sample creation and plotting process, the sample drawn is random, and is representative of the dataset. The process below can be applied to the entire dataset (resource-permitting), but since we do not have the resources to generate the entire graph, we will be working with samples in all of the research questions.
 
@@ -440,7 +441,6 @@ Now, we will construct the columns for the different centrality metrics stated a
 data_sample_q1
 ```
 
-
 ```{r}
 # Computing the eigenvector centrality scores and adding them to the data sample
 eigencentralities <- eigen_centrality(graph_rq1)
@@ -474,7 +474,7 @@ Nodes 538450, 503729, 253211, 503830, 562008, 464472, 249217, 683809, 290984, 37
 
 All the columns for the nodes that were flagged suspicious can be further investigated by domain experts to make the best judgement on whether the flagged nodes were participating in bank fraud or were part of any fraud rings, or whether some of the nodes flagged were false positives.
 
-The main advantage of using eigenvector centrality as a metric to flag nodes as suspicious is that eigenvector centrality takes into account both the quantity and the quality of the connections, and the main disadvantage of Eigenvector centrality is that large hubs can influence centrality scores of other nodes, and could ruin the quality of the centrality scores assigned. 
+The main advantage of using eigenvector centrality as a metric to flag nodes as suspicious is that eigenvector centrality takes into account both the quantity and the quality of the connections, and the main disadvantage of Eigenvector centrality is that large hubs can influence centrality scores of other nodes, and could ruin the quality of the centrality scores assigned.
 
 Now, we will calculate the betweenness centrality scores for the above drawn sample of nodes, and flag suspicious nodes in a similar manner as performed above to identify potentially influential nodes in the context of committing bank account fraud.
 
@@ -507,7 +507,7 @@ nodes_flagged_ids_betweenness <- as.vector(nodes_flagged_ids_betweenness)
 
 Nodes 690415, 195760, 569089, 250443, 45412, 503729, 392700, 503830, 655584, 683809, 375304, 538450, and 142900 were deemed as suspicious from the above drawn sample.
 
-The main advantage of using betweenness centrality as a metric to flag nodes as suspicious is that betweenness centrality identifies the nodes that act as middlemen to the most number of nodes, and if removed can cause the information flow to be disrupted severely. The main disadvantage of using betweenness centrality is that it can be computationally expensive due to the metric  needing to calculate a lot of shortest paths.
+The main advantage of using betweenness centrality as a metric to flag nodes as suspicious is that betweenness centrality identifies the nodes that act as middlemen to the most number of nodes, and if removed can cause the information flow to be disrupted severely. The main disadvantage of using betweenness centrality is that it can be computationally expensive due to the metric needing to calculate a lot of shortest paths.
 
 Next, we will calculate the PageRank centrality scores for the above drawn sample of nodes, and flag suspicious nodes in a similar manner as performed above to identify potentially influential nodes in the context of committing bank account fraud.
 
@@ -544,15 +544,15 @@ The main disadvantage of using pagerank centrality is that it is prone to link m
 
 The following metrics are not suitable for identifying the influential fraudulent nodes in the network:
 
-1. Katz centrality
+1.  Katz centrality
 
 As this graph was a heavily connected undirected multigraph, there are barely any if not 0 nodes with an indegree of 0, and the advantage of using Katz centrality is that it accommodates for nodes with an indegree of 0 by providing them with "free" centrality scores in addition to the computed centrality scores.
 
-2. Closeness centrality
+2.  Closeness centrality
 
 In the context of how we have defined our graph as containing links between users based on the similarity of their bank account requests, closeness centrality does not make much sense as a centrality metric due to it being about the speed at which information can reach other nodes from a starting node, and not about whether the node is accessible to many nodes like in the case of betweenness centrality, therefore, it is not appropriate in our context.
 
-3. Degree centrality
+3.  Degree centrality
 
 In the context of how we have defined our graph as containing links between users based on the similarity of their bank account requests, degree centrality is not an appropriate centrality metric due to it focusing purely on the number of nodes a particular node is connected to, and is not concerned about the centrality of the nodes that a particular node is connected to, which may lead to incorrectly deeming a node as a suspicious, when it may not be.
 
@@ -566,6 +566,7 @@ venndiagram <- venn.diagram(x = list(nodes_flagged_ids_betweenness$node_id, node
 grid.newpage()
 grid.draw(venndiagram)
 ```
+
 The red colored circle represents the number of Node IDs of the high betweenness centrality flagged nodes, the green colored circle represents the number of Node IDs of the high eigenvector centrality flagged nodes, and the blue colored circle represents the number of Node IDs of the high pagerank centrality flagged nodes. The nodes that were flagged as having high values for all 3 centrality metrics were nodes 690415, 503729, 503830, 683809, 375304, and 538450.
 
 ```{r}
