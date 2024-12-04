@@ -381,12 +381,6 @@ print(chi_squared_df)
 What was the average profile of a fraudulent customer?
 
 ```{r}
-print(nrow(fraud_transactions))
-print(head(fraud_transactions))
-
-```
-
-```{r}
 # Filter fraudulent transactions
 fraud_transactions <- bankfraud_data %>% filter(fraud_bool == 1)
 num_fraud_transactions <- nrow(fraud_transactions)
@@ -421,48 +415,15 @@ typical_fraud_node <- as.list(typical_fraud_node)
 print("Average Profile of a Fraudulent Node:")
 print(typical_fraud_node)
 
-
 ```
-
 ```{r}
-calculate_similarity <- function(node, typical_fraud_node) {
-  similarity_score <- sum(
-    node$payment_type == typical_node$payment_type,
-    node$keep_alive_session == typical_node$keep_alive_session,
-    node$foreign_request == typical_node$foreign_request,
-    node$email_is_free == typical_node$email_is_free,
-    abs(node$bank_branch_count_8w - typical_node$bank_branch_count_8w) < 2,
-    abs(node$zip_count_4w - typical_node$zip_count_4w) < 2,
-    abs(node$name_email_similarity - typical_node$name_email_similarity) < 0.1,
-    abs(node$bank_months_count - typical_node$bank_months_count) < 6,
-    node$housing_status == typical_node$housing_status,
-    abs(node$velocity_6h - typical_node$velocity_6h) < 0.5,
-    node$phone_home_valid == typical_node$phone_home_valid,
-    abs(node$current_address_months_count - typical_node$current_address_months_count) < 12
-  )
-  return(similarity_score)
-}
+# Ensure node_id is of type character in fraud_transactions
+fraud_transactions <- fraud_transactions %>%
+  mutate(node_id = as.character(node_id))
 
-# Create edges based on similarity to the typical node
-similarity_threshold <- 8
-typical_node_id <- "TypicalNode"
-edges_list <- data.frame(node_id_1 = character(), node_id_2 = character(), similarity_score = numeric())
-
-for (i in 1:nrow(fraud_transactions)) {
-  node <- fraud_transactions[i, ]
-  similarity_score <- calculate_similarity(node, typical_fraud_node)
-  
-  if (similarity_score >= similarity_threshold) {
-    edges_list <- rbind(edges_list, data.frame(
-      node_id_1 = typical_node_id,
-      node_id_2 = node$node_id,
-      similarity_score = similarity_score
-    ))
-  }
-}
-
+# Add the typical fraud node as a new row
 typical_node_row <- data.frame(
-  node_id = typical_node_id,
+  node_id = "TypicalNode",
   payment_type = typical_fraud_node$payment_type,
   keep_alive_session = typical_fraud_node$keep_alive_session,
   foreign_request = typical_fraud_node$foreign_request,
@@ -477,104 +438,111 @@ typical_node_row <- data.frame(
   current_address_months_count = typical_fraud_node$current_address_months_count,
   fraud_bool = 1
 )
-vertices <- rbind(fraud_transactions, typical_node_row)
 
-graph_fraud <- graph_from_data_frame(d = edges_list, vertices = vertices, directed = FALSE)
+# Combine both data frames
+vertices <- bind_rows(fraud_transactions, typical_node_row)
 
-E(graph_fraud)$weight <- edges_list$similarity_score
-
-plot(graph_fraud, vertex.size = 1, vertex.label = NA, edge.width = E(graph_fraud)$weight / max(E(graph_fraud)$weight) * 2)
-
-```
-
-```{r}
-# Define similarity thresholds
-jaccard_threshold <- 0.5
-cosine_threshold <- 0.7
-weighted_threshold <- 0.6
-
-# Columns for similarity calculations
-binary_columns <- c("keep_alive_session", "foreign_request", "email_is_free", "phone_home_valid")
+# Normalize numeric fields for Cosine similarity
 numeric_columns <- c("bank_branch_count_8w", "zip_count_4w", "name_email_similarity", 
                      "bank_months_count", "velocity_6h", "current_address_months_count")
+fraud_transactions[, numeric_columns] <- scale(fraud_transactions[, numeric_columns])
+typical_node_row[numeric_columns] <- scale(typical_node_row[numeric_columns])
 
-# Define weights for weighted similarity
-feature_weights <- c(
-  bank_branch_count_8w = 0.2,
-  zip_count_4w = 0.15,
-  name_email_similarity = 0.25,
-  bank_months_count = 0.1,
-  velocity_6h = 0.2,
-  current_address_months_count = 0.1
-)
+# Define thresholds
+numeric_tolerance <- 0.1  # Tolerance for Jaccard similarity in numeric fields
+jaccard_threshold <- 0.5
+cosine_threshold <- 0.7
 
-# Functions for calculating similarities
-calculate_jaccard <- function(node, typical_fraud_node, binary_cols) {
-  intersection <- sum(node[binary_cols] == typical_fraud_node[binary_cols])
-  union <- length(binary_cols)
-  return(intersection / union)
+# Define Jaccard similarity
+calculate_jaccard <- function(node, typical_fraud_node, numeric_cols, binary_cols) {
+  # Binary comparison for binary fields
+  binary_match <- node[binary_cols] == typical_fraud_node[binary_cols]
+  
+  # Numeric comparison within tolerance
+  numeric_match <- abs(node[numeric_cols] - typical_fraud_node[numeric_cols]) <= numeric_tolerance
+  
+  # Combine matches
+  match_count <- sum(binary_match, numeric_match)
+  total_count <- length(binary_cols) + length(numeric_cols)
+  
+  return(match_count / total_count)
 }
 
-calculate_cosine <- function(node, typical_fraud_node, numeric_cols) {
-  vec1 <- as.numeric(node[numeric_cols])
-  vec2 <- as.numeric(typical_fraud_node[numeric_cols])
-  return(cosine(vec1, vec2))
+# Define Cosine similarity
+calculate_cosine <- function(node, typical_fraud_node, all_cols) {
+  vec1 <- as.numeric(node[all_cols])
+  vec2 <- as.numeric(typical_fraud_node[all_cols])
+  dot_product <- sum(vec1 * vec2, na.rm = TRUE)
+  magnitude1 <- sqrt(sum(vec1^2, na.rm = TRUE))
+  magnitude2 <- sqrt(sum(vec2^2, na.rm = TRUE))
+  if (magnitude1 == 0 || magnitude2 == 0) return(0)
+  return(dot_product / (magnitude1 * magnitude2))
 }
 
-calculate_weighted <- function(node, typical_fraud_node, feature_weights) {
-  weighted_sum <- sum(feature_weights * abs(as.numeric(node) - as.numeric(typical_fraud_node)))
-  max_sum <- sum(feature_weights)
-  return(1 - (weighted_sum / max_sum))  # Normalize to a similarity score
-}
-
-# Create empty edge lists
+# Initialize edge lists
 edges_jaccard <- data.frame(node_id_1 = character(), node_id_2 = character(), similarity = numeric())
 edges_cosine <- data.frame(node_id_1 = character(), node_id_2 = character(), similarity = numeric())
-edges_weighted <- data.frame(node_id_1 = character(), node_id_2 = character(), similarity = numeric())
 
-# Iterate over fraudulent nodes
+# Define all columns
+all_cols <- c(binary_columns, numeric_columns)
+
+# Compare each fraud node to the typical node
 for (i in 1:nrow(fraud_transactions)) {
   node <- fraud_transactions[i, ]
   
   # Jaccard similarity
-  jaccard_similarity <- calculate_jaccard(node, typical_fraud_node, binary_columns)
+  jaccard_similarity <- calculate_jaccard(node, typical_fraud_node, numeric_columns, binary_columns)
   if (jaccard_similarity >= jaccard_threshold) {
     edges_jaccard <- rbind(edges_jaccard, data.frame(
-      node_id_1 = paste("TypicalNode"),
+      node_id_1 = "TypicalNode",
       node_id_2 = node$node_id,
       similarity = jaccard_similarity
     ))
+    next
   }
   
   # Cosine similarity
-  cosine_similarity <- calculate_cosine(node, typical_fraud_node, numeric_columns)
+  cosine_similarity <- calculate_cosine(node, typical_fraud_node, all_cols)
   if (cosine_similarity >= cosine_threshold) {
     edges_cosine <- rbind(edges_cosine, data.frame(
-      node_id_1 = paste("TypicalNode"),
+      node_id_1 = "TypicalNode",
       node_id_2 = node$node_id,
       similarity = cosine_similarity
     ))
   }
-  
-  # Weighted similarity
-  weighted_similarity <- calculate_weighted(node[numeric_columns], typical_fraud_node[numeric_columns], feature_weights)
-  if (weighted_similarity >= weighted_threshold) {
-    edges_weighted <- rbind(edges_weighted, data.frame(
-      node_id_1 = paste("TypicalNode"),
-      node_id_2 = node$node_id,
-      similarity = weighted_similarity
-    ))
-  }
 }
 
-# Create graphs for each similarity type
-graph_jaccard <- graph_from_data_frame(d = edges_jaccard, vertices = fraud_transactions, directed = FALSE)
-graph_cosine <- graph_from_data_frame(d = edges_cosine, vertices = fraud_transactions, directed = FALSE)
-graph_weighted <- graph_from_data_frame(d = edges_weighted, vertices = fraud_transactions, directed = FALSE)
+# Create graphs
+graph_jaccard <- graph_from_data_frame(d = edges_jaccard, vertices = vertices, directed = FALSE)
+graph_cosine <- graph_from_data_frame(d = edges_cosine, vertices = vertices, directed = FALSE)
 
 # Plot graphs
-par(mfrow = c(1, 3))
-plot(graph_jaccard, main = "Jaccard Similarity Graph", vertex.size = 1, edge.width = E(graph_jaccard)$similarity * 5)
-plot(graph_cosine, main = "Cosine Similarity Graph", vertex.size = 1, edge.width = E(graph_cosine)$similarity * 5)
-plot(graph_weighted, main = "Weighted Similarity Graph", vertex.size = 1, edge.width = E(graph_weighted)$similarity * 5)
+par(mfrow = c(1, 2))
+plot(
+  graph_jaccard, 
+  main = "Jaccard Similarity Graph",
+  vertex.color = ifelse(V(graph_jaccard)$name == "TypicalNode", "red", "lightblue"),
+  vertex.size = ifelse(V(graph_jaccard)$name == "TypicalNode", 10, 3),
+  edge.width = E(graph_jaccard)$similarity * 2,
+  layout = layout_with_fr
+)
+mtext("Edges represent nodes with Jaccard similarity ≥ 0.5", side = 3, line = 0.5)
+
+plot(
+  graph_cosine, 
+  main = "Cosine Similarity Graph",
+  vertex.color = ifelse(V(graph_cosine)$name == "TypicalNode", "red", "lightgreen"),
+  vertex.size = ifelse(V(graph_cosine)$name == "TypicalNode", 10, 3),
+  edge.width = E(graph_cosine)$similarity * 2,
+  layout = layout_with_fr
+)
+mtext("Edges represent nodes with Cosine similarity ≥ 0.7", side = 3, line = 0.5)
+
+# Display metrics
+print(paste("Number of nodes in the graph:", vcount(graph_jaccard)))
+print(paste("Number of edges in Jaccard similarity graph:", gsize(graph_jaccard)))
+print(paste("Number of edges in Cosine similarity graph:", gsize(graph_cosine)))
+
 ```
+
+
