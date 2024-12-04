@@ -392,8 +392,6 @@ The following metrics will be used in identifying the influential fraudulent nod
 
 2.  Betweenness centrality
 
-3.  PageRank centrality
-
 Below is the sample creation and plotting process, the sample drawn is random, and is representative of the dataset. The process below can be applied to the entire dataset (resource-permitting), but since we do not have the resources to generate the entire graph, we will be working with samples in all of the research questions.
 
 ```{r}
@@ -470,8 +468,6 @@ print(as.list(nodes_flagged_ids_eigenvector))
 nodes_flagged_ids_eigenvector <- as.vector(nodes_flagged_ids_eigenvector)
 ```
 
-Nodes 538450, 503729, 253211, 503830, 562008, 464472, 249217, 683809, 290984, 375304, 690415, 597139, and 80189 were deemed as suspicious from the above drawn sample.
-
 All the columns for the nodes that were flagged suspicious can be further investigated by domain experts to make the best judgement on whether the flagged nodes were participating in bank fraud or were part of any fraud rings, or whether some of the nodes flagged were false positives.
 
 The main advantage of using eigenvector centrality as a metric to flag nodes as suspicious is that eigenvector centrality takes into account both the quantity and the quality of the connections, and the main disadvantage of Eigenvector centrality is that large hubs can influence centrality scores of other nodes, and could ruin the quality of the centrality scores assigned.
@@ -505,42 +501,7 @@ print(as.list(nodes_flagged_ids_betweenness))
 nodes_flagged_ids_betweenness <- as.vector(nodes_flagged_ids_betweenness)
 ```
 
-Nodes 690415, 195760, 569089, 250443, 45412, 503729, 392700, 503830, 655584, 683809, 375304, 538450, and 142900 were deemed as suspicious from the above drawn sample.
-
 The main advantage of using betweenness centrality as a metric to flag nodes as suspicious is that betweenness centrality identifies the nodes that act as middlemen to the most number of nodes, and if removed can cause the information flow to be disrupted severely. The main disadvantage of using betweenness centrality is that it can be computationally expensive due to the metric needing to calculate a lot of shortest paths.
-
-Next, we will calculate the PageRank centrality scores for the above drawn sample of nodes, and flag suspicious nodes in a similar manner as performed above to identify potentially influential nodes in the context of committing bank account fraud.
-
-```{r}
-# Computing the PageRank centrality scores of the nodes in the sample
-pagerank_centrality_scores <- page_rank(graph_rq1)
-data_sample_q1[, 18] <- pagerank_centrality_scores$vector
-colnames(data_sample_q1)[18] <- "pagerank_centrality_score"
-
-# Ordering the nodes based on descending pagerank centrality scores to determine the nodes with the highest relative pagerank centrality scores
-data_sample_q1_ordered_pagerank <- arrange(data_sample_q1, desc(data_sample_q1$pagerank_centrality_score))
-
-# Extracting the records in the top 25 percentiles of the pagerank centrality scores to pick out the most important nodes from the sample
-pagerank_centrality_threshold <- quantile(data_sample_q1_ordered_pagerank$pagerank_centrality_score, 0.75)
-most_influential_nodes_by_pagerank_centrality <- data_sample_q1_ordered_pagerank[data_sample_q1_ordered_pagerank$pagerank_centrality_score > pagerank_centrality_threshold, ]
-most_influential_nodes_by_pagerank_centrality
-```
-
-Nodes with high pagerank centrality scores are nodes that are connected to other nodes with other nodes with high pagerank centrality, and this centrality metric takes into account the number of links, the quality of the links, and the quality of the nodes that a node is connected to. In the context of bank fraud, these nodes are nodes that are possibly committing bank account fraud, and/or could be in a group that is defrauding the bank.
-
-The threshold of the top 25 percentiles was set in order to detect only the most important nodes with a high value for the pagerank centrality, and which may not themselves be fraudulent but can be flagged as suspicious based on their ability to be central members in fraud rings or maybe committing fraud in isolation. Pagerank centrality scores in the context of bank account fraud detection tell us that the higher the pagerank centrality score for a node, the higher the number of important nodes that it is connected to in a standardized manner by dividing the centrality values by the outdegree in the formula for calculating pagerank centrality.
-
-13 nodes were flagged using the pagerank centrality approach to detecting bank account fraud and can be further investigated by domain experts to identify whether the nodes flagged were part of fraud rings or were fraudulent. The IDs of the nodes that were flagged based on their high pagerank centrality were as follows:
-
-```{r}
-nodes_flagged_ids_pagerank <- most_influential_nodes_by_pagerank_centrality[, 1]
-print(as.list(nodes_flagged_ids_pagerank))
-nodes_flagged_ids_pagerank <- as.vector(nodes_flagged_ids_pagerank)
-```
-
-Nodes 538450, 503729, 253211, 503830, 562008, 464472, 249217, 683809, 290984, 690415, 375304, 569089, and 195760 were deemed as suspicious from the above drawn sample.
-
-The main disadvantage of using pagerank centrality is that it is prone to link manipulation, which is when many low quality links are accumulated, it can cause the pagerank of a page to be good even though the pages linking to it did not have a high pagerank score, leading to nodes being falsely classified as important, and it also does not take into account the fraud_bool variable from the dataset when defining nodes as more important as others from the drawn sample.
 
 The following metrics are not suitable for identifying the influential fraudulent nodes in the network:
 
@@ -556,21 +517,25 @@ In the context of how we have defined our graph as containing links between user
 
 In the context of how we have defined our graph as containing links between users based on the similarity of their bank account requests, degree centrality is not an appropriate centrality metric due to it focusing purely on the number of nodes a particular node is connected to, and is not concerned about the centrality of the nodes that a particular node is connected to, which may lead to incorrectly deeming a node as a suspicious, when it may not be.
 
+4.  PageRank centrality
+
+In the context of our research question pagerank centrality does not seem to provide much more information than eigenvector centrality in an undirected network.
+
 Below is a venn diagram of the nodes that were flagged as suspicious by various metrics, and which nodes are deemed by more than 1 centrality metric as being suspicious which can be used in further domain-specific analysis to determine whether the nodes are linked to fradulent entities or whose request may be frauduelent:
 
 ```{r}
 #install.packages("VennDiagram")
 library(grid)
 library(VennDiagram)
-venndiagram <- venn.diagram(x = list(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id, nodes_flagged_ids_pagerank$node_id), category.names = c("Betweenness Centrality", "Eigenvector Centrality", "PageRank Centrality"), filename = NULL, main = "Venn Diagram of the number of Overlapping Flagged Nodes from the different centrality metrics", output = TRUE, fill = c("red", "green", "blue"), alpha = 0.5, cex = 0.75, cat.cex = 0.75)
+venndiagram <- venn.diagram(x = list(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id), category.names = c("Betweenness Centrality", "Eigenvector Centrality"), filename = NULL, main = "Venn Diagram of the number of Overlapping Flagged Nodes from the different centrality metrics", output = TRUE, fill = c("red", "green"), alpha = 0.5, cex = 0.75, cat.cex = 0.75)
 grid.newpage()
 grid.draw(venndiagram)
 ```
 
-The red colored circle represents the number of Node IDs of the high betweenness centrality flagged nodes, the green colored circle represents the number of Node IDs of the high eigenvector centrality flagged nodes, and the blue colored circle represents the number of Node IDs of the high pagerank centrality flagged nodes. The nodes that were flagged as having high values for all 3 centrality metrics were nodes 690415, 503729, 503830, 683809, 375304, and 538450.
+The red colored circle represents the number of Node IDs of the high betweenness centrality flagged nodes, and the green colored circle represents the number of Node IDs of the high eigenvector centrality flagged nodes.. The nodes that were flagged as having high values for both centrality metrics are the nodes that need to be investigated further.
 
 ```{r}
-most_suspicious_nodes_by_all_metrics <- intersect(intersect(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id), nodes_flagged_ids_pagerank$node_id)
+most_suspicious_nodes_by_all_metrics <- intersect(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id)
 print(most_suspicious_nodes_by_all_metrics)
 ```
 
