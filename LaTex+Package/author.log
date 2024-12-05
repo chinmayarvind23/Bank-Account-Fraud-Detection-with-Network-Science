@@ -1,0 +1,529 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.2.6)  4 DEC 2024 17:27
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./author.tex
+(author.tex
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-08-29>
+(styles/svproc.cls
+
+LaTeX Warning: You have requested document class `styles/svproc',
+               but the document class provides `svproc'.
+
+Document Class: svproc 2016/07/20 v1.3 
+ LaTeX document class for Proceedings volumes
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
+File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+)
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/tools\multicol.sty
+Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
+\c@tracingmulticols=\count193
+\mult@box=\box51
+\multicol@leftmargin=\dimen141
+\c@unbalance=\count194
+\c@collectmore=\count195
+\doublecol@number=\count196
+\multicoltolerance=\count197
+\multicolpretolerance=\count198
+\full@width=\dimen142
+\page@free=\dimen143
+\premulticols=\dimen144
+\postmulticols=\dimen145
+\multicolsep=\skip50
+\multicolbaselineskip=\skip51
+\partial@page=\box52
+\last@line=\box53
+\mc@boxedresult=\box54
+\maxbalancingoverflow=\dimen146
+\mult@rightbox=\box55
+\mult@grightbox=\box56
+\mult@firstbox=\box57
+\mult@gfirstbox=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\@tempa=\box65
+\@tempa=\box66
+\@tempa=\box67
+\@tempa=\box68
+\@tempa=\box69
+\@tempa=\box70
+\@tempa=\box71
+\@tempa=\box72
+\@tempa=\box73
+\@tempa=\box74
+\@tempa=\box75
+\@tempa=\box76
+\@tempa=\box77
+\@tempa=\box78
+\@tempa=\box79
+\@tempa=\box80
+\@tempa=\box81
+\@tempa=\box82
+\@tempa=\box83
+\@tempa=\box84
+\@tempa=\box85
+\@tempa=\box86
+\@tempa=\box87
+\@tempa=\box88
+\@tempa=\box89
+\@tempa=\box90
+\@tempa=\box91
+\@tempa=\box92
+\@tempa=\box93
+\@tempa=\box94
+\c@minrows=\count199
+\c@columnbadness=\count266
+\c@finalcolumnbadness=\count267
+\last@try=\dimen147
+\multicolovershoot=\dimen148
+\multicolundershoot=\dimen149
+\mult@nat@firstbox=\box95
+\colbreak@box=\box96
+\mc@col@check@num=\count268
+)
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/oberdiek\aliascnt.sty
+Package: aliascnt 2018/09/07 v1.5 Alias counters (HO)
+)
+\c@chapter=\count269
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 369.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 370.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 371.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 372.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 373.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 374.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 375.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 376.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 377.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 378.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 379.
+\tocchpnum=\dimen150
+\tocsecnum=\dimen151
+\tocsectotal=\dimen152
+\tocsubsecnum=\dimen153
+\tocsubsectotal=\dimen154
+\tocsubsubsecnum=\dimen155
+\tocsubsubsectotal=\dimen156
+\tocparanum=\dimen157
+\tocparatotal=\dimen158
+\tocsubparanum=\dimen159
+\@tempcntc=\count270
+\fnindent=\dimen160
+\c@@inst=\count271
+\c@@auth=\count272
+\c@auco=\count273
+\instindent=\dimen161
+\authrun=\box97
+\authorrunning=\toks17
+\tocauthor=\toks18
+\titrun=\box98
+\titlerunning=\toks19
+\toctitle=\toks20
+\c@theorem=\count274
+\c@case=\count275
+\c@conjecture=\count276
+\c@corollary=\count277
+\c@definition=\count278
+\c@example=\count279
+\c@exercise=\count280
+\c@lemma=\count281
+\c@note=\count282
+\c@problem=\count283
+\c@property=\count284
+\c@proposition=\count285
+\c@question=\count286
+\c@solution=\count287
+\c@remark=\count288
+\headlineindent=\dimen162
+) (C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks21
+)
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen163
+\Gin@req@width=\dimen164
+) (C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
+
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen165
+\ar@mcellbox=\box99
+\extrarowheight=\dimen166
+\NC@list=\toks22
+\extratabsurround=\skip52
+\backup@length=\skip53
+\ar@cellbox=\box100
+)
+\TX@col@width=\dimen167
+\TX@old@table=\dimen168
+\TX@old@col=\dimen169
+\TX@target=\dimen170
+\TX@delta=\dimen171
+\TX@cols=\count289
+\TX@ftn=\toks23
+)
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count290
+\l__pdf_internal_box=\box101
+) (author.aux)
+\openout1 = `author.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count291
+\scratchdimen=\dimen172
+\scratchbox=\box102
+\nofMPsegments=\count292
+\nofMParguments=\count293
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count294
+\MPscratchDim=\dimen173
+\MPnumerator=\count295
+\makeMPintoPDFobject=\count296
+\everyMPtoPDFconversion=\toks25
+)
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\Owner\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 43.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 43.
+ [1
+
+
+{C:/Users/Owner/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+Overfull \hbox (13.46799pt too wide) in paragraph at lines 64--65
+[]\OT1/cmr/m/n/10 What dif-fer-ences ex-ist be-tween fraud-u-lent ac-count ap-p
+li-ca-tions and non-fraudulent
+ []
+
+[2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3]
+[4]
+Underfull \vbox (badness 3635) has occurred while \output is active []
+
+ [5]
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+[]|\OT1/cmr/bx/n/10 keep
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+\OT1/cmr/bx/n/10 alive
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+\OT1/cmr/bx/n/10 ses-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+\OT1/cmr/bx/n/10 re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+[]|\OT1/cmr/bx/n/10 email
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+[]|\OT1/cmr/bx/n/10 fraud
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+[]|\OT1/cmr/bx/n/10 bank
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+\OT1/cmr/bx/n/10 count
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
+[]|\OT1/cmr/bx/n/10 zip
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
+\OT1/cmr/bx/n/10 count
+ []
+
+
+Underfull \vbox (badness 2435) has occurred while \output is active []
+
+ [7]
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+[]|\OT1/cmr/bx/n/10 keep
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+\OT1/cmr/bx/n/10 alive
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+\OT1/cmr/bx/n/10 ses-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+\OT1/cmr/bx/n/10 re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+[]|\OT1/cmr/bx/n/10 email
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+[]|\OT1/cmr/bx/n/10 fraud
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+[]|\OT1/cmr/bx/n/10 bank
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--161
+\OT1/cmr/bx/n/10 count
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
+[]|\OT1/cmr/bx/n/10 zip
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
+\OT1/cmr/bx/n/10 count
+ []
+
+<./images/venn.png, id=31, 618.81187pt x 392.21532pt>
+File: ./images/venn.png Graphic file (type png)
+<use ./images/venn.png>
+Package pdftex.def Info: ./images/venn.png  used on input line 189.
+(pdftex.def)             Requested size: 278.46277pt x 176.49525pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8]
+Underfull \vbox (badness 2401) has occurred while \output is active []
+
+ [9 <./images/venn.png>] [10]
+<./images/q2comm.png, id=43, 470.9595pt x 395.67825pt>
+File: ./images/q2comm.png Graphic file (type png)
+<use ./images/q2comm.png>
+Package pdftex.def Info: ./images/q2comm.png  used on input line 271.
+(pdftex.def)             Requested size: 306.12004pt x 257.1878pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 283--283
+[]|\OT1/cmr/bx/n/10 Avg.
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11 <./images/q2comm.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 320--320
+[]|\OT1/cmr/bx/n/10 Degree
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 320--320
+[]|\OT1/cmr/bx/n/10 Degree
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 320--320
+[]|\OT1/cmr/bx/n/10 Jaccard
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 320--321
+[]|\OT1/cmr/bx/n/10 Jaccard
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
+[]|\OT1/cmr/bx/n/10 Closeness
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
+[]|\OT1/cmr/bx/n/10 Closeness
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
+[]|\OT1/cmr/bx/n/10 Between
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
+[]|\OT1/cmr/bx/n/10 Between
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
+[]|\OT1/cmr/bx/n/10 Local
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--334
+\OT1/cmr/bx/n/10 Clus-ter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
+[]|\OT1/cmr/bx/n/10 Local
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
+\OT1/cmr/bx/n/10 Clus-ter
+ []
+
+[12] [13] [14] [15]
+Underfull \hbox (badness 1024) in paragraph at lines 392--393
+[]\OT1/cmr/m/n/9 F. Grando, D. No-ble and L. C. Lamb, "An Anal-y-sis of Cen-tra
+l-ity Mea-sures
+ []
+
+
+Underfull \hbox (badness 2503) in paragraph at lines 392--393
+\OT1/cmr/m/n/9 COM.2016.7841580. key-words: Mea-sure-ment;Complex net-works;Cor
+relation;Social
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 398.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 398.
+
+Underfull \hbox (badness 2503) in paragraph at lines 404--405
+[]\OT1/cmr/m/n/9 Normah Omar , Is-mail bin Mo-hamed , Zu-raidah Mohd Sanusi and
+ Hendi
+ []
+
+
+Underfull \hbox (badness 6332) in paragraph at lines 404--405
+\OT1/cmr/m/n/9 De-tec-tion. Re-cent Trends in So-cial and Be-haviour Sci-ences 
+$https : / / www .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 404--405
+\OT1/cmr/m/n/9 researchgate . net / pro^^Lle / Normah-[]Omar / publication / 30
+0376345[]Understanding[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 404--405
+\OT1/cmr/m/n/9 Social[]Network[]Analysis[]SNA[]in[]fraud[]detection / links / 5
+874560508ae8fce492457 /
+ []
+
+[16] (author.aux)
+ ***********
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-08-29>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 2012 strings out of 475247
+ 32236 string characters out of 5757793
+ 1956785 words of memory out of 5000000
+ 23554 multiletter control sequences out of 15000+600000
+ 561885 words of font info for 49 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 57i,9n,65p,2751b,372s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Owner/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmbx9.pfb><C:/Users/Owner/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Owner/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Owner/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/Owner/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on author.pdf (16 pages, 317014 bytes).
+PDF statistics:
+ 94 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+
