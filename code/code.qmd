@@ -571,8 +571,84 @@ This research question aims to find clusters of nodes within the entire network,
 
 ## Research Question 4: What differences exist between fraudulent account applications and non-fraudulent account applications?
 
-```{r}
+To examine this question, we compare the means of 6 different metrics for both fraudulent and legitimate nodes within a sample. Samples of 1000 nodes are used and mean metrics are recorded for 10 separate samples. The mean metrics of the 10 samples are then aggregated to further remove sampling bias. The metrics to be compared are degree centrality, eigenvector centrality, jaccard similarity, local clustering coefficient, betweenness centrality and closeness centrality.
 
+```{r}
+#graph creation:
+bin_count = 100
+binned_bankfraud_data = bankfraud_data
+
+cols_to_bin = c("bank_branch_count_8w", "zip_count_4w", "name_email_similarity", "bank_months_count", "velocity_6h", "current_address_months_count")
+
+binned_bankfraud_data[cols_to_bin] = data.frame(lapply(binned_bankfraud_data[cols_to_bin], function(x) cut(x, breaks = bin_count, labels=FALSE)))
+
+binary_columns = c("keep_alive_session", "foreign_request", "email_is_free", "phone_home_valid")
+
+binned_bankfraud_data$binary_combination_value = apply(binned_bankfraud_data[binary_columns], 1, function(x) {paste(as.character(x), collapse = "")})
+
+sample_size = 1000
+sample_size_fraud = sample_size*0.01
+sample_size_legit = sample_size*0.99
+
+sample_fraud = binned_bankfraud_data %>% filter(fraud_bool == 1) %>% slice_sample(n = sample_size_fraud)
+sample_legit = binned_bankfraud_data %>% filter(fraud_bool == 0) %>% slice_sample(n = sample_size_legit)
+
+data_sample = bind_rows(sample_fraud, sample_legit)
+
+edges_list = create_edges(data_sample)
+graph = graph_from_data_frame(d = edges_list, vertices = data_sample, directed = FALSE)
+
+V(graph)
+legit_nodes = V(graph)[fraud_bool == 0]
+fraud_nodes = V(graph)[fraud_bool == 1]
+
+#mean degree centrality
+mean_legit_degrees = mean(degree(graph, v = legit_nodes))
+mean_fraud_degrees = mean(degree(graph, v = fraud_nodes))
+mean_legit_degrees
+mean_fraud_degrees
+
+#mean jaccard similarity
+jaccard = similarity(graph, method = "jaccard")
+jaccard[lower.tri(jaccard, diag = TRUE)] = NA # removing diagonal values and duplicate values in the lower triangle
+legit_jaccard = jaccard[as.integer(legit_nodes), ] #isolating legit nodes
+fraud_jaccard = jaccard[as.integer(fraud_nodes), ] #isolating fraudulent nodes
+
+mean(legit_jaccard, na.rm = TRUE)
+mean(fraud_jaccard, na.rm = TRUE)
+
+#mean eigenvector centrality
+eigenvector = eigen_centrality(graph, directed=FALSE)$vector
+legit_eigenvector = eigenvector[legit_nodes]
+fraud_eigenvector = eigenvector[fraud_nodes]
+
+mean(legit_eigenvector)
+mean(fraud_eigenvector)
+
+#mean closeness centrality:
+closeness_values = closeness(graph, normalized = TRUE)
+legit_closeness = closeness_values[legit_nodes]
+fraud_closeness = closeness_values[fraud_nodes]
+
+mean(legit_closeness)
+mean(fraud_closeness)
+
+#mean local clustering coefficient:
+clustering = transitivity(graph, type = "local", isolates = "zero")
+
+legit_clustering = clustering[legit_nodes]
+fraud_clustering = clustering[fraud_nodes]
+
+mean(legit_clustering)
+mean(fraud_clustering)
+
+#betweenness centrality:
+betweennes_values = betweenness(graph, directed=FALSE)
+legit_betweennes = betweennes_values[legit_nodes]
+fraud_betweennes = betweennes_values[fraud_nodes]
+
+mean(legit_betweennes)
+mean(fraud_betweennes)
 ```
 
 QUARTO RENDER
