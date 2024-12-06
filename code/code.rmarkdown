@@ -7,13 +7,15 @@ format:
     css: styles/styles.css
     toc: true
     toc-location: left
-editor_options: 
-  chunk_output_type: inline
 ---
+
+
 
 #### Team Members: Chinmay Arvind, Dmitry Kostyukov, Jerry Fan, Rylan Millar
 
 # Imports & Libraries Setup
+
+
 
 ```{r}
 renv::snapshot()
@@ -49,7 +51,11 @@ library(tidyverse)
 library(purrr)
 ```
 
+
+
 # Data loading
+
+
 
 ```{r}
 # load_dot_env(file = "/Users/chinmayarvind/Documents/UBC/UBC Coursework/COSC 421/Course Project/Bank-Account-Fraud-Detection-with-Network-Science/.env")
@@ -63,13 +69,21 @@ bankfraud_data <- read_csv("/Users/chinmayarvind/Documents/UBC/UBC Coursework/CO
 bankfraud_data
 ```
 
+
+
 # Data cleaning, and PCA
+
+
 
 ```{r}
 colSums(is.na(bankfraud_data))
 ```
 
+
+
 No missing values, so we can proceed with the rest of the data cleaning.
+
+
 
 ```{r}
 summary(bankfraud_data)
@@ -81,7 +95,11 @@ bankfraud_data <- bankfraud_data[!duplicated(bankfraud_data), ]
 bankfraud_data
 ```
 
+
+
 No duplicates identified, so we can proceed with PCA and feature engineering. Removing the Device OS columns and the source columns as they are not helpful predictors in predicting bank fraud. The character data type columns are converted to numeric types for making PCA possible.
+
+
 
 ```{r}
 bankfraud_data <- bankfraud_data[, -c(26, 28)]
@@ -89,13 +107,21 @@ bankfraud_data <- bankfraud_data %>% mutate(across(where(is.character), ~ as.num
 bankfraud_data
 ```
 
+
+
 Printing a summary of the dataset so far.
+
+
 
 ```{r}
 str(bankfraud_data)
 ```
 
+
+
 Removing columns with 0 variance in them, as they will not contribute to predicting fraud in any way.
+
+
 
 ```{r}
 not_required_cols <- sapply(bankfraud_data, function(x) var(x, na.rm = TRUE) == 0)
@@ -106,7 +132,11 @@ print("Remaining columns after removing zero variance columns:")
 print(names(bankfraud_data))
 ```
 
+
+
 Printing a summary of the PCA performed after scaling the data, which shows the number of principal components that explain x% of the variance in the dataset along with charts that indicate the same.
+
+
 
 ```{r}
 pcaCharts <- function(x) {
@@ -129,7 +159,11 @@ summary(bankfraud_data_pca)
 pcaCharts(bankfraud_data_pca)
 ```
 
+
+
 Printing the covariance and correlation matrices of the data.
+
+
 
 ```{r}
 covariancematrix <- cov(bankfraud_data)
@@ -139,7 +173,11 @@ corellationmatrix = cor(bankfraud_data)
 corellationmatrix
 ```
 
+
+
 Shows the data points based on their fraud classification status on a biplot showing how much each feature contributes to the first 2 principal components.
+
+
 
 ```{r}
 install.packages("ggplot2")
@@ -149,7 +187,11 @@ library(ggfortify)
 autoplot(bankfraud_data_pca, data = bankfraud_data, colour = 'fraud_bool', loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3)
 ```
 
+
+
 Setting an absolute threshold of 0.5 for selecting the impact of features on the principal components.
+
+
 
 ```{r}
 pca_loadings <- bankfraud_data_pca$rotation[, 1:24]
@@ -183,15 +225,23 @@ selected_features <- unique(c(
 print(selected_features)
 ```
 
+
+
 Prting the rotation matrix of the PCA that indicates the magnitude and direction of contribution of a feature to various principal components.
+
+
 
 ```{r}
 bankfraud_data_pca$rotation
 ```
 
+
+
 # Final dataset with most relevant features for predicting fraud.
 
 Rows with missing (-1) values in the bank_months_count and current_address_months_count are removed as these are considered missing values. The days_since_request column is removed due to having unreliable data - the data is supposed to range from 0 to 78 days, however the majority of the entries are less than one. The negative values from velocity_6h are also removed as they are uninterpretable in the context of the velocity of applications.
+
+
 
 ```{r}
 bankfraud_data <- bankfraud_data[, c(selected_features)]
@@ -218,9 +268,13 @@ nrow(bankfraud_data)
 
 ```
 
+
+
 # Feature Engineering
 
 Checking data ranges, and enumerating records in the CSV file as nodes with Node IDs. We have taken a sample here to check if the graph creation is feasible before generating the graph with all of the nodes in it.
+
+
 
 ```{r}
 str(bankfraud_data)
@@ -317,15 +371,19 @@ par(mfrow=c(1,1), mar=c(0,0,0,0))
 plot(graph, vertex.size = 20, edge.width = 1, edge.color = E(graph)$color)
 ```
 
+
+
 ## Sampling Procedure & Justification
 
 Running the entire cleaned and processed dataset post-data cleaning, PCA, and feature extraction would be very resource intensive and not feasible in a local RStudio environment to generate visualizations of the graph. Therefore, we propose a sampling approach that draws a representative sample of the dataset's entire remaining feature space. The methodology for sampling the dataset is explained below.
 
-Due to the lengthy computation time of our edge-generating function, we have chosen to use samples of our full data to analyze the network. A one-thousand node sample takes approximately one minute to generate edges, a two-thousand sample take around ten minutes. This increase in time makes it unfeasible to use larger samples, let alone the entire data set of around 700 thousand nodes. Therefore, we will keep our sample sizes in the 100 to 1000 range.
+Due to the lengthy computation time of our edge-generating function, we have chosen to use samples of our full data to analyze the network. A one-thousand node sample takes approximately one minute to generate edges, a two-thousand sample take around ten minutes. This increase in time makes it unfeasible to use larger samples, let alone the entire data set of around 700 thousand nodes. Therefore, we will keep our sample sizes in the 1000 to 2000 range.
 
 The percentage of fraudulent nodes in the full data set is approximately 1%. To ensure this proportion is consistent in our sample we use stratified sampling. Stratified sampling samples 1% of the data from a strata of only fraudulent nodes and the other 99% of the data from a strata of only the non-fraudulent nodes.
 
 Prior to using a sample in our project, we ensure that the sample is representative of the entire data set by applying the Chi-Squared test to our sample. The Chi-Squared test will determine if there is a significant difference between the values in the columns of the sample and in the full data set. The Chi-Squared test generates p-values for each column in a sample. A p-value of less than 0.05 will signal a significant difference between the sample and the full data set for that particular column. By conducting the Chi-Squared test on a given sample we ensure that it is sufficiently representative of the entire data set.
+
+
 
 ```{r}
 # Percentage of fraudulent nodes in the data frame:
@@ -375,6 +433,8 @@ chi_squared_df = data.frame(Column = names(chi_squared_results), P_Value = unlis
 print(chi_squared_df)
 ```
 
+
+
 ## Data Description
 
 The dataset post-processing has been reduced to the following columns that will be considered in the following research questions:
@@ -413,9 +473,13 @@ This research question aims to determine the most important fraudulent players w
 
 The overarching hypothesis of this project is that the links between the nodes due to the similarities in the attributes of their bank account requests could possibly suggest that some nodes were involved in defrauding the bank in groups, or may have been part of the crime itself in isolation, or were involved in some manner in defrauding the bank, and the research questions aim to figure out those connections between the nodes, and whether it makes practical sense to flag the identified nodes as suspicious.
 
+
+
 ```{r}
 bankfraud_data
 ```
+
+
 
 The following metrics will be used in identifying the influential fraudulent nodes in the network:
 
@@ -424,6 +488,8 @@ The following metrics will be used in identifying the influential fraudulent nod
 2.  Betweenness centrality
 
 Below is the sample creation and plotting process, the sample drawn is random, and is representative of the dataset. The process below can be applied to the entire dataset (resource-permitting), but since we do not have the resources to generate the entire graph, we will be working with samples in all of the research questions.
+
+
 
 ```{r}
 # Creating sample
@@ -476,11 +542,15 @@ par(mfrow=c(1,1), mar=c(0,0,0,0))
 plot(graph_rq1, vertex.size = 20, edge.width = 1, edge.color = E(graph_rq1)$color)
 ```
 
+
+```
+
 Now, we will construct the columns for the different centrality metrics stated above, and interpret the metrics in the context of bank fraud detection. We will start with eigenvector centrality. All the nodes within the sample are considered when determining the nodes that are influential based on the eigenvector centrality scores of the nodes.
 
 ```{r}
 data_sample_q1
 ```
+
 
 
 
@@ -499,13 +569,17 @@ most_influential_nodes_by_ev_centrality <- data_sample_q1_ordered_ev[data_sample
 most_influential_nodes_by_ev_centrality
 ```
 
+
+
 Influential/important nodes in the context of bank account fraud detection are nodes that are possibly committing bank account fraud, and/or could be in a group that is defrauding the bank.
 
 The threshold of the top 25 percentiles was set in order to detect only the most important nodes with a high value for the eigenvector centrality, and which may not themselves be fraudulent but can be flagged as suspicious based on the quality of their connections within the network, and could possibly be collaborating with other nodes in the network to defraud the bank. Eigenvector centrality scores in the context of bank account fraud detection tell us that the higher the eigenvector centrality score for a node, the higher the number of important nodes that it is connected to.
 
 The nodes that appear above the threshold for the calculated metrics can be determined with confidence as suspicious, but the others can be further investigated due to their ties to various nodes that were flagged.
 
-25 nodes were flagged as suspicious from this sample based on them exceeding the threshold of the top 25 percentiles for the eigenvector centrality score, and in the context of bank fraud, they seem to have connections to node(s) that have been caught committing bank fraud or may have been caught committing bank fraud themselves.The IDs of the nodes that were flagged based on their high eigenvector centrality were as follows:
+13 nodes were flagged as suspicious from this sample based on them exceeding the threshold of the top 25 percentiles for the eigenvector centrality score, and in the context of bank fraud, they seem to have connections to node(s) that have been caught committing bank fraud or may have been caught committing bank fraud themselves.The IDs of the nodes that were flagged based on their high eigenvector centrality were as follows:
+
+
 
 ```{r}
 nodes_flagged_ids_eigenvector <- most_influential_nodes_by_ev_centrality[, 1]
@@ -513,11 +587,15 @@ print(as.list(nodes_flagged_ids_eigenvector))
 nodes_flagged_ids_eigenvector <- as.vector(nodes_flagged_ids_eigenvector)
 ```
 
+
+
 All the columns for the nodes that were flagged suspicious can be further investigated by domain experts to make the best judgement on whether the flagged nodes were participating in bank fraud or were part of any fraud rings, or whether some of the nodes flagged were false positives.
 
 The main advantage of using eigenvector centrality as a metric to flag nodes as suspicious is that eigenvector centrality takes into account both the quantity and the quality of the connections, and the main disadvantage of Eigenvector centrality is that large hubs can influence centrality scores of other nodes, and could ruin the quality of the centrality scores assigned.
 
 Now, we will calculate the betweenness centrality scores for the above drawn sample of nodes, and flag suspicious nodes in a similar manner as performed above to identify potentially influential nodes in the context of committing bank account fraud.
+
+
 
 ```{r}
 # Computing the betweenness centrality scores of the nodes in the sample
@@ -534,17 +612,23 @@ most_influential_nodes_by_betweenness_centrality <- data_sample_q1_ordered_betwe
 most_influential_nodes_by_betweenness_centrality
 ```
 
+
+
 Nodes with high betweenness centrality scores are nodes that tend to be the middlemen for information flow, and in the context of bank fraud, these nodes can be vital to the fraud rings as middlemen for information flow about defrauding the bank. Removing these nodes from the network could collapse the entire fraud ring, and it would be in the bank's best interest to flag these nodes, and further investigate the attributes of these nodes to deem them as being part of a fraudulent group or being fraudulent.
 
 The threshold of the top 25 percentiles was set in order to detect only the most important nodes with a high value for the betweenness centrality, and which may not themselves be fraudulent but can be flagged as suspicious based on their ability to act as middlemen for information flow within the network, and could possibly be collaborating with other nodes in the network to defraud the bank or be the fraud ring leaders themselves due to them being on the shortest paths to many nodes within the network.
 
-25 nodes were flagged using the betweenness centrality approach to detecting bank account fraud and can be further investigated by domain experts to identify whether the nodes flagged were part of fraud rings or were fraudulent. The IDs of the nodes that were flagged based on their high betweenness centrality were as follows:
+13 nodes were flagged using the betweenness centrality approach to detecting bank account fraud and can be further investigated by domain experts to identify whether the nodes flagged were part of fraud rings or were fraudulent. The IDs of the nodes that were flagged based on their high betweenness centrality were as follows:
+
+
 
 ```{r}
 nodes_flagged_ids_betweenness <- most_influential_nodes_by_betweenness_centrality[, 1]
 print(as.list(nodes_flagged_ids_betweenness))
 nodes_flagged_ids_betweenness <- as.vector(nodes_flagged_ids_betweenness)
 ```
+
+
 
 The main advantage of using betweenness centrality as a metric to flag nodes as suspicious is that betweenness centrality identifies the nodes that act as middlemen to the most number of nodes, and if removed can cause the information flow to be disrupted severely. The main disadvantage of using betweenness centrality is that it can be computationally expensive due to the metric needing to calculate a lot of shortest paths.
 
@@ -568,25 +652,35 @@ In the context of our research question pagerank centrality does not seem to pro
 
 Below is a venn diagram of the nodes that were flagged as suspicious by various metrics, and which nodes are deemed by more than 1 centrality metric as being suspicious which can be used in further domain-specific analysis to determine whether the nodes are linked to fradulent entities or whose request may be frauduelent:
 
+
+
 ```{r}
 #install.packages("VennDiagram")
 library(grid)
 library(VennDiagram)
-venndiagram <- venn.diagram(x = list(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id), category.names = c("Betweenness Centrality", "Eigenvector Centrality"), filename = NULL, main = "Venn Diagram of the number of Overlapping Flagged Nodes from the different centrality metrics", output = TRUE, lwd = 1, fill = c("red", "green"), alpha = 0.3, cex = 0.75, cat.cex = 0.65)
+venndiagram <- venn.diagram(x = list(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id), category.names = c("Betweenness Centrality", "Eigenvector Centrality"), filename = NULL, main = "Venn Diagram of the number of Overlapping Flagged Nodes from the different centrality metrics", output = TRUE, fill = c("red", "green"), alpha = 0.5, cex = 0.75, cat.cex = 0.75)
 grid.newpage()
 grid.draw(venndiagram)
 ```
 
-The red colored circle represents the number of Node IDs of the high betweenness centrality flagged nodes, and the green colored circle represents the number of Node IDs of the high eigenvector centrality flagged nodes. The nodes that were flagged as having high values for both centrality metrics are the nodes that need to be investigated further.
+
+
+The red colored circle represents the number of Node IDs of the high betweenness centrality flagged nodes, and the green colored circle represents the number of Node IDs of the high eigenvector centrality flagged nodes.. The nodes that were flagged as having high values for both centrality metrics are the nodes that need to be investigated further.
+
+
 
 ```{r}
 most_suspicious_nodes_by_all_metrics <- intersect(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id)
 print(most_suspicious_nodes_by_all_metrics)
 ```
 
-The above nodes would be the best to investigate further if investigating all 39 nodes flagged as suspicious is infeasible.
+
+
+The above 6 nodes would be the best to investigate further if investigating all 39 nodes flagged as suspicious is infeasible.
 
 ## Research Question 2: What was the average profile of a fraudulent customer?
+
+
 
 ```{r}
 # Filter fraudulent transactions
@@ -623,7 +717,6 @@ typical_fraud_node <- as.list(typical_fraud_node)
 print("Average Profile of a Fraudulent Node:")
 print(typical_fraud_node)
 ```
-
 
 ```{r}
 # Ensure node_id is of type character in fraud_transactions
@@ -758,6 +851,8 @@ print(paste("Number of edges in Jaccard similarity graph:", gsize(graph_jaccard)
 print(paste("Number of edges in Cosine similarity graph:", gsize(graph_cosine)))
 ```
 
+
+
 ## Research Question 3: Were there any specific fraudulent groups within the network that could be collaborating to defraud the bank? And if so, what were their characteristics?
 
 This research question aims to find clusters of nodes within the entire network, that could potentially be fraud rings based on the attributes of the nodes. Clusters that are majorly the same throughout different results from different network metrics could be potential fraud rings, and will be determined using centrality metrics such as:
@@ -775,6 +870,8 @@ This research question aims to find clusters of nodes within the entire network,
 6.  Global clustering coefficient
 
 7.  K-cores
+
+
 
 ```{r}
 str(bankfraud_data)
@@ -795,7 +892,7 @@ bankfraud_data$node_id = seq.int(nrow(bankfraud_data))
 bankfraud_data = bankfraud_data %>% relocate(node_id)
 
 # Creating Bins for bank_branch_count_8w, zip_count_4w, name_email_similarity, bank_months_count, velocity_6h, current_address_months_count:
-bin_count = 10
+bin_count = 200
 binned_bankfraud_data = bankfraud_data
 cols_to_bin = c("bank_branch_count_8w", "zip_count_4w", "name_email_similarity", "bank_months_count", "velocity_6h", "current_address_months_count")
 binned_bankfraud_data[cols_to_bin] = data.frame(lapply(binned_bankfraud_data[cols_to_bin], function(x) cut(x, breaks = bin_count, labels=FALSE)))
@@ -807,14 +904,8 @@ binned_bankfraud_data$binary_combination_value = apply(binned_bankfraud_data[bin
 str(binned_bankfraud_data)
 
 # Creating sample:
-sample_size = 100
-sample_size_fraud = sample_size*0.01
-sample_size_legit = sample_size*0.99
-
-sample_fraud = binned_bankfraud_data %>% filter(fraud_bool == 1) %>% slice_sample(n = sample_size_fraud)
-sample_legit = binned_bankfraud_data %>% filter(fraud_bool == 0) %>% slice_sample(n = sample_size_legit)
-
-data_sample = bind_rows(sample_fraud, sample_legit)
+sample_size = 1000
+data_sample = sample_n(binned_bankfraud_data, sample_size)
 str(data_sample)
 
 # Creating edge list:
@@ -959,9 +1050,13 @@ fraudulent_profile2 <- bankfraud_data %>%
 print(fraudulent_profile2)
 ```
 
+
+
 ## Research Question 4: What differences exist between fraudulent account applications and non-fraudulent account applications?
 
-To examine this question, we compare the means of 6 different metrics for both fraudulent and legitimate nodes within a sample. Samples of 1000 nodes are used and mean metrics are recorded for 10 separate samples. The mean metrics of the 10 samples are then aggregated to further remove sampling bias. The metrics to be compared are degree centrality, eigenvector centrality, jaccard similarity, local clustering coefficient, betweenness centrality and closeness centrality (the bin count and the sample size were different when we ran our experiments and are configurable)
+To examine this question, we compare the means of 6 different metrics for both fraudulent and legitimate nodes within a sample. Samples of 1000 nodes are used and mean metrics are recorded for 10 separate samples. The mean metrics of the 10 samples are then aggregated to further remove sampling bias. The metrics to be compared are degree centrality, eigenvector centrality, jaccard similarity, local clustering coefficient, betweenness centrality and closeness centrality.
+
+
 
 ```{r}
 #graph creation:
@@ -1040,3 +1135,4 @@ fraud_betweennes = betweennes_values[fraud_nodes]
 mean(legit_betweennes)
 mean(fraud_betweennes)
 ```
+

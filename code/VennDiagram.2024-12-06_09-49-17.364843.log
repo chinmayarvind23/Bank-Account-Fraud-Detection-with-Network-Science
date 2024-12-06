@@ -1,0 +1,27 @@
+INFO [2024-12-06 09:49:17] $x
+INFO [2024-12-06 09:49:17] list(nodes_flagged_ids_betweenness$node_id, nodes_flagged_ids_eigenvector$node_id)
+INFO [2024-12-06 09:49:17] 
+INFO [2024-12-06 09:49:17] $category.names
+INFO [2024-12-06 09:49:17] c("Betweenness Centrality", "Eigenvector Centrality")
+INFO [2024-12-06 09:49:17] 
+INFO [2024-12-06 09:49:17] $filename
+INFO [2024-12-06 09:49:17] NULL
+INFO [2024-12-06 09:49:17] 
+INFO [2024-12-06 09:49:17] $main
+INFO [2024-12-06 09:49:17] [1] "Venn Diagram of the number of Overlapping Flagged Nodes from the different centrality metrics"
+INFO [2024-12-06 09:49:17] 
+INFO [2024-12-06 09:49:17] $output
+INFO [2024-12-06 09:49:17] [1] TRUE
+INFO [2024-12-06 09:49:17] 
+INFO [2024-12-06 09:49:17] $fill
+INFO [2024-12-06 09:49:17] c("red", "green")
+INFO [2024-12-06 09:49:17] 
+INFO [2024-12-06 09:49:17] $alpha
+INFO [2024-12-06 09:49:17] [1] 0.5
+INFO [2024-12-06 09:49:17] 
+INFO [2024-12-06 09:49:17] $cex
+INFO [2024-12-06 09:49:17] [1] 0.75
+INFO [2024-12-06 09:49:17] 
+INFO [2024-12-06 09:49:17] $cat.cex
+INFO [2024-12-06 09:49:17] [1] 0.75
+INFO [2024-12-06 09:49:17] 
