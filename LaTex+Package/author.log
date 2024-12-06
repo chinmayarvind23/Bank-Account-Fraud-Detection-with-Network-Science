@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.12)  6 DEC 2024 11:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.12)  6 DEC 2024 14:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -629,10 +629,10 @@ Package rerunfilecheck Info: File `author.out' has not changed.
 (rerunfilecheck)             Checksum: 9386D9EDE5D91D720FF3C439F48E166E;397.
  ) 
 Here is how much of TeX's memory you used:
- 8976 strings out of 475567
- 139139 string characters out of 5777888
+ 8978 strings out of 475567
+ 139168 string characters out of 5777888
  1965187 words of memory out of 5000000
- 30999 multiletter control sequences out of 15000+600000
+ 31000 multiletter control sequences out of 15000+600000
  561885 words of font info for 49 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  75i,9n,79p,3665b,436s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -644,10 +644,10 @@ ts/cm/cmr10.pfb></usr/local/texlive/2024basic/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmr7.pfb></usr/local/texlive/2024basic/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr9.pfb></usr/local/texlive/2024basic/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmtt9.pfb>
-Output written on author.pdf (13 pages, 324274 bytes).
+Output written on author.pdf (13 pages, 324588 bytes).
 PDF statistics:
- 158 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
- 46 named destinations out of 1000 (max. 500000)
+ 159 PDF objects out of 1000 (max. 8388607)
+ 123 compressed objects within 2 object streams
+ 47 named destinations out of 1000 (max. 500000)
  19 words of extra memory for PDF output out of 10000 (max. 10000000)
 
