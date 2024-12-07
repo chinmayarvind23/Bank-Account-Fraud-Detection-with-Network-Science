@@ -14,7 +14,7 @@ The final report can be viewed and downloaded from here: [Final Report](https://
 
 ## Project Presentation Video
 
-The slides for our project presentation video can be accessed here: [Presentation Slides](https://docs.google.com/presentation/d/1pOU_dtHG0asPrsL9dkLO0jyQLl9U_4lOYtLMG9VdSB0/edit?usp=sharing)
+The slides for our project presentation video can be accessed here: [Presentation Slides](https://docs.google.com/presentation/d/1pOU_dtHG0asPrsL9dkLO0jyQLl9U_4lOYtLMG9VdSB0/edit?usp=sharing) or here: [Presentation Slides Copy](https://github.com/chinmayarvind23/Bank-Account-Fraud-Detection-with-Network-Science/blob/main/docs/COSC%20421%20Project%20Presentation.pdf)
 
 ## Purpose of Project
 
